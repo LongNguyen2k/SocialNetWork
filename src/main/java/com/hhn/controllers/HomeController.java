@@ -6,6 +6,7 @@
 package com.hhn.controllers;
 
 import com.hhn.service.CategoryPostService;
+import com.hhn.service.PostService;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @Autowired
     private CategoryPostService CategoryPostService;
+    @Autowired
+    private PostService postService;
     
     @ModelAttribute
     public void commonAttribute(Model model){
@@ -35,6 +38,8 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
        
+//        model.addAttribute("postFromUser" , this.postService.getPosts());
+        
         return "homePage";
     }
 }

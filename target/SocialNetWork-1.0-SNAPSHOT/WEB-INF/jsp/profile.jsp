@@ -17,6 +17,7 @@
 <div class="row text_Profile" >
     <div class="col-md-3">
         <ul class="list-group">
+            <c:forEach var="u" items="${userProfile}">
             <li class="list-group-item">
                 <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
             </li>
@@ -24,17 +25,17 @@
                <div class="row">
                    <div class="col-sm-6">
                        <p>Name</p>
-                       <h6>Savie Moshtier</h6>
+                       <h6>${u.name}</h6>
                    </div>
                    <div class="col-sm-6">
                     <p>Email</p>
-                    <h6>rntng@gmail.com</h6>
+                    <h6>${u.email}</h6>
                  </div>
                </div>
                <div class="row">
                     <div class="col-sm-6">
                         <p>Gender</p>
-                        <h6>Male</h6>
+                        <h6>${u.gender}</h6>
                </div>
                <div class="row">
                     <div class="col-sm-6">
@@ -43,6 +44,7 @@
                     </div>
                 </div>
             </li>
+            </c:forEach>
         </ul>
         <button class="btn btn-default buttonProfile " type="button">Cập nhật Profile</button>
     </div>
