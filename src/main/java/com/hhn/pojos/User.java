@@ -40,6 +40,8 @@ public class User implements Serializable{
     private List<Post> posts;
     
     
+    
+    
     public int getId() {
         return id;
     }
@@ -111,5 +113,7 @@ public class User implements Serializable{
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+    
 
 }

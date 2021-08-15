@@ -22,8 +22,20 @@ public class PostServiceImpl implements PostService{
     private PostRepository postRepository;
 
     @Override
-    public List<Object[]> getPosts() {
-       return this.postRepository.getPostFromUser();
+    public List<Object[]> getPostsUserProfile(String kw) {
+       return this.postRepository.getPostFromUser(kw);
     }
+
+    @Override
+    public List<Object[]> getPostNewFeed(String kw) {
+        return this.postRepository.getNewFeedPost(kw);
+    }
+
+    @Override
+    public List<Object[]> getPostFromCategoryPost(String kw,String id) {
+        return this.postRepository.getPostFromCategoryPost(kw,id);
+    }
+    
+    
     
 }

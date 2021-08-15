@@ -16,38 +16,50 @@
              <!-- Mỗi Li là 1 bài đăng mới -->
             <div class="col-md-6">
                 <ul class="list-group">
-                    <div class="post-component">
-                        <!-- <c:forEach var="post" items="${postFromUser}"> --> 
-                    <li class="list-group-item">                    
-                        <blockquote>
-                            
-                            <!--<p>${post.name}</p>-->
-                            <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />                          
-                            <div class="row ">
-                                <br/>
-                                    <p style="word-break: break-word;">
-                                      ${post.content}
-                                    </p>
-                              </div>
-                             <!-- <footer>Posted by howCode on ${post.postAt} in ${post.addressPost} -->
-                                <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span><!-- ${post.likes} Likes --></span></button>
-                                <button class="btn btn-default comment" type="button">
-                                <i class="glyphicon glyphicon-flash"></i><span>  Comments</span></button>
-                            </footer>
-                        </blockquote>
+                    <div class="post-component"> 
+                    <c:forEach var="post" items="${postNewFeed}"> 
+                    <li class="list-group-item"> 
+                        
+                       <blockquote>
+                        <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50">
+                            <span class="font-weight-bold">${post[0]}</span> 
+                            <small class="text-primary">HashTag</small>  
+                        </div>
+                        <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />                          
+                        <div class="row ">
+                            <br/>
+                                <p style="word-break: break-word;">
+                                     ${post[1]}
+                                </p>
+                          </div>
+                        <footer>Posted by ${post[0]} on  ${post[2]} in  ${post[3]} 
+                            <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span>${post[4]} Likes</span></button>
+                        </footer>
+                        <div class="comments">
+                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40">
+                                    <div class="d-flex flex-column ml-2"> 
+                                        <span class="name">Daniel Frozer</span> <small style="word-break: break-word;" class="comment-text">I like this alot! thanks alot</small>  
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/1YrCKa1.jpg" width="40">
+                                    <div class="d-flex flex-column ml-2"> 
+                                        <span class="name">Elizabeth goodmen</span> <small style="word-break: break-word;"  class="comment-text">Thanks for sharing!</small>
+                                    </div>
+                                </div>
+                                <div class="comment-input"> <input type="text" class="form-control">
+                                   <button class="btn btn-default comment" type="submit">
+                                        <i class="glyphicon glyphicon-flash"></i><span> 3 Comments</span>
+                                   </button>
+                                </div>
+                        </div>
+                    </blockquote>
+                        
                     </li>
                     </c:forEach>
+                  
                     </div>
              
                 </ul>
             </div>
-
-
-
         </div>
-
-
-
-
-
-    </div>
+</div>

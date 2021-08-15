@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Aug 9, 2021, 4:53:18 PM
+    Document   : pagePostByCateId
+    Created on : Aug 13, 2021, 9:09:49 PM
     Author     : Windows 10
 --%>
 
@@ -8,20 +8,18 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-    <div class="container">
+  <div class="container">
         <h1>Timeline </h1>
         <div class="timelineposts">
-             <!-- Mỗi Li là 1 bài đăng mới -->
+            
             <div class="col-md-6">
                 <ul class="list-group">
                     <div class="post-component"> 
-                    <c:forEach var="post" items="${postNewFeed}"> 
+                    <c:forEach var="post" items="${listPostFromCategory}"> 
                     <li class="list-group-item"> 
                         
                        <blockquote>
-                        <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50">
+                       <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" >
                             <span class="font-weight-bold">${post[0]}</span> 
                             <small class="text-primary">HashTag</small>  
                         </div>
@@ -33,7 +31,7 @@
                                 </p>
                           </div>
                         <footer>Posted by ${post[0]} on  ${post[2]} in  ${post[3]} 
-                            <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span>${post[4]} Likes</span></button>
+                            <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span>${post[4]} Likes</span></button>                           
                         </footer>
                         <div class="comments">
                                 <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40">

@@ -5,11 +5,13 @@
  */
 package com.hhn.controllers;
 
+import com.hhn.service.PostService;
 import com.hhn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -19,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProfileController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostService postService;
     
     @RequestMapping("/profile")
-    public String profilePage(Model model){
+    public String profilePage(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw){
         model.addAttribute("userProfile", this.userService.getUserProfile());
+        model.addAttribute("postUserProfile" , this.postService.getPostsUserProfile(kw));
         return "profilePage";
     }
 }

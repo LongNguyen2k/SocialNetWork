@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:url value="/signin" var="signInPage" />
  <div class="login-clean">
         <form method="post">
             <h2 class="sr-only">Create Account</h2>
@@ -27,6 +31,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" id="ca" type="button" data-bs-hover-animate="shake">Sign Up</button>
-            </div><a href="#" class="forgot">Already got an account? Click here!</a>
+            </div>
+            <a href="${signInPage}" class="forgot">Already got an account? Click here!</a>
         </form>
     </div>

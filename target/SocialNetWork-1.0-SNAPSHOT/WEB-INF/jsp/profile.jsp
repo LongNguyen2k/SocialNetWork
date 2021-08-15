@@ -56,30 +56,43 @@
     <div class="col-md-6">
     <ul class="list-group">
         <div class="post-component">
+            <c:forEach var="post" items="${postUserProfile}">
         <li class="list-group-item">
-
             <blockquote>
-                <p>@Francis Hello World</p>
+                <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" >
+                       <span class="font-weight-bold">${post[0]}</span> 
+                     <small class="text-primary">HashTag</small>  
+                </div>
                 <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />                          
                 <div class="row ">
                     <br/>
                         <p style="word-break: break-word;">
-                            Chủ tịch Quốc hội nhấn mạnh, các cán bộ, thầy thuốc, y bác sĩ và nhân viên ngành y tế không chỉ là những người cứu chữa người bệnh mà còn là những chiến sĩ, những người anh hùng không quản ngại nguy hiểm, vất vả trong nhiệm vụ truy vết, lấy mẫu, xét nghiệm, điều trị, cách ly, ngăn chặn dịch bệnh lây lan, bùng phát.
-
-                            "Chúng ta vô cùng xúc động khi các hình ảnh y bác sĩ chiến sĩ, tình nguyện viên sẵn sàng đi vào tâm dịch, đối mặt với các nguy cơ rủi ro, quên đi sức khỏe của bản thân để gác lại việc riêng của gia đình. Thậm chí có trường hợp có cha mẹ già yếu, con nhỏ xung phong đi vào điểm nóng của đại dịch. Trong tâm dịch đã ngày đêm miệt mài làm nhiệm vụ trong bộ đồ bảo hộ ướt đẫm mồ hôi, dốc hết sức lực, thậm chí kiệt sức. Đó là những điển hình của lương y như từ mẫu, hết lòng vì sức khỏe, tính mạng của nhân dân , vì nhân dân phục vụ, luôn đặt lợi ích quốc gia, dân tộc lên trên hết", Chủ tịch Quốc hội chia sẻ.
-
-                            Chủ tịch Quốc hội trân trọng ghi nhận, cảm ơn và nhiệt liệt biểu dương những hy sinh, cống hiến vô cùng thầm lặng, nhưng vô cùng to lớn của toàn thể cán bộ, thầy thuốc, y bác sĩ, tình nguyện viên, người lao động ngành y tế.
-
-                            “Điều này thể hiện trách nhiệm của các đồng chí với Tổ quốc, với nhân dân bởi đây cũng là nhiệm vụ rất khó khăn, rất nặng nề và nhiều rủi ro, thậm chí có thể ảnh hưởng đến cả sức khỏe và an toàn vì dịch bệnh không trừ một ai. Thực tế đã có những bác sĩ, nhân viên y tế, lực lượng tuyến đầu phơi nhiễm dịch Covid-19. Đây cũng là nhiệm vụ hết sức cao cả và vinh quang, tự hào, thể hiện nghĩa cử, sự chia sẻ, tinh thần trách nhiệm cao với TP.HCM và các tỉnh phía Nam", Chủ tịch Quốc hội động viên.
+                            ${post[1]}
                         </p>
                   </div>
-                <footer>Posted by howCode on 12/11/17
-                    <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> 5 Likes</span></button>
-                    <button class="btn btn-default comment" type="button">
-                    <i class="glyphicon glyphicon-flash"></i><span> 3 Comments</span></button>
+                <footer>Posted by ${post[0]} on ${post[2]} in ${post[3]} 
+                    <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[4]} Likes</span></button>
                 </footer>
+                <div class="comments">
+                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40">
+                                    <div class="d-flex flex-column ml-2"> 
+                                        <span class="name">Daniel Frozer</span> <small style="word-break: break-word;" class="comment-text">I like this alot! thanks alot</small>  
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/1YrCKa1.jpg" width="40">
+                                    <div class="d-flex flex-column ml-2"> 
+                                        <span class="name">Elizabeth goodmen</span> <small style="word-break: break-word;"  class="comment-text">Thanks for sharing!</small>
+                                    </div>
+                                </div>
+                                <div class="comment-input"> <input type="text" class="form-control">
+                                   <button class="btn btn-default comment" type="submit">
+                                        <i class="glyphicon glyphicon-flash"></i><span> 3 Comments</span>
+                                   </button>
+                                </div>
+                        </div>
             </blockquote>
         </li>
+            </c:forEach>
 
         </div>
 

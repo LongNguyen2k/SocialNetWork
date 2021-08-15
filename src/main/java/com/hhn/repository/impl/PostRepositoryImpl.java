@@ -5,6 +5,7 @@
  */
 package com.hhn.repository.impl;
 
+import com.hhn.pojos.CategoryPost;
 import com.hhn.pojos.Post;
 import com.hhn.pojos.User;
 import com.hhn.repository.PostRepository;
@@ -32,7 +33,7 @@ public class PostRepositoryImpl implements  PostRepository{
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
     @Override
-    public List<Object[]> getPostFromUser() {
+    public List<Object[]> getPostFromUser(String kw) {
         Session session =  sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -43,7 +44,11 @@ public class PostRepositoryImpl implements  PostRepository{
         Predicate p1 = builder.equal(pRoot.get("user"), uRoot.get("id"));        
         int idUser = 1 ;
         Predicate p2 = builder.equal(pRoot.get("user") , idUser );
-        query.where(builder.and(p1,p2));
+        Predicate p3 =  builder.like( pRoot.get("content").as(String.class) ,"%%");
+        if(!kw.isEmpty() && kw != null){
+              p3 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,kw));
+        }
+        query.where(builder.and(p1,p2,p3));
         query.multiselect(uRoot.get("name").as(String.class), 
                           pRoot.get("content").as(String.class) , 
                           pRoot.get("postAt").as(Date.class) , 
@@ -53,5 +58,91 @@ public class PostRepositoryImpl implements  PostRepository{
         return q.getResultList();
         
     }
+
+    @Override
+    public List<Object[]> getNewFeedPost(String kw  ) {
+        
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root<Post> pRoot = query.from(Post.class);
+        Root<User> uRoot = query.from(User.class);  
+        Predicate p1 = builder.equal(pRoot.get("user"), uRoot.get("id"));  
+        Predicate p2 =  builder.like( pRoot.get("content").as(String.class) ,"%%");
+        
+        if(!kw.isEmpty() && kw != null ){
+              p2 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,kw));
+        }
+       
+        query.where(builder.and(p1,p2));
+        query.multiselect(uRoot.get("name").as(String.class), 
+                          pRoot.get("content").as(String.class) , 
+                          pRoot.get("postAt").as(Date.class) , 
+                          pRoot.get("addressPost").as(String.class) , 
+                          pRoot.get("likes") ); 
+        
+        query.orderBy(builder.desc(pRoot.get("id")));
+        Query<Object[]> q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getPostFromCategoryPost(String kw,String id) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root<Post> pRoot = query.from(Post.class);
+        Root<CategoryPost> cRoot = query.from(CategoryPost.class);
+        Root<User> uRoot = query.from(User.class);
+        Predicate p1 = builder.equal(pRoot.get("categoryPost"), cRoot.get("id"));
+        Predicate p2 = builder.equal(pRoot.get("user"),uRoot.get("id"));
+        Predicate p3 = builder.like(cRoot.get("id").as(String.class),"%%" );
+        Predicate p4 = builder.like( pRoot.get("content").as(String.class) ,"%%");
+        if(!id.isEmpty() && id != null ){
+              p3 = builder.like( cRoot.get("id").as(String.class) , String.format("%%%s%%" ,id));
+        }
+        if(!kw.isEmpty() && kw != null ){
+              p4 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,kw));
+        }
+        query.where(builder.and(p1,p2,p3,p4));
+        query.multiselect(uRoot.get("name").as(String.class), 
+                          pRoot.get("content").as(String.class) , 
+                          pRoot.get("postAt").as(Date.class) , 
+                          pRoot.get("addressPost").as(String.class) , 
+                          pRoot.get("likes") ); 
+                         
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    
+//     Session session = sessionFactory.getObject().getCurrentSession();
+//        CriteriaBuilder builder = session.getCriteriaBuilder();
+//        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+//        
+//        Root<Post> pRoot = query.from(Post.class);
+//        Root<CategoryPost> cRoot = query.from(CategoryPost.class);
+//        Root<User> uRoot = query.from(User.class);
+//        Predicate p1 = builder.equal(pRoot.get("categoryPost"), cRoot.get("id"));
+//        Predicate p2 = builder.equal(pRoot.get("user"),uRoot.get("id"));
+//        Predicate p3 = builder.like(cRoot.get("id").as(String.class),"%%" );
+//        if(!id.isEmpty() && id != null ){
+//              p3 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,id));
+//        }
+//        query.where(builder.and(p1,p2,p3));
+//        query.multiselect(uRoot.get("name").as(String.class), 
+//                          pRoot.get("content").as(String.class) , 
+//                          pRoot.get("postAt").as(Date.class) , 
+//                          pRoot.get("addressPost").as(String.class) , 
+//                          pRoot.get("likes") ); 
+//        Query q = session.createQuery(query);
+//        return q.getResultList();
+//    
+    
+    
+   
+  
     
 }

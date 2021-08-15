@@ -13,5 +13,7 @@ import java.util.List;
  * @author Windows 10
  */
 public interface PostRepository {
-    List<Object[]> getPostFromUser();
+    List<Object[]> getPostFromUser(String kw);
+    List<Object[]> getNewFeedPost(String kw);
+    List<Object[]> getPostFromCategoryPost(String kw,String id);
 }

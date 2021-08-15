@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -33,13 +35,22 @@ public class HomeController {
     @ModelAttribute
     public void commonAttribute(Model model){
     model.addAttribute("categories" , this.CategoryPostService.getCategories());
+ 
+//    ,@PathVariable("categoryId")int CategoryId
     }
     
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ){
        
-//        model.addAttribute("postFromUser" , this.postService.getPosts());
-        
+        model.addAttribute("postNewFeed" , this.postService.getPostNewFeed(kw));
+
         return "homePage";
     }
+    @RequestMapping(value ="/postByCategoryPost")
+    public String getPostByCateId(Model model ,@RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ,
+            @RequestParam(value="catPostId", required = false , defaultValue = "") String id){
+        model.addAttribute("listPostFromCategory" , this.postService.getPostFromCategoryPost(kw,id));
+        return"postByCategoryPost";
+    }
+  
 }

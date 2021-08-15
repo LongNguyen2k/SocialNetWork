@@ -246,3 +246,6 @@ div.searchbox {
     font-size:28px;
     color:#da052b;
 }
+.rounded-image {
+   border-radius: 25px;
+}
