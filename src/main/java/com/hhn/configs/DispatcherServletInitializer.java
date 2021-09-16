@@ -16,8 +16,9 @@ public class DispatcherServletInitializer  extends AbstractAnnotationConfigDispa
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
+             TilesConfig.class ,
             HibernateConfig.class , 
-            TilesConfig.class
+            SpringSecurityConfig.class
         };
     }
 

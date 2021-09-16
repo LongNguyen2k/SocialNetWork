@@ -11,45 +11,43 @@
   <div class="container">
         <h1>Timeline </h1>
         <div class="timelineposts">
-            
+        <c:if test="${!listPostFromCategory.isEmpty()}"  >
             <div class="col-md-6">
                 <ul class="list-group">
                     <div class="post-component"> 
                     <c:forEach var="post" items="${listPostFromCategory}"> 
                     <li class="list-group-item"> 
                         
-                       <blockquote>
-                       <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" >
-                            <span class="font-weight-bold">${post[0]}</span> 
-                            <small class="text-primary">HashTag</small>  
+                         <blockquote>                     
+                <div class="row" style="margin-bottom: 5px;"> 
+                    <div class="col-md-6">
+                        <div class="media">
+                            <div class="media-left">
+                                <img src="<c:url value="${post[0]}" />" alt="" width="50" class="img-circle" >
+                            </div>
+                            <div class="media-body">
+                                <span class="font-weight-bold">${post[1]}</span>                  
+                                <small class="text-primary">On ${post[4]}</small>  
+                             </div>
+
                         </div>
-                        <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />                          
+                    </div> 
+                </div>      
+                        <img src="<c:url value="${post[2]}" />" alt="" width="100%"  />     
                         <div class="row ">
                             <br/>
                                 <p style="word-break: break-word;">
-                                     ${post[1]}
+                                    ${post[3]}
                                 </p>
                           </div>
-                        <footer>Posted by ${post[0]} on  ${post[2]} in  ${post[3]} 
-                            <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span>${post[4]} Likes</span></button>                           
+                        <footer>Posted by ${post[1]} 
+                            <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>                            
                         </footer>
                         <div class="comments">
-                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40">
-                                    <div class="d-flex flex-column ml-2"> 
-                                        <span class="name">Daniel Frozer</span> <small style="word-break: break-word;" class="comment-text">I like this alot! thanks alot</small>  
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/1YrCKa1.jpg" width="40">
-                                    <div class="d-flex flex-column ml-2"> 
-                                        <span class="name">Elizabeth goodmen</span> <small style="word-break: break-word;"  class="comment-text">Thanks for sharing!</small>
-                                    </div>
-                                </div>
-                                <div class="comment-input"> <input type="text" class="form-control">
-                                   <button class="btn btn-default comment" type="submit">
-                                        <i class="glyphicon glyphicon-flash"></i><span> 3 Comments</span>
-                                   </button>
-                                </div>
-                        </div>
+                            <a  class="btn btn-default comment" href="<c:url value="/user/comment?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>">
+                                            <i class="glyphicon glyphicon-flash"></i><span>Comments</span>
+                                </a>
+                         </div>
                     </blockquote>
                         
                     </li>
@@ -59,5 +57,11 @@
              
                 </ul>
             </div>
+            </c:if>
+              
+                <c:if test="${listPostFromCategory.isEmpty() }">
+                    Không Có Bài Viết Nào Trong Danh Mục Này 
+                </c:if>
+
         </div>
 </div>

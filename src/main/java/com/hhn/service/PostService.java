@@ -5,7 +5,9 @@
  */
 package com.hhn.service;
 
+import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
+import com.hhn.pojos.User;
 import java.util.List;
 
 /**
@@ -13,7 +15,14 @@ import java.util.List;
  * @author Windows 10
  */
 public interface PostService {
-    List<Object[]> getPostsUserProfile(String kw);
-    List<Object[]> getPostNewFeed(String kw);
+    List<Object[]> getPostsUserProfile(String kw , String username);
+    List<Object[]> getPostNewFeed(String kw , int page);
+    long countPost();
     List<Object[]> getPostFromCategoryPost(String kw,String id);
+    boolean addNewPost(Post post);
+    boolean updatePost(Post post);
+    boolean deletePost(Post post);
+    Post getPostId(String id);
+    boolean likePost(String username , String postId ,LikePost likePost);
+    boolean unLikePost(String username,String postId);
 }

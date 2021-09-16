@@ -5,7 +5,9 @@
  */
 package com.hhn.repository;
 
+import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
+import com.hhn.pojos.User;
 import java.util.List;
 
 /**
@@ -13,7 +15,15 @@ import java.util.List;
  * @author Windows 10
  */
 public interface PostRepository {
-    List<Object[]> getPostFromUser(String kw);
-    List<Object[]> getNewFeedPost(String kw);
-    List<Object[]> getPostFromCategoryPost(String kw,String id);
+
+    List<Object[]> getPostFromUser(String kw, String username);
+    List<Object[]> getNewFeedPost(String kw, int page);
+    long countPost();
+    List<Object[]> getPostFromCategoryPost(String kw, String id);
+    boolean addNewPost(Post post);
+    boolean updatePost(Post post);
+    boolean deletePost(Post post);
+    Post getPostId(String id);
+    boolean likePost(Post postLike, LikePost likePost);
+    boolean unLikePost(Post postLike ,LikePost likePost);
 }

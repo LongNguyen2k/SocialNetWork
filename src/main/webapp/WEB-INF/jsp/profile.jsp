@@ -5,22 +5,37 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="container">
-        <h1>Username's Profile 
+     <c:forEach var="u" items="${userProfile}">
+        <h1>${u.name}'s Profile 
+       </c:forEach>       
         <i class="glyphicon glyphicon-ok-sign verified username_Profile" data-toggle="tooltip"title="Verified User"></i></h1>
+       
 </div>
 <div class="container">
 
 <!-- About Me Section -->
 <div class="row text_Profile" >
     <div class="col-md-3">
+         <c:forEach var="u" items="${userProfile}">
         <ul class="list-group">
-            <c:forEach var="u" items="${userProfile}">
+           
+                
+            <c:if test="${ u.avatar  != null && u.avatar.startsWith('https') == true }" >
+            <li class="list-group-item">
+                <img src="<c:url value="${u.avatar}" />" alt="..." width="100%" class="rounded mb-2 img-thumbnail">
+            </li>
+            </c:if>    
+             <c:if test="${ u.avatar  == null || u.avatar.startsWith('https') == false }" >
             <li class="list-group-item">
                 <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
             </li>
+            </c:if>     
             <li class="list-group-item">  
                <div class="row">
                    <div class="col-sm-6">
@@ -40,71 +55,97 @@
                <div class="row">
                     <div class="col-sm-6">
                         <p>BirthDay</p>
-                        <h6>2000-01-01</h6>
+                        <h6>${u.birthday}</h6>
+                        
                     </div>
                 </div>
             </li>
-            </c:forEach>
+           
         </ul>
-        <button class="btn btn-default buttonProfile " type="button">Cập nhật Profile</button>
+        <a href="<c:url value="/user/editProfiles?userID=${u.id}" />" class="btn btn-default buttonProfile " type="button">Cập nhật Profile</a>
+        
+         <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <div>
+            <a href="<c:url value="/admin/statistical" />" class="btn btn-default buttonProfile"> Thống Kê Dữ Liệu  </a>
+        </div>
+        </sec:authorize>
+         </c:forEach>
     </div>
 
 
     <!-- Posting Section-->
 
     <!-- Mỗi li là 1 post trong những post -->
+    
     <div class="col-md-6">
     <ul class="list-group">
-        <div class="post-component">
-            <c:forEach var="post" items="${postUserProfile}">
+        <div class="post-component border border-primary">
+        <c:forEach var="post" items="${postUserProfile}">
+        <c:if test="${!postUserProfile.isEmpty()}">
         <li class="list-group-item">
-            <blockquote>
-                <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" >
-                       <span class="font-weight-bold">${post[0]}</span> 
-                     <small class="text-primary">HashTag</small>  
-                </div>
-                <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />                          
+            <blockquote>    
+                <div class="row" style="margin-bottom: 5px;"> 
+                    <div class="col-md-6">
+                    <div class="media">
+                        <div class="media-left">
+                            <img src="<c:url value="${post[0]}" />" alt="" width="50" class="img-circle" >
+                        </div>
+                        <div class="media-body">
+                            <span class="font-weight-bold">${post[1]}</span>                  
+                            <small class="text-primary">On ${post[4]}</small>  
+                         </div>
+                     
+                    </div>
+                    </div> 
+                    <div class="pull-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
+                              <ul class="dropdown-menu">
+                                  <li><a href="<c:url value="/user/updatePost?postId=${post[6]}" />" style="color:lightblue;">Cập nhật Bài Viết </a></li>
+                                  <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;">Xóa Bài Viết </a></li>
+                                  
+                              </ul>
+                            </li>
+                     </ul> 
+                   </div> 
+                    
+                </div>          
+                     <img src="<c:url value="${post[2]}" />" alt="" width="100%"  />    
                 <div class="row ">
                     <br/>
                         <p style="word-break: break-word;">
-                            ${post[1]}
+                            ${post[3]}
                         </p>
                   </div>
-                <footer>Posted by ${post[0]} on ${post[2]} in ${post[3]} 
-                    <button class="btn btn-default like" type="button" > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[4]} Likes</span></button>
+                <footer>Posted by ${post[1]} 
+                   <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>                            
                 </footer>
-                <div class="comments">
-                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40">
-                                    <div class="d-flex flex-column ml-2"> 
-                                        <span class="name">Daniel Frozer</span> <small style="word-break: break-word;" class="comment-text">I like this alot! thanks alot</small>  
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/1YrCKa1.jpg" width="40">
-                                    <div class="d-flex flex-column ml-2"> 
-                                        <span class="name">Elizabeth goodmen</span> <small style="word-break: break-word;"  class="comment-text">Thanks for sharing!</small>
-                                    </div>
-                                </div>
-                                <div class="comment-input"> <input type="text" class="form-control">
-                                   <button class="btn btn-default comment" type="submit">
-                                        <i class="glyphicon glyphicon-flash"></i><span> 3 Comments</span>
-                                   </button>
-                                </div>
-                        </div>
+                 <div class="comments">
+                    <a  class="btn btn-default comment" href="<c:url value="/user/comment?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>">
+                            <i class="glyphicon glyphicon-flash"></i><span>Comments</span>
+                        </a>
+                </div>
             </blockquote>
         </li>
-            </c:forEach>
-
+             </c:if> 
+             </c:forEach>   
         </div>
-
-
     </ul>
 </div>
+      
 
     <!-- Adding New Post Section-->
-
+    <c:forEach var="u" items="${userProfile}">
     <div class="col-md-3">
-        <button class="btn btn-default buttonProfile" type="button">Đăng Bài Viết Mới </button>
+        <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPost?userId=${u.id}" />" type="button">Đăng Bài Viết Mới </a>
+        </c:forEach>   
+        
     </div>
+     <c:if test="${errMsG != null }">
+        <div class="alert alert-danger">${errMsG}</div>
+    </c:if>  
+    
 </div>
 </div> 
  

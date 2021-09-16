@@ -10,14 +10,31 @@
         <put-attribute name="content" value="/WEB-INF/jsp/index.jsp"/> 
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />   
     </definition>
+    
     <definition name="postByCategoryPost" extends ="homePage">
-       
         <put-attribute name="content" value="/WEB-INF/jsp/pagePostByCateId.jsp" />
+    </definition>
+    
+    <definition name="commentPage" extends ="homePage">
+        <put-attribute name="content" value="/WEB-INF/jsp/comment.jsp" />
     </definition>
     <definition name="profilePage" extends="homePage">
          <put-attribute name="title" value="Profile User Page" />
         <put-attribute name="content" value="/WEB-INF/jsp/profile.jsp"/>
     </definition>
+    <definition name="editProfilePage" extends="homePage">
+         <put-attribute name="title" value="Profile User Page" />
+        <put-attribute name="content" value="/WEB-INF/jsp/editProfile.jsp"/>
+    </definition>
+     <definition name="addPostPage" extends="homePage">
+         <put-attribute name="title" value="Add New Post Page" />
+        <put-attribute name="content" value="/WEB-INF/jsp/addPost.jsp"/>
+    </definition>
+     <definition name="updatePostPage" extends="homePage">
+         <put-attribute name="title" value="Update Current Post Page" />
+        <put-attribute name="content" value="/WEB-INF/jsp/updatePost.jsp"/>
+    </definition>
+    
      <definition name="signInPage" extends="homePage">
          <put-attribute name="title" value="Sign In" />
         <put-attribute name="content" value="/WEB-INF/jsp/signin.jsp"/>
@@ -26,4 +43,13 @@
          <put-attribute name="title" value="Sign Up" />
         <put-attribute name="content" value="/WEB-INF/jsp/signup.jsp"/>
     </definition>
+      <definition name="adminPage" extends="homePage">
+         <put-attribute name="title" value="Admin Thống Kê" />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminPageStatistical.jsp"/>
+    </definition>
+    <definition name="notfications" extends="homePage">
+        <put-attribute name="title" value="NotificationPage"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/notificationPage.jsp" />
+    </definition>
+    
 </tiles-definitions>
