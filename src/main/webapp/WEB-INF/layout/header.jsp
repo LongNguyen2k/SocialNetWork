@@ -6,47 +6,295 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <header>
+    <c:url value="/user/" var="homePage" />
+        <!--hidden-sm hidden-md hidden-lg -->
+     <header class="hidden-sm hidden-md hidden-lg">
+        <div class="searchbox">
+            <form>
+                <h1 class="text-left">Social NetWork</h1>
+                <div class="searchbox"><i class="glyphicon glyphicon-search"></i>
+                    <input class="form-control" type="text" name="kw">
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">MENU <span class="caret"></span></button>
+                    
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <c:if test="${pageContext.request.userPrincipal.name != null }">
+                        <li role="presentation"><a href="<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li role="presentation"><a href="${homePage}">Timeline </a></li>
+                        <li role="presentation"><a href="<c:url value="/user/notifcation/" />">Notifications </a></li> 
+                       <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <c:forEach var="cat" items="${categories}">
+                                <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                            </c:forEach>
+                       </sec:authorize>  
+                        <li role="presentation"><a href="<c:url value="/logout" />">Logout </a></li>
+                        </c:if>
+                        <c:if test="${pageContext.request.userPrincipal.name == null }">
+                        <li role="presentation"><a href="<c:url value="/signin" />">Sign In</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li role="presentation"><a href="<c:url value="/signup" />">Sign Up </a></li>
+                        </c:if>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <hr>
+    </header>
+    
+    
         <div>
             <nav class="navbar navbar-default hidden-xs navigation-clean">
                 <div class="container">
+                    <h1 class="text-left" style="color: red;">Social Network Charity</h1>
                     <div class="navbar-header">
-                        <a class="navbar-brand navbar-link" href="#"><i class="icon ion-ios-navigate"></i></a>
-                        
+                        <a class="navbar-brand navbar-link" href="${homePage}"><i class="icon ion-ios-navigate"></i></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navcol-1">
-                        <form class="navbar-form navbar-left" >
-                            <div class="input-group" style="display: inline;">
-                                <input type="text" class="form-control" placeholder="Search this blog">
-                                <div class="input-group-append">
-                                <button class="btn btn-secondary" type="submit">
-                                    <i class="fa fa-search"></i>
-                                  </button>
-                                </div>
-                                
+                        <form class="navbar-form navbar-left">
+                            <div class="searchbox"><i class="glyphicon glyphicon-search"></i>
+                                <input class="form-control" type="text" name="kw">
                             </div>
                         </form>
-                        <ul class="nav navbar-nav hidden-xs hidden-sm navbar-right">
-                            <li  role="presentation"><a href="#">Timeline</a></li>
+                    </form>
+                           <!-- hidden hidden-md hidden-lg -->
+                    <ul class="nav navbar-nav hidden-md hidden-lg navbar-right">
+                        <!--Notification -->
+                             <li id="noti_Container2" role="presentation" >
+                                <div id="noti_Counter2"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                                <a href=""id="noti_Button2">Notification</a>  
+                                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                                <div id="notifications2">
+                                    <h3  class="notifcationH3">Notifications</h3>
+                                    <c:forEach items="${notificationList}" var="nor">
+                                    <div  style="width: 100%">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="<c:url value="${nor[0]}" />" class="media-object" style="width:60px"/>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">${nor[1]}</h4>
+                                              <p>
+                                                  ${nor[1]} has 
+                                                  <c:if test="${nor[2] == 1}">
+                                                      Like your post
+                                                  </c:if> 
+                                                   <c:if test="${nor[2] == 2}">
+                                                      Comment Your Post
+                                                  </c:if>  
+                                                    <c:if test="${nor[2] == 3}">
+                                                      Like Your Comment
+                                                  </c:if>    
+                                              </p>
+                                            </div>
+                                          </div>  
+                                    </div>
+                                    </c:forEach>
+                                    <div  class="seeAll"><a href="#">See All</a></div>
+                                </div>
+                            </li>
+<!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
+                            <!-- Notification -->
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <c:forEach var="cat" items="${categories}">
-                                    <li role="presentation"><a href="#">${cat.name}</a></li>
+                                        <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
-                            <li role="presentation"><a href="#">Notifications</a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">User <span class="caret"></span></a>
+                       </sec:authorize>
+                        <c:if test="${pageContext.request.userPrincipal.name == null }">
+                        <li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">User <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                 <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
+                                <li class="divider" role="presentation"></li>
+                                <li role="presentation"><a href="<c:url value="/signin" />">Sign In</a></li>
+                                <li class="divider" role="presentation"></li>
+                                <li role="presentation"><a href="<c:url value="/signup" />">Sign Up </a></li>
+                            </ul>
+                        </li>
+                        </c:if>
+                         <c:if test="${pageContext.request.userPrincipal.name != null }">
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <li role="presentation"><a href="#">My Profile</a></li>
+                                    <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
+                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
                                     <li class="divider" role="presentation"></li>
-                                    <li role="presentation"><a href="#">Logout </a></li>
+                                    <li role="presentation"><a href="<c:url value="/logout" />">Logout </a></li>
+                                </ul>
+                            </li> 
+                            </c:if>
+                    </ul>
+                           <!-- hidden hidden-xs hidden-sm  -->
+                        <ul class="nav navbar-nav hidden-xs hidden-sm  navbar-right">
+                            <li  role="presentation"><a href="${homePage}">Timeline</a></li>
+                            <!--Notification -->
+                             <li id="noti_Container" role="presentation" >
+                                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                                <a href=""id="noti_Button">Notification</a>  
+                                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                                <div id="notifications">
+                                    <h3  class="notifcationH3">Notifications</h3>
+                                    <c:forEach items="${notificationList}" var="nor">
+                                    <div  style="width: 100%">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="<c:url value="${nor[0]}" />" class="media-object" style="width:60px"/>
+                                            </div>
+                                            <div class="media-body">
+                                              <h4 class="media-heading">${nor[1]}</h4>
+                                              <p>
+                                                  ${nor[1]} has 
+                                                  <c:if test="${nor[2] == 1}">
+                                                      Like your post
+                                                  </c:if> 
+                                                   <c:if test="${nor[2] == 2}">
+                                                      Comment Your Post
+                                                  </c:if>  
+                                                    <c:if test="${nor[2] == 3}">
+                                                      Like Your Comment
+                                                  </c:if>    
+                                              </p>
+                                            </div>
+                                          </div>  
+                                    </div>
+                                    </c:forEach>
+                                    <div  class="seeAll"><a href="#">See All</a></div>
+                                </div>
+                            </li>
+<!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
+                            <!-- Notification -->
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category<span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <c:forEach var="cat" items="${categories}">
+                                        <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                    </c:forEach>
                                 </ul>
                             </li>
+                            </sec:authorize>
+                            <c:if test="${pageContext.request.userPrincipal.name == null }">
+                                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">User <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li role="presentation"><a href="<c:url value="/signin" />">Sign In</a></li>
+                                    <li class="divider" role="presentation"></li>
+                                    <li role="presentation"><a href="<c:url value="/signup" />">Sign Up </a></li>
+                                </ul>
+                            </li>
+                            </c:if>
+                            <c:if test="${pageContext.request.userPrincipal.name != null }">
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
+                                    <li class="divider" role="presentation"></li>
+                                    <li role="presentation"><a href="<c:url value="/logout" />">Logout </a></li>
+                                </ul>
+                            </li> 
+                            </c:if>
+                              
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>    
 </header>
+                            
+ <script>
+    $(document).ready(function () {
+
+        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
+        $('#noti_Counter')
+            .css({ opacity: 0 })
+            .text('7')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .css({ top: '-10px' })
+            .animate({ top: '-2px', opacity: 1 }, 500);
+
+        $('#noti_Button').click(function () {
+
+            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+            $('#notifications').fadeToggle('fast', 'linear', function () {
+                if ($('#notifications').is(':hidden')) {
+                    $('#noti_Button').css('background-color', '#FFF');
+                }
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                else $('#noti_Button').css('background-color', '#FFF');
+            });
+
+            $('#noti_Counter').fadeOut('slow');     // HIDE THE COUNTER.
+
+            return false;
+        });
+
+        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+        $(document).click(function () {
+            $('#notifications').hide();
+
+            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+            if ($('#noti_Counter').is(':hidden')) {
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                $('#noti_Button').css('background-color', '#FFF');
+            }
+        });
+
+        $('#notifications').click(function () {
+            return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+        });
+        
+        
+        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
+        $('#noti_Counter2')
+            .css({ opacity: 0 })
+            .text('7')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .css({ top: '-10px' })
+            .animate({ top: '-2px', opacity: 1 }, 500);
+
+        $('#noti_Button2').click(function () {
+
+            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+            $('#notifications2').fadeToggle('fast', 'linear', function () {
+                if ($('#notifications2').is(':hidden')) {
+                    $('#noti_Button2').css('background-color', '#FFF');
+                }
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                else $('#noti_Button2').css('background-color', '#FFF');
+            });
+
+            $('#noti_Counter2').fadeOut('slow');     // HIDE THE COUNTER.
+
+            return false;
+        });
+
+        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+        $(document).click(function () {
+            $('#notifications2').hide();
+
+            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+            if ($('#noti_Counter2').is(':hidden')) {
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                $('#noti_Button2').css('background-color', '#FFF');
+            }
+        });
+
+        $('#notifications2').click(function () {
+            return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+        });
+        
+
+    });
+</script>                           
+              
+
+
+ <!--    <c:if test="${NameError != null && userReceiveNotify == null }">
+                                        <div class="alert alert-danger">${NameError}</div>
+                                    </c:if>
+                                    <c:if test="${userReceiveNotify != null }">
+                                            </c:if> 
+                                -->

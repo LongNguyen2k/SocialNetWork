@@ -10,6 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><tiles:insertAttribute name="title"/></title>
         
+        <link rel="stylesheet" href="<c:url value="/css/notificationStyle.css" />"/>
+        <link rel="stylesheet" href="<c:url value="/css/commentStyle.css" />"/>
         <link rel="stylesheet" href="<c:url value="/bootstrap/css/bootstrap.min.css" />" />
         <link rel="stylesheet" href="<c:url value="/fonts/ionicons.min.css" />" />
         <link rel="stylesheet" href="<c:url value="/css/Footer-Dark.css" />"/>
@@ -21,11 +23,14 @@
         <link rel="stylesheet" href="<c:url value="/css/untitled.css" />"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"/>
+        <link rel="stylesheet" href="<c:url value="/css/EditProfile.css" />"/>
         <script src="<c:url value="/js/jquery.min.js" />"></script>
         <script src="<c:url value="/bootstrap/js/bootstrap.min.js" />"></script>
         <script src="<c:url value="/js/bs-animation.js" />"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       
+        
     </head>
     <body>
        

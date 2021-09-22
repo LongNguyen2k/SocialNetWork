@@ -7,15 +7,24 @@ package com.hhn.pojos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
+import javax.persistence.criteria.Fetch;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -25,31 +34,36 @@ import javax.persistence.Temporal;
 @Table(name = "post")
 public class Post implements Serializable{
 
-  
+    public static final int likeCount = 0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Size(min = 10 , max =500 , message = "{post.content.errorMsg}")
     private String content;
     
     @Column(name = "posted_at")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date postAt;
-    
-    @Column(name="address_post")
-    private String addressPost;
     
     private int likes;
     private String image;
     
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id" )
+    @NotNull(message = "{post.user.Error}")
     private User user;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
+    @NotNull(message = "{post.categoryPost.Error}")
     private CategoryPost categoryPost;
     
+     @Transient
+    private MultipartFile file;
+     
+    @OneToMany(mappedBy = "post")
+    private List<Comments> comments; 
     
     public int getId() {
         return id;
@@ -67,13 +81,6 @@ public class Post implements Serializable{
         this.content = content;
     }
 
-    public String getAddressPost() {
-        return addressPost;
-    }
-
-    public void setAddressPost(String addressPost) {
-        this.addressPost = addressPost;
-    }
 
     public int getLikes() {
         return likes;
@@ -113,6 +120,14 @@ public class Post implements Serializable{
 
     public void setPostAt(Date postAt) {
         this.postAt = postAt;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
     

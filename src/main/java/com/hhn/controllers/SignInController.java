@@ -5,6 +5,9 @@
  */
 package com.hhn.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class SignInController {
-    @RequestMapping("/signin")
-    public String signInPage(Model model){
+    @RequestMapping("/")
+    public String moveToSignIn(){
+    
         return "signInPage";
     }
+    
+    
+    @RequestMapping("/signin")
+    public String signInPage(Model model , HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return "signInPage";
+    }
+
 }

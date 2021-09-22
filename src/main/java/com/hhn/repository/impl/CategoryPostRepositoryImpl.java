@@ -32,4 +32,6 @@ public class CategoryPostRepositoryImpl implements  CategoryPostRepository{
        return q.getResultList();
     }
     
+    
+    
 }
