@@ -5,6 +5,7 @@
  */
 package com.hhn.controllers;
 
+import com.hhn.pojos.Auctions;
 import com.hhn.pojos.Comments;
 import com.hhn.pojos.LikeComment;
 import com.hhn.pojos.LikePost;
@@ -181,10 +182,19 @@ public class HomeController {
          return String.format("forward:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,commentPostId));
     }
     
-    @RequestMapping("/user/notifcation/")
+    @RequestMapping("/user/notification/")
     public String NotificationPage(Model model)
     {
         return "notfications";
+    }
+    @RequestMapping("/user/auctionpage/")
+    public String auctionPage(Model model , @RequestParam(required = false)Map<String,String> params )
+    {
+        String username = params.get("username");
+        String post_id = params.get("post_id");
+        model.addAttribute("auctionBidding",new Auctions());
+        model.addAttribute("postBiddingInfo");
+        return "auctions";
     }
   
 }

@@ -39,6 +39,12 @@
                         <form:textarea  rows="5" path="content" class="form-control" />
                          <form:errors path="content" cssClass="text-danger" element="div" />
     		    </div>
+                    
+                    <div class="form-group">
+                        <label for="startprice">Start Price</label>
+                        <form:input cssClass="form-control" id="startprice" path="startprice" type="text"  />
+                        <form:errors path="startprice" cssClass="text-danger" element="div" />
+                    </div>
                    
     		      <div clas="form-group">
                          <label for="file"> Image Post <label>

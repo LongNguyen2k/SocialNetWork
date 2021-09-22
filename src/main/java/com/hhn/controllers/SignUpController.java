@@ -45,7 +45,7 @@ public class SignUpController {
     {
         binder.setValidator(userValidator);
     }
-
+    
     @RequestMapping("/signup")
     public String signUpPage(Model model){
         model.addAttribute("user" , new User());
@@ -67,4 +67,5 @@ public class SignUpController {
         }
         return "signUpPage";
     }
+    
 }

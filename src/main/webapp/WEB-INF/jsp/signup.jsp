@@ -52,7 +52,12 @@
                 <form:input type="date" id="birthday" path="birthday" cssClass="form-control"   />
                 <form:errors path="birthday" cssClass="text-danger" element="div" />
                 <br/>
-            </div>      
+            </div> 
+            <div class="form-group">
+                <form:input type="text" id="phoneNumber" path="phoneNumber" cssClass="form-control" placeholder="Nhập Số Điện Thoại"   />
+                <form:errors path="phoneNumber" cssClass="text-danger" element="div" />
+                <br/>
+                 </div>   
             
             <div class="form-group">
                 <form:input type="text" id="username" path="username" cssClass="form-control" placeholder="Nhập UserName" />

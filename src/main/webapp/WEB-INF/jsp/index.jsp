@@ -29,7 +29,7 @@
                                 <span class="font-weight-bold">${post[1]}</span>                  
                                 <small class="text-primary">On ${post[4]}</small>  
                              </div>
-
+                                    
                         </div>
                     </div> 
                 </div>      
@@ -41,7 +41,8 @@
                                 </p>
                           </div>
                         <footer>Posted by ${post[1]} 
-                            <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>                            
+                            <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>
+                            <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> Auction</span></a>                            
                         </footer>
                         <div class="comments">
                             <a  class="btn btn-default comment" href="<c:url value="/user/comment?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>">

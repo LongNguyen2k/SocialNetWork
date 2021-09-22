@@ -13,6 +13,7 @@ import com.hhn.pojos.User;
 import com.hhn.service.NotificationService;
 import com.hhn.service.PostService;
 import com.hhn.service.UserService;
+import com.hhn.validator.WebAppValidator;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
@@ -23,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,8 +47,6 @@ public class ProfileController{
     @Autowired
     private NotificationService notificationService;
     
-    
-    
     @RequestMapping(value = "/user/profile")
     public String profilePage(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw , 
             @RequestParam(value="userName" , required = false , defaultValue = "") String userName , HttpServletRequest request){
@@ -63,19 +64,24 @@ public class ProfileController{
          
         return "editProfilePage";
     }
-    @PostMapping("/user/editProfiles")
+      @PostMapping("/user/editProfiles")
     public String editProfilePage(Model model ,@ModelAttribute(value = "userProfile")@Valid User user ,
             BindingResult result, @RequestParam(required = false)Map<String,String> params)
     {
+         // post mapping không nên dùng forward quá nhiều mà chỉ dùng redirect vì nó sẽ làm 
+        // server bị tràn bộ nhớ leaked memory;
+        // không sử dụng forward trong phương thức post vì sẽ gây ra internal looping
+        String username = params.get("username");
+       
          if(!result.hasErrors())
-        {
-            
+         {
+             model.addAttribute("errMsG" , "Da Co Loi Xay Ra !");
              return "redirect:/user/";
-        }
-        return "editProfilePage";
+         }
+         else
+            return "editProfilePage";
     }
- 
-  
+
     @GetMapping("/user/addPost")
     public String getUserIdPost(Model model  , @RequestParam(value ="userId" , required = false) String userId  )
     {    
@@ -107,7 +113,9 @@ public class ProfileController{
     }
     @PostMapping("user/updatePost")
     public String updatePost(Model model , @ModelAttribute(value = "postUpdate")@Valid Post post  ,BindingResult result)
-    {   if(!result.hasErrors())
+    {  
+       
+        if(!result.hasErrors())
         {
             if(this.postService.updatePost(post) == true)
                 return "redirect:/user/";

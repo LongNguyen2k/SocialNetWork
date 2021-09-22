@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -32,6 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name ="user")
 public class User implements Serializable{
+
+   
     
     public static final String  ADMIN = "ROLE_ADMIN";
     public static final String USER = "ROLE_USER";
@@ -57,6 +60,11 @@ public class User implements Serializable{
     private String gender;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
+    
+    @Column(name = "phonenumber")
+    @Size(min = 9 , max = 11 , message = "{user.phonenumber.lenError}")
+    @NotEmpty(message = "{user.phonenumber.notEmpty}")
+    private String phoneNumber;
     
     @Column(name = "u_role")
     private String uRole;
@@ -172,4 +180,11 @@ public class User implements Serializable{
         this.birthday = birthday;
     }
 
+     public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

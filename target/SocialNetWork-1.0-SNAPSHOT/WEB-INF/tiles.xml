@@ -51,5 +51,9 @@
         <put-attribute name="title" value="NotificationPage"  />
         <put-attribute name="content" value="/WEB-INF/jsp/notificationPage.jsp" />
     </definition>
+    <definition name="auctions" extends="homePage">
+        <put-attribute name="title" value="AuctionPage"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/postdetail.jsp" />
+    </definition>
     
 </tiles-definitions>

@@ -67,7 +67,6 @@ public class PostRepositoryImpl implements  PostRepository{
 
     @Override
     public List<Object[]> getNewFeedPost(String kw , int page ) {
-        
         Session session = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -94,12 +93,8 @@ public class PostRepositoryImpl implements  PostRepository{
                            pRoot.get("id") 
 //                          , pRoot.get("comments").as(Comments.class)
                           );
-        
         query.orderBy(builder.desc(pRoot.get("id")));
         Query<Object[]> q = session.createQuery(query);
-        
-        
-        
         int max = 3;
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max );

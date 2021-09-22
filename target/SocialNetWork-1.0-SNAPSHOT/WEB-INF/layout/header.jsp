@@ -26,7 +26,7 @@
                         <li role="presentation"><a href="<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
                         <li class="divider" role="presentation"></li>
                         <li role="presentation"><a href="${homePage}">Timeline </a></li>
-                        <li role="presentation"><a href="<c:url value="/user/notifcation/" />">Notifications </a></li> 
+                        <li role="presentation"><a href="<c:url value="/user/notification/" />">Notifications </a></li> 
                        <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <c:forEach var="cat" items="${categories}">
                                 <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
@@ -95,7 +95,7 @@
                                           </div>  
                                     </div>
                                     </c:forEach>
-                                    <div  class="seeAll"><a href="#">See All</a></div>
+                                    <div  class="seeAll"></div>
                                 </div>
                             </li>
 <!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
@@ -166,7 +166,7 @@
                                           </div>  
                                     </div>
                                     </c:forEach>
-                                    <div  class="seeAll"><a href="#">See All</a></div>
+                                    <div  class="seeAll"></div>
                                 </div>
                             </li>
 <!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->

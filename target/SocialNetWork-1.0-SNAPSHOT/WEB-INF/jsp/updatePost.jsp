@@ -32,6 +32,10 @@
                         <form:hidden path="image" class="form-control"  />
                     </div>
                     
+                    <div class="form-group">
+                        <form:hidden path="startprice" class="form-control"  />
+                    </div>
+                    
                      
     		    <div class="form-group">
     		        <label for="content">Content</label>
