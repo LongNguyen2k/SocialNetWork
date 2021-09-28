@@ -5,6 +5,11 @@
  */
 package com.hhn.repository;
 
+import com.hhn.pojos.Auctions;
+import com.hhn.pojos.Post;
+import com.hhn.pojos.User;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -12,5 +17,11 @@ import java.util.List;
  * @author Windows 10
  */
 public interface AuctionRespository {
-    List<Object[]> getBiddingInfo(String postId);
+    List<Object[]> getBiddingInfo(int postId);
+    boolean addBiddingPrice(Auctions auctions);
+    List<Auctions> getListOfBiddingFromPost(Post post);
+    BigDecimal getMaxAuctionPrice(Post post);
+    boolean chooseWiner(Auctions auctions);
+    Auctions findAuctionMethod(User user , Post post , BigDecimal priceBidding , Timestamp timestamp);
+   List<Auctions> findAuctionAlreadyWinner(Post post);
 }

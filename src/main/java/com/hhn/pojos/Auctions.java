@@ -5,8 +5,10 @@
  */
 package com.hhn.pojos;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "auctions")
-public class Auctions {
+public class Auctions  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +34,14 @@ public class Auctions {
     @ManyToOne
     @JoinColumn(name ="bidding_post")
     private Post biddingPost;
+    
+    @Column(name = "bidding_price")
     private BigDecimal biddingPrice;
+    
+    @Column(name = "bidding_status")
     private boolean biddingStatus;
+    
+    @Column(name = "biddingat")
     private Timestamp biddingAt;
     
     public int getId() {

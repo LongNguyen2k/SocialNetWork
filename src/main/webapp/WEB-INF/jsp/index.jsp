@@ -9,7 +9,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <div class="container">
-        <h1>Timeline </h1>
+        <h1><spring:message code="h1.timeline"/> </h1>
+        
         <div class="timelineposts">
              <!-- Mỗi Li là 1 bài đăng mới -->
             <div class="col-md-6">
@@ -27,7 +28,7 @@
                             </div>
                             <div class="media-body">
                                 <span class="font-weight-bold">${post[1]}</span>                  
-                                <small class="text-primary">On ${post[4]}</small>  
+                                <small class="text-primary"><spring:message code="label.timePost" /> ${post[4]}</small>  
                              </div>
                                     
                         </div>
@@ -40,14 +41,15 @@
                                     ${post[3]}
                                 </p>
                           </div>
-                        <footer>Posted by ${post[1]} 
-                            <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>
-                            <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> Auction</span></a>                            
+                                    <footer><spring:message code="footer.label" /> ${post[1]} 
+                            <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} <spring:message code="span.like" /></span></a>
+                            <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> <spring:message code="label.auction" /></span></a>                            
                         </footer>
                         <div class="comments">
                             <a  class="btn btn-default comment" href="<c:url value="/user/comment?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>">
-                                            <i class="glyphicon glyphicon-flash"></i><span>Comments</span>
+                                <i class="glyphicon glyphicon-flash"></i><span><spring:message code="label.comment" /></span>
                                 </a>
+                           
                          </div>
                     </blockquote>
                         

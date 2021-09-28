@@ -41,26 +41,61 @@ public class NotificationServiceImpl  implements NotificationService{
 
     @Override
     public boolean addNotifications(String userCurrentLoggedInName , String postIdHaveUser ,  Notifications notifications) {
-        User userLikePost = this.userRepository.getCurrentLoggedInUser(userCurrentLoggedInName).get(0);
+        User userAction = this.userRepository.getCurrentLoggedInUser(userCurrentLoggedInName).get(0);
         int notificationsType = notifications.getType();
-        Post postUserLike;
-        Comments commentUserLike;
-        if(notificationsType == 1 || notificationsType == 2 )
+        Post postUser;
+        Comments commentUser;
+        
+        switch (notificationsType)
         {
-            postUserLike = this.postRepository.getPostId(postIdHaveUser);
-            User userCreatePost = postUserLike.getUser();
-            notifications.setReceiverUser(userCreatePost);
-            notifications.setSenderUser(userLikePost);
-        }
-        else
-        {
-           commentUserLike = this.commentsRepository.getCommentsById(postIdHaveUser);
-           User userCreateComment = commentUserLike.getUser();
-           notifications.setReceiverUser(userCreateComment);
-           notifications.setSenderUser(userLikePost);
-        }   
-      
+         case 1:
+            {
+                postUser = this.postRepository.getPostId(postIdHaveUser);
+                User userCreatePost = postUser.getUser();
+                notifications.setReceiverUser(userCreatePost);
+                notifications.setSenderUser(userAction);
+                break;
+            }
+            case 2:
+            {
+                postUser = this.postRepository.getPostId(postIdHaveUser);
+                User userCreatePost = postUser.getUser();
+                notifications.setReceiverUser(userCreatePost);
+                notifications.setSenderUser(userAction);
+                break;
+            }
+              case 3:
+              {
+                commentUser = this.commentsRepository.getCommentsById(postIdHaveUser);
+                User userCreateComment = commentUser.getUser();
+                notifications.setReceiverUser(userCreateComment);
+                notifications.setSenderUser(userAction);
+                break;
+              } 
+              case 4:
+              { 
+                  // ra giá 
+                postUser = this.postRepository.getPostId(postIdHaveUser);
+                User userCreatePost = postUser.getUser();
+                notifications.setReceiverUser(userCreatePost);
+                notifications.setSenderUser(userAction);
+                break;
+              }
+              
+               case 5:
+              { 
+                  // chon người chiến thắng 
+                postUser = this.postRepository.getPostId(postIdHaveUser);
+                User userCreatePost = postUser.getUser();
+                notifications.setReceiverUser(userAction);
+                notifications.setSenderUser(userCreatePost);
+                break;
+              }
+              
+        }     
        return this.notificationRepository.addNotifications(notifications);
     }
     
 }
+
+          

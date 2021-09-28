@@ -10,6 +10,7 @@ import com.hhn.pojos.Comments;
 import com.hhn.pojos.LikeComment;
 import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Notifications;
+import com.hhn.service.AuctionService;
 import com.hhn.service.CategoryPostService;
 import com.hhn.service.CommentsService;
 import com.hhn.service.LikeCommentService;
@@ -17,6 +18,8 @@ import com.hhn.service.LikePostService;
 import com.hhn.service.NotificationService;
 import com.hhn.service.PostService;
 import com.hhn.service.UserService;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Map;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +61,9 @@ public class HomeController {
     private CommentsService commentsService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private AuctionService auctionService;
+
     @ModelAttribute
     public void commonAttribute(Model model){
     model.addAttribute("categories" , this.CategoryPostService.getCategories());
@@ -98,7 +104,7 @@ public class HomeController {
             @ModelAttribute(value="notifications")Notifications notifications , 
             @RequestParam(required = false)Map<String,String> params )
     {
-       int typeNotificationLike = 1 ;
+       int notficationType = 1 ;
         String  userLoggedInName = params.get("username");
         String likedPostId = params.get("post_id");
         // tồn tại user đã like bài viết 
@@ -111,7 +117,7 @@ public class HomeController {
                 if(this.postService.likePost(userLoggedInName,likedPostId ,  likePost) == true)
                 {
                     // insert notification 
-                    notifications.setType(typeNotificationLike);
+                    notifications.setType(notficationType);
                     this.notificationService.addNotifications(userLoggedInName, likedPostId, notifications);
                     return "redirect:/user/";
                 }
@@ -123,7 +129,7 @@ public class HomeController {
             , @ModelAttribute(value="notifications")Notifications notifications 
             , @RequestParam(required = false)Map<String,String> params)
     {
-        int typeNotificationLike = 3 ;
+       int  notficationType = 3 ;
         String  userLoggedInName = params.get("username");
         String likeCommentId = params.get("comment_id");
         String likedPostId = params.get("post_id");
@@ -136,7 +142,7 @@ public class HomeController {
             // user chưa like comment 
                 if(this.commentsService.likeComment(userLoggedInName,likeCommentId ,likeComment) == true)
                 {
-                    notifications.setType(typeNotificationLike);
+                    notifications.setType(notficationType);
                     this.notificationService.addNotifications(userLoggedInName, likeCommentId, notifications);
                     return String.format("redirect:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,likedPostId));
                 }
@@ -163,7 +169,7 @@ public class HomeController {
             @ModelAttribute(value="notifications")Notifications notifications,
             @RequestParam(required = false ,defaultValue = "")Map<String,String> params )
     {
-         int typeNotificationLike = 2 ;
+        int  notficationType = 2 ;
         String  userLoggedInName = params.get("username");
         String commentPostId = params.get("post_id");
         String commentText = params.get("commentText");
@@ -171,7 +177,7 @@ public class HomeController {
         {
             if(this.commentsService.addComments(userLoggedInName, commentPostId , commentText, comments) == true)
             { 
-                notifications.setType(typeNotificationLike);
+                notifications.setType(notficationType);
                 this.notificationService.addNotifications(userLoggedInName, commentPostId, notifications);
                 return String.format("redirect:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,commentPostId));
             }
@@ -182,7 +188,7 @@ public class HomeController {
          return String.format("forward:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,commentPostId));
     }
     
-    @RequestMapping("/user/notification/")
+    @RequestMapping(value = "/user/notification/")
     public String NotificationPage(Model model)
     {
         return "notfications";
@@ -190,11 +196,96 @@ public class HomeController {
     @RequestMapping("/user/auctionpage/")
     public String auctionPage(Model model , @RequestParam(required = false)Map<String,String> params )
     {
-        String username = params.get("username");
         String post_id = params.get("post_id");
         model.addAttribute("auctionBidding",new Auctions());
-        model.addAttribute("postBiddingInfo");
+        model.addAttribute("postBiddingInfo",this.auctionService.getBiddingInfoPost(post_id));
+        model.addAttribute("biddingPriceList", this.auctionService.getListOfBiddingFromPost(post_id));
+        model.addAttribute("currentMaxBiddPrice", this.auctionService.getMaxBiddingPrice(post_id));
+        model.addAttribute("notifications", new Notifications());
         return "auctions";
+    }
+    @GetMapping(value = "/user/addBidding/")
+    public String addBiddingForPost(Model model, @ModelAttribute(value = "auctionBidding")Auctions auctions 
+            ,@RequestParam(required = false)Map<String,String> params , @ModelAttribute(value = "notifications")Notifications notifications )
+    {
+        BigDecimal priceBidding = new BigDecimal(params.get("biddingPrice")) ;
+        String username = params.get("username");
+        String POST_ID = params.get("post_id");
+       int notficationType = 4 ;
+        if(this.auctionService.findWinner(POST_ID) == false)
+        {
+            if(auctionService.checkingStartPrice(priceBidding, POST_ID) == true)
+            {
+
+                if(auctionService.checkBiddingPricePost(priceBidding, POST_ID) == true)
+                {
+
+                    if(this.auctionService.addnewBiddingForPost(username, POST_ID, priceBidding, auctions))
+                    {
+                        // thêm notification // sender là người ra giá receiver là người nhận đấu giá 
+                        notifications.setType(notficationType);
+                        this.notificationService.addNotifications(username,POST_ID,notifications);  
+                         model.addAttribute("BiddingPriceAccept", "Bạn đã đấu giá thành công  ! ");
+                          return String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=%s",username,POST_ID));
+                    }
+                    else
+                    {
+                        model.addAttribute("BiddingPriceAccept", "Đã có lỗi xảy trong server ! ");
+                         return String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=%s",username,POST_ID));
+                    }
+                }
+                else
+                    
+                    model.addAttribute("BiddingPriceTooSmall","Giá trị đấu giá của bạn nhỏ hơn so với người ra giá trước đó !");
+
+            }
+            else 
+            {
+
+                 model.addAttribute("errorBiddingPrice", "Giá quá nhỏ so với giá khởi đầu của món hàng !");
+            }
+        }
+        else
+        {
+            model.addAttribute("AuctionExpire", "Cuộc đấu giá đã tìm được người chiến thắng,cảm ơn bạn đã ghé thăm !!! "); ;
+        }
+
+        return String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=%s",username,POST_ID));
+    }
+    
+    @GetMapping(value = "/user/chooseWinnerBid/")
+    public String chooseWinner(Model model , @RequestParam(required = false)Map<String,String> params , 
+            @ModelAttribute(value = "notifications")Notifications notifications)
+    {
+        String username = params.get("username");
+        String POST_ID = params.get("post_id");
+        BigDecimal priceBidding = new BigDecimal(params.get("biddingPrice")) ;
+        Timestamp biddingAt = Timestamp.valueOf(params.get("biddingAt"));
+        int notficationType = 5;
+        if( this.auctionService.findWinner(POST_ID) == false)
+        {
+            if(this.auctionService.chooseWinner(username, POST_ID, priceBidding, biddingAt))
+            {
+                notifications.setType(notficationType);
+                // username là người nhận // postID là người gửi 
+                this.notificationService.addNotifications(username, POST_ID, notifications);
+                model.addAttribute("ChooseWinnerPopup", "Bạn đã chọn được người chiến thắng đấu giá  ! ");  
+               return String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=%s",username,POST_ID));
+            }
+            else
+            {
+                 model.addAttribute("ChooseWinnerPopup", "Have Something wrong in the server ! ");
+                return String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=%s",username,POST_ID));
+            }
+        }
+        else
+        {
+             model.addAttribute("AuctionExpire", "Bài viết này đã có người chiến thắng đấu giá, bạn không thể chọn thêm người chiến thắng được nữa ! ");  
+             return String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=%s",username,POST_ID));
+        }
+
     }
   
 }
+
+//String.format("forward:/user/auctionpage/%s",String.format("?username=%s&post_id=&s",username,POST_ID))

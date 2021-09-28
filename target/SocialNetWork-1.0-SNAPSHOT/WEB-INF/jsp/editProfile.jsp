@@ -41,26 +41,26 @@
             <form:form  method="post" action="${editProfile}" modelAttribute="userProfile" enctype="multipart/form-data"> 
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mb-2 text-primary">Personal Details</h6>
+                            <h6 class="mb-2 text-primary"><spring:message code="label.personalDetail"/></h6>
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <form:hidden path="id" cssClass="form-control"></form:hidden>
 				<div class="form-group">
-					<label for="fullName">Full Name</label>
+					<label for="fullName"><spring:message code="label.fullName"/></label>
                                         <form:input cssClass="form-control" id="name" type="text"  path="name" placeholder="Enter full name" />
                                         <form:errors path="name" cssClass="text-danger" element="div" />
 				</div>
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
-					<label for="eMail">Email</label>
+					<label for="eMail"><spring:message code="label.Email"/></label>
                                         <form:input class="form-control" id="email" type="email" path="email" placeholder="Enter email ID"/>
                                         <form:errors path="email" cssClass="text-danger" element="div" />
 				</div>
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
-					<label for="phone">Gender</label>
+					<label for="phone"><spring:message code="label.gender"/></label>
 					<form:select id="gender" path="gender" cssClass="form-control">
                                             <option value="male"  >Male</option>
                                             <option value="female"  >FeMale</option>
@@ -69,7 +69,7 @@
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
-					<label for="website">Avatar</label>
+					<label for="website"><spring:message code="label.avatar"/></label>
                                         <form:input type="file" id="file" path="file" cssClass="form-control"  />
                                         <form:errors path="file" cssClass="text-danger" element="div" />
 				</div>
@@ -77,13 +77,13 @@
 		</div>
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<label for="eMail">Birthday</label>
+                            <label for="eMail"><spring:message code="label.birthday"/></label>
                                <form:input type="date" id="birthday" path="birthday" cssClass="form-control"   />
                                <form:errors path="birthday" cssClass="text-danger" element="div" /> 
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
-					<label for="Street">About You </label>
+                                    <label for="Street"><spring:message code="label.about" /> </label>
 					<input type="name" class="form-control" id="Street" placeholder="Enter Street">
 				</div>
 			</div>
@@ -92,9 +92,9 @@
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				  <div class="form-group">
-                                    <input type="submit" class="btn btn-danger" value="Update" />
+                                    <input type="submit" class="btn btn-danger" value="Cập nhật thông tin" />
                                     <a class="btn btn-default"  href="<c:url value="/user/" />">
-                                        Cancel
+                                        <spring:message code="label.cancel"/>
                                     </a>
                                 </div>
 			</div>

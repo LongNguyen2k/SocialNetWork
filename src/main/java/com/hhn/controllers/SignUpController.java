@@ -63,7 +63,7 @@ public class SignUpController {
             if(this.userDetailsService.addUser(user) == true)
                 return "redirect:/signin";
             else 
-                model.addAttribute("errMsG" , "SomethingWrong !");
+                model.addAttribute("errMsG" , "Đã có lỗi xảy ra !");
         }
         return "signUpPage";
     }

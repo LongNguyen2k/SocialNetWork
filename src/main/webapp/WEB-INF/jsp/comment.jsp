@@ -20,9 +20,9 @@
                  <c:forEach items="${userCurrentComment}" var="userCmt">
                 <form action="/SocialNetWork/user/addComment"> <!-- Form Dung để thực hiện phương thức get -->
                    
-                	<h3 class="pull-left">New Comment</h3>
+                    <h3 class="pull-left"><spring:message code="label.newCmt" /></h3>
                         <button  class="btn btn-default comment  pull-right" type="submit">
-                                <i class="glyphicon glyphicon-flash"></i><span>Comments</span>
+                                <i class="glyphicon glyphicon-flash"></i><span><spring:message code="label.addCmt" /></span>
                            </button>
                     <fieldset>
                         <div class="row">
@@ -39,7 +39,7 @@
                     </fieldset>
                        
                 </form>
-                <h3>${countComment} Comments</h3>
+                <h3>${countComment} <span><spring:message code="label.CMT" /></h3>
                 <!-- COMMENT 1 - START -->
                  <c:forEach items="${commentOfPost}" var="cmt">
                 <div class="media">
@@ -48,11 +48,11 @@
                         <h4 class="media-heading">${cmt[0]}</h4>
                         <p>${cmt[2]}</p>
                         <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>On ${cmt[1]}</li>
+                            <li><i class="fa fa-calendar"></i><spring:message code="label.timePost" /> ${cmt[1]}</li>
                             <li><i class="fa fa-thumbs-up"></i>${cmt[4]}</li>
                         </ul>
                         <ul class="list-unstyled list-inline media-detail pull-right">
-                            <li class=""><a href="<c:url value="/user/likesComment?username=${pageContext.request.userPrincipal.name}&comment_id=${cmt[5]}&post_id=${post_id}"/> ">Like</a></li>
+                            <li class=""><a href="<c:url value="/user/likesComment?username=${pageContext.request.userPrincipal.name}&comment_id=${cmt[5]}&post_id=${post_id}"/> "><spring:message code="label.like" /></a></li>
                         </ul>
                     </div>
                 </div>

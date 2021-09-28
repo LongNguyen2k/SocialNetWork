@@ -56,7 +56,7 @@ public class ProfileController{
         model.addAttribute("likeComment", new LikeComment());
         return "profilePage";
     }
-    @GetMapping("/user/editProfiles")
+    @GetMapping("/user/editProfilePage")
     public String editProfilePage(Model model ,@RequestParam(required = false)Map<String,String> params)
     {
         String userID = params.get("userID");

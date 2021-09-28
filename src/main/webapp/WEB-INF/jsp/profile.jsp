@@ -12,7 +12,7 @@
 
 <div class="container">
      <c:forEach var="u" items="${userProfile}">
-        <h1>${u.name}'s Profile 
+         <h1> <spring:message code="user.profile" /> ${u.name}
        </c:forEach>       
         <i class="glyphicon glyphicon-ok-sign verified username_Profile" data-toggle="tooltip"title="Verified User"></i></h1>
        
@@ -39,22 +39,22 @@
             <li class="list-group-item">  
                <div class="row">
                    <div class="col-sm-6">
-                       <p>Name</p>
+                       <p><spring:message code="label.fullName" /></p>
                        <h6>${u.name}</h6>
                    </div>
                    <div class="col-sm-6">
-                    <p>Email</p>
+                       <p><spring:message code="label.Email" /></p>
                     <h6>${u.email}</h6>
                  </div>
                </div>
                <div class="row">
                     <div class="col-sm-6">
-                        <p>Gender</p>
+                        <p><spring:message code="label.gender" /></p>
                         <h6>${u.gender}</h6>
                </div>
                <div class="row">
                     <div class="col-sm-6">
-                        <p>BirthDay</p>
+                        <p><spring:message code="label.birthday" /></p>
                         <h6>${u.birthday}</h6>
                         
                     </div>
@@ -62,11 +62,11 @@
             </li>
            
         </ul>
-        <a href="<c:url value="/user/editProfiles?userID=${u.id}" />" class="btn btn-default buttonProfile " type="button">Cập nhật Profile</a>
+                        <a href="<c:url value="/user/editProfilePage?userID=${u.id}" />" class="btn btn-default buttonProfile " type="button"><spring:message code="button.UpdateProfile" /></a>
         
          <sec:authorize access="hasRole('ROLE_ADMIN')">
         <div>
-            <a href="<c:url value="/admin/statistical" />" class="btn btn-default buttonProfile"> Thống Kê Dữ Liệu  </a>
+            <a href="<c:url value="/admin/statistical" />" class="btn btn-default buttonProfile"> <spring:message code="button.adminStaticstical" />  </a>
         </div>
         </sec:authorize>
          </c:forEach>
@@ -102,8 +102,8 @@
                             <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
                               <ul class="dropdown-menu">
-                                  <li><a href="<c:url value="/user/updatePost?postId=${post[6]}" />" style="color:lightblue;">Cập nhật Bài Viết </a></li>
-                                  <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;">Xóa Bài Viết </a></li>
+                                  <li><a href="<c:url value="/user/updatePost?postId=${post[6]}" />" style="color:lightblue;"><spring:message code="button.updatePost" /> </a></li>
+                                  <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
                                   
                               </ul>
                             </li>
@@ -119,7 +119,8 @@
                         </p>
                   </div>
                 <footer>Posted by ${post[1]} 
-                   <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>                            
+                   <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>  
+                   <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> <spring:message code="button.auctionInfo"/> </span></a> 
                 </footer>
                  <div class="comments">
                     <a  class="btn btn-default comment" href="<c:url value="/user/comment?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>">
@@ -138,7 +139,7 @@
     <!-- Adding New Post Section-->
     <c:forEach var="u" items="${userProfile}">
     <div class="col-md-3">
-        <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPost?userId=${u.id}" />" type="button">Đăng Bài Viết Mới </a>
+        <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPost?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
         </c:forEach>   
         
     </div>

@@ -17,12 +17,12 @@
 	    
 	    <div class="col-md-8 col-md-offset-2">
 	        
-    		<h1>Create post</h1>
+                <h1><spring:message code="label.createPost"/></h1>
     		
                 <form:form  action="${addNewPost}" method="post" modelAttribute="post" enctype="multipart/form-data" >  
                     
                     <div class="form-group">
-    		        <label for="cate">Người Đăng Bài Viết  </label>
+                        <label for="cate"><spring:message code="label.userCreatePost" />  </label>
                         <form:select id="user" path="user" class="form-control">
                             <c:forEach items="${userIdLoggedIn}" var="u">
                                 <option value="${u.id}">${u.name}</option>
@@ -35,23 +35,23 @@
                     
                      <form:errors path="*" cssClass="alert alert-danger" element="div" />
     		    <div class="form-group">
-    		        <label for="content">Content</label>
+                        <label for="content"><spring:message code="label.content" /></label>
                         <form:textarea  rows="5" path="content" class="form-control" />
                          <form:errors path="content" cssClass="text-danger" element="div" />
     		    </div>
                     
                     <div class="form-group">
-                        <label for="startprice">Start Price</label>
-                        <form:input cssClass="form-control" id="startprice" path="startprice" type="text"  />
+                        <label for="startprice"><spring:message code="label.startprice" /></label>
+                        <form:input cssClass="form-control" id="startprice" path="startprice" type="number"  />
                         <form:errors path="startprice" cssClass="text-danger" element="div" />
                     </div>
                    
     		      <div clas="form-group">
-                         <label for="file"> Image Post <label>
+                         <label for="file"> <spring:message code="label.imagepost" /> <label>
                         <form:input type="file"  id="file" path="file" class="form-control"  />
                     </div>
                     <div class="form-group">
-    		        <label for="cate">Danh Mục Bài Viết </label>
+    		        <label for="cate"><spring:message code="label.category" /> </label>
                         <form:select id="cate" path="categoryPost" class="form-control">
                             <c:forEach items="${categories}" var="cat">
                                 <option value="${cat.id}">${cat.name}</option>
@@ -61,9 +61,9 @@
     		    </div>
                     
     		    <div class="form-group">
-                        <input type="submit" class="btn btn-danger" value="Create" />
+                        <input type="submit" class="btn btn-danger" value="Tạo bài viết mới" />
                         <a class="btn btn-default"  href="<c:url value="/user/" />">
-    		            Cancel
+    		            Hủy bỏ
                         </a>
     		        
     		    </div>
