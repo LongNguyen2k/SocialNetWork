@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <header>
@@ -14,30 +15,30 @@
      <header class="hidden-sm hidden-md hidden-lg">
         <div class="searchbox">
             <form>
-                <h1 class="text-left">Social NetWork</h1>
+                <h1 class="text-left"><spring:message code="label.mainTitle" /></h1>
                 <div class="searchbox"><i class="glyphicon glyphicon-search"></i>
                     <input class="form-control" type="text" name="kw">
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">MENU <span class="caret"></span></button>
+                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><spring:message code="label.menu" /><span class="caret"></span></button>
                     
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <c:if test="${pageContext.request.userPrincipal.name != null }">
-                        <li role="presentation"><a href="<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
+                            <li role="presentation"><a href="<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
                         <li class="divider" role="presentation"></li>
-                        <li role="presentation"><a href="${homePage}">Timeline </a></li>
-                        <li role="presentation"><a href="<c:url value="/user/notifcation/" />">Notifications </a></li> 
+                        <li role="presentation"><a href="${homePage}"><spring:message code="h1.timeline" /></a></li>
+                        <li role="presentation"><a href="<c:url value="/user/notification/" />"><spring:message code="label.notifications" /></a></li> 
                        <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <c:forEach var="cat" items="${categories}">
                                 <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
                             </c:forEach>
                        </sec:authorize>  
-                        <li role="presentation"><a href="<c:url value="/logout" />">Logout </a></li>
+                                <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                         </c:if>
                         <c:if test="${pageContext.request.userPrincipal.name == null }">
-                        <li role="presentation"><a href="<c:url value="/signin" />">Sign In</a></li>
+                        <li role="presentation"><a href="<c:url value="/signin" />"><spring:message code="label.login" /></a></li>
                         <li class="divider" role="presentation"></li>
-                        <li role="presentation"><a href="<c:url value="/signup" />">Sign Up </a></li>
+                        <li role="presentation"><a href="<c:url value="/signup" />"><spring:message code="label.signUp"/></a></li>
                         </c:if>
                     </ul>
                 </div>
@@ -50,7 +51,7 @@
         <div>
             <nav class="navbar navbar-default hidden-xs navigation-clean">
                 <div class="container">
-                    <h1 class="text-left" style="color: red;">Social Network Charity</h1>
+                    <h1 class="text-left" style="color: #cc0000;"><spring:message code="label.mainTitle" /></h1>
                     <div class="navbar-header">
                         <a class="navbar-brand navbar-link" href="${homePage}"><i class="icon ion-ios-navigate"></i></a>
                     </div>
@@ -67,10 +68,10 @@
                              <li id="noti_Container2" role="presentation" >
                                 <div id="noti_Counter2"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
                                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                                <a href=""id="noti_Button2">Notification</a>  
+                                <a href=""id="noti_Button2"><spring:message code="label.notification" /></a>  
                                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                                 <div id="notifications2">
-                                    <h3  class="notifcationH3">Notifications</h3>
+                                    <h3  class="notifcationH3"><spring:message code="label.notifications" /></h3>
                                     <c:forEach items="${notificationList}" var="nor">
                                     <div  style="width: 100%">
                                         <div class="media">
@@ -79,23 +80,29 @@
                                             </div>
                                             <div class="media-body">
                                                 <h4 class="media-heading">${nor[1]}</h4>
-                                              <p>
-                                                  ${nor[1]} has 
-                                                  <c:if test="${nor[2] == 1}">
-                                                      Like your post
+                                              <p style="color: #669999;">
+                                                  
+                                                   <c:if test="${nor[2] == 1}">
+                                                      ${nor[1]} <spring:message code="label.likePost" />
                                                   </c:if> 
                                                    <c:if test="${nor[2] == 2}">
-                                                      Comment Your Post
+                                                       ${nor[1]} <spring:message code="label.commentPost" />
                                                   </c:if>  
                                                     <c:if test="${nor[2] == 3}">
-                                                      Like Your Comment
-                                                  </c:if>    
+                                                        ${nor[1]} <spring:message code="label.likeComment" />
+                                                  </c:if> 
+                                                <c:if test="${nor[2] == 4}">
+                                                    ${nor[1]} <spring:message code="label.createAuction" />
+                                                  </c:if>
                                               </p>
+                                              <c:if test="${nor[2] == 5}">
+                                                  <p> <spring:message code="label.winAuction"/>${nor[1]}<spring:message code="label.winAuction2" /></p>
+                                                  </c:if> 
                                             </div>
                                           </div>  
                                     </div>
                                     </c:forEach>
-                                    <div  class="seeAll"><a href="#">See All</a></div>
+                                    <div  class="seeAll"></div>
                                 </div>
                             </li>
 <!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
@@ -112,11 +119,11 @@
                         <c:if test="${pageContext.request.userPrincipal.name == null }">
                         <li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">User <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                 <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
+                                 <li  role="presentation"><a href="${homePage}"><spring:message code="h1.timeline" /></a></li>
                                 <li class="divider" role="presentation"></li>
-                                <li role="presentation"><a href="<c:url value="/signin" />">Sign In</a></li>
+                                <li role="presentation"><a href="<c:url value="/signin" />"><spring:message code="label.login" /></a></li>
                                 <li class="divider" role="presentation"></li>
-                                <li role="presentation"><a href="<c:url value="/signup" />">Sign Up </a></li>
+                                <li role="presentation"><a href="<c:url value="/signup" />"><spring:message code="label.signUp"/></a></li>
                             </ul>
                         </li>
                         </c:if>
@@ -124,24 +131,24 @@
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
-                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
+                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
                                     <li class="divider" role="presentation"></li>
-                                    <li role="presentation"><a href="<c:url value="/logout" />">Logout </a></li>
+                                    <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                                 </ul>
                             </li> 
                             </c:if>
                     </ul>
                            <!-- hidden hidden-xs hidden-sm  -->
                         <ul class="nav navbar-nav hidden-xs hidden-sm  navbar-right">
-                            <li  role="presentation"><a href="${homePage}">Timeline</a></li>
+                            <li  role="presentation"><a href="${homePage}"><spring:message code="h1.timeline" /></a></li>
                             <!--Notification -->
                              <li id="noti_Container" role="presentation" >
                                 <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
                                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                                <a href=""id="noti_Button">Notification</a>  
+                                <a href=""id="noti_Button"><spring:message code="label.notification" /></a>  
                                 <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                                 <div id="notifications">
-                                    <h3  class="notifcationH3">Notifications</h3>
+                                    <h3  class="notifcationH3"><spring:message code="label.notifications" /></h3>
                                     <c:forEach items="${notificationList}" var="nor">
                                     <div  style="width: 100%">
                                         <div class="media">
@@ -150,23 +157,28 @@
                                             </div>
                                             <div class="media-body">
                                               <h4 class="media-heading">${nor[1]}</h4>
-                                              <p>
-                                                  ${nor[1]} has 
-                                                  <c:if test="${nor[2] == 1}">
-                                                      Like your post
-                                                  </c:if> 
-                                                   <c:if test="${nor[2] == 2}">
-                                                      Comment Your Post
-                                                  </c:if>  
-                                                    <c:if test="${nor[2] == 3}">
-                                                      Like Your Comment
-                                                  </c:if>    
-                                              </p>
+                                             <p style="color: #669999;">   
+                                                <c:if test="${nor[2] == 1}">
+                                                   ${nor[1]} <spring:message code="label.likePost" />
+                                               </c:if> 
+                                                <c:if test="${nor[2] == 2}">
+                                                    ${nor[1]} <spring:message code="label.commentPost" />
+                                               </c:if>  
+                                                 <c:if test="${nor[2] == 3}">
+                                                     ${nor[1]} <spring:message code="label.likeComment" />
+                                               </c:if> 
+                                             <c:if test="${nor[2] == 4}">
+                                                 ${nor[1]} <spring:message code="label.createAuction" />
+                                               </c:if>
+                                           </p>
+                                           <c:if test="${nor[2] == 5}">
+                                               <p> <spring:message code="label.winAuction"/>${nor[1]}<spring:message code="label.winAuction2" /></p>
+                                               </c:if> 
                                             </div>
                                           </div>  
                                     </div>
                                     </c:forEach>
-                                    <div  class="seeAll"><a href="#">See All</a></div>
+                                    <div  class="seeAll"></div>
                                 </div>
                             </li>
 <!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
@@ -183,18 +195,18 @@
                             <c:if test="${pageContext.request.userPrincipal.name == null }">
                                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">User <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <li role="presentation"><a href="<c:url value="/signin" />">Sign In</a></li>
+                                    <li role="presentation"><a href="<c:url value="/signin" />"><spring:message code="label.login" /></a></li>
                                     <li class="divider" role="presentation"></li>
-                                    <li role="presentation"><a href="<c:url value="/signup" />">Sign Up </a></li>
+                                    <li role="presentation"><a href="<c:url value="/signup" />"><spring:message code="label.signUp"/></a></li>
                                 </ul>
                             </li>
                             </c:if>
                             <c:if test="${pageContext.request.userPrincipal.name != null }">
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />">My Profile</a></li>
+                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
                                     <li class="divider" role="presentation"></li>
-                                    <li role="presentation"><a href="<c:url value="/logout" />">Logout </a></li>
+                                    <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                                 </ul>
                             </li> 
                             </c:if>
@@ -208,7 +220,8 @@
                             
  <script>
     $(document).ready(function () {
-
+            // thêm biến kiểm tra nếu chưa đọc thì show count những bài viết chưa đọc khi mở form lên thì những bài viết chuyển thành 
+            // đọc rồi và ko còn count nữa 
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter')
             .css({ opacity: 0 })

@@ -51,5 +51,18 @@
         <put-attribute name="title" value="NotificationPage"  />
         <put-attribute name="content" value="/WEB-INF/jsp/notificationPage.jsp" />
     </definition>
+    <definition name="auctions" extends="homePage">
+        <put-attribute name="title" value="AuctionPage"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/postdetail.jsp" />
+    </definition>
+    
+     <definition name="reportPost" extends="homePage">
+        <put-attribute name="title" value="Report Page"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/formReportPost.jsp" />
+    </definition>
+    
+      <definition name="confirmReport" template="/WEB-INF/jsp/confirmReport.jsp">
+      
+    </definition>
     
 </tiles-definitions>

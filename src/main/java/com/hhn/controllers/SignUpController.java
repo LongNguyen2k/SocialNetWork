@@ -45,7 +45,7 @@ public class SignUpController {
     {
         binder.setValidator(userValidator);
     }
-
+    
     @RequestMapping("/signup")
     public String signUpPage(Model model){
         model.addAttribute("user" , new User());
@@ -63,8 +63,9 @@ public class SignUpController {
             if(this.userDetailsService.addUser(user) == true)
                 return "redirect:/signin";
             else 
-                model.addAttribute("errMsG" , "SomethingWrong !");
+                model.addAttribute("errMsG" , "Đã có lỗi xảy ra !");
         }
         return "signUpPage";
     }
+    
 }

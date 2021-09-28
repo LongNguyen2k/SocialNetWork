@@ -19,7 +19,7 @@
      <form:form method="post" action="${addUser}" modelAttribute="user" enctype="multipart/form-data">
          <form:errors path="*" cssClass="alert alert-danger" element="div" />
          
-            <h2 class="sr-only">Create Account</h2>
+         <h2 class="sr-only"><spring:message code="label.createAccount" /></h2>
             <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
             
             <div class="form-group">
@@ -33,7 +33,7 @@
             </div>
             
             <div clas="form-group">
-                <label for="file"> Avatar <label>
+                <label for="file"> <spring:message code="label.Avatar" /> <label>
                 <form:input type="file" id="file" path="file" cssClass="form-control"  />
                 <form:errors path="file" cssClass="text-danger" element="div" />
                 <br/>
@@ -42,8 +42,8 @@
              <div clas="form-group">
                   
                  <form:select id="gender" path="gender" cssClass="form-control">
-                     <option value="male"  >Male</option>
-                     <option value="female"  >FeMale</option>
+                     <option value="male"  ><spring:message code="label.male" /></option>
+                     <option value="female"><spring:message code="label.female" /></option>
                  </form:select>
                 <br/>
                 
@@ -52,7 +52,12 @@
                 <form:input type="date" id="birthday" path="birthday" cssClass="form-control"   />
                 <form:errors path="birthday" cssClass="text-danger" element="div" />
                 <br/>
-            </div>      
+            </div> 
+            <div class="form-group">
+                <form:input type="text" id="phoneNumber" path="phoneNumber" cssClass="form-control" placeholder="Nhập Số Điện Thoại"   />
+                <form:errors path="phoneNumber" cssClass="text-danger" element="div" />
+                <br/>
+                 </div>   
             
             <div class="form-group">
                 <form:input type="text" id="username" path="username" cssClass="form-control" placeholder="Nhập UserName" />
@@ -72,9 +77,9 @@
             </div>
             
             <div class="form-group">
-                <button class="btn btn-primary btn-block" id="ca" type="submit" data-bs-hover-animate="shake">Sign Up</button>
+                <button class="btn btn-primary btn-block" id="ca" type="submit" data-bs-hover-animate="shake"><spring:message code="label.register" /></button>
                  
             </div>
-            <a href="${signInPage}" class="forgot">Already got an account? Click here!</a>
+                <a href="${signInPage}" class="forgot"><spring:message code="label.alreadyHaveAccount" /></a>
      </form:form>
     </div>

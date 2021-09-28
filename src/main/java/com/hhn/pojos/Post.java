@@ -6,6 +6,7 @@
 package com.hhn.pojos;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.persistence.criteria.Fetch;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,6 +51,10 @@ public class Post implements Serializable{
     
     private int likes;
     private String image;
+    @NotNull(message = "{post.startprice.notNullMsg}")
+    @Min(value = 1 , message = "{product.price.minMsg}")
+    @Max(value = 1000000000 , message="{product.price.maxMsg}")
+    private BigDecimal startprice;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id" )
@@ -128,6 +135,24 @@ public class Post implements Serializable{
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
+    public BigDecimal getStartprice() {
+        return startprice;
+    }
+
+    public void setStartprice(BigDecimal startprice) {
+        this.startprice = startprice;
     }
     
     
