@@ -70,6 +70,9 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
     
+    @OneToMany(mappedBy = "user")
+    private List<Comments> comments;
+    
     @Transient
     private MultipartFile file;
     @Transient
@@ -184,5 +187,13 @@ public class User implements Serializable{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
     }
 }

@@ -19,4 +19,5 @@ public interface CommentsService {
     Long countCommentList(int postId);
     boolean likeComment(String username , String commentId ,LikeComment likeComment );
     boolean unLikeComment(String username , String CommentId);
+    Comments getCommentsID(String ID);
 }

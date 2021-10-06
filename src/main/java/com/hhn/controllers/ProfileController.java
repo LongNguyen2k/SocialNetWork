@@ -68,9 +68,7 @@ public class ProfileController{
     public String editProfilePage(Model model ,@ModelAttribute(value = "userProfile")@Valid User user ,
             BindingResult result, @RequestParam(required = false)Map<String,String> params)
     {
-         // post mapping không nên dùng forward quá nhiều mà chỉ dùng redirect vì nó sẽ làm 
-        // server bị tràn bộ nhớ leaked memory;
-        // không sử dụng forward trong phương thức post vì sẽ gây ra internal looping
+         
         String username = params.get("username");
        
          if(!result.hasErrors())
@@ -82,19 +80,18 @@ public class ProfileController{
             return "editProfilePage";
     }
 
-    @GetMapping("/user/addPost")
-    public String getUserIdPost(Model model  , @RequestParam(value ="userId" , required = false) String userId  )
+    @RequestMapping(value="/user/addPostPage")
+    public String getUserIdPost(Model model  ,  @RequestParam(required = false)Map<String,String> params )
     {    
+        String userID = params.get("userId");
         model.addAttribute("post", new Post());    
-        model.addAttribute("userIdLoggedIn" , this.userService.getUserIdLoggedIn(userId));
+        model.addAttribute("userIdLoggedIn" , this.userService.getUserIdLoggedIn(userID).get(0));
         return "addPostPage";
     }
     
     
-    @PostMapping("/user/addPost")
-    public String addNewPost(Model model ,@ModelAttribute(value = "post")@Valid Post post  ,BindingResult result  ){
-       
-       
+    @PostMapping(value = "/user/addPost")
+    public String addNewPost(Model model ,@ModelAttribute(value = "post")@Valid Post post  ,BindingResult result ){
         if(!result.hasErrors())
         {   
             
@@ -106,12 +103,12 @@ public class ProfileController{
         }
         return "addPostPage";
     }
-    @GetMapping("/user/updatePost")
+    @GetMapping("/user/updatePostPage")
     public String getIdPost(Model model , @RequestParam(value = "postId" , required = false ) String postId){
         model.addAttribute("postUpdate" , this.postService.getPostId(postId)  );
-        return "updatePostPage";
+        return "UpdatePostPage";
     }
-    @PostMapping("user/updatePost")
+    @PostMapping("/user/updatePost")
     public String updatePost(Model model , @ModelAttribute(value = "postUpdate")@Valid Post post  ,BindingResult result)
     {  
        
@@ -122,7 +119,7 @@ public class ProfileController{
             else
                 model.addAttribute("errMsG" , "Da Co Loi Xay Ra !");
         }
-        return "updatePostPage";
+        return "UpdatePostPage";
     }
     
     @RequestMapping("/user/delete/{postId}")

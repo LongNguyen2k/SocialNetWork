@@ -13,6 +13,7 @@
     <c:url value="/user/" var="homePage" />
         <!--hidden-sm hidden-md hidden-lg -->
      <header class="hidden-sm hidden-md hidden-lg">
+         <div class="table-responsive">
         <div class="searchbox">
             <form>
                 <h1 class="text-left"><spring:message code="label.mainTitle" /></h1>
@@ -45,6 +46,7 @@
             </form>
         </div>
         <hr>
+        </div> 
     </header>
     
     
@@ -98,6 +100,24 @@
                                               <c:if test="${nor[2] == 5}">
                                                   <p> <spring:message code="label.winAuction"/>${nor[1]}<spring:message code="label.winAuction2" /></p>
                                                   </c:if> 
+                                            <c:if test="${nor[2] == 6}">
+                                                <p> <spring:message code="label.userSendReportApprove"/></p>
+                                           </c:if> 
+                                            <c:if test="${nor[2] == 7}">
+                                                <p> <spring:message code="label.userCreatePostApprove"/></p>
+                                           </c:if> 
+                                         <c:if test="${nor[2] == 8}">
+                                                <p> <spring:message code="label.userSendReportDenied"/></p>
+                                           </c:if> 
+                                           <c:if test="${nor[2] == 9}">
+                                                <p> <spring:message code="label.userSendReportApprove2"/></p>
+                                           </c:if>
+                                            <c:if test="${nor[2] == 10}">
+                                                <p> <spring:message code="label.userCreateCommentApprove"/></p>
+                                           </c:if>    
+                                            <c:if test="${nor[2] == 11}">
+                                                <p> <spring:message code="label.userSendReportDenied2"/></p>
+                                           </c:if>   
                                             </div>
                                           </div>  
                                     </div>
@@ -131,7 +151,7 @@
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
-                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
+                                    <li  role="presentation"><a  href = "<c:url  value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile"  /></a></li>
                                     <li class="divider" role="presentation"></li>
                                     <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                                 </ul>
@@ -174,6 +194,24 @@
                                            <c:if test="${nor[2] == 5}">
                                                <p> <spring:message code="label.winAuction"/>${nor[1]}<spring:message code="label.winAuction2" /></p>
                                                </c:if> 
+                                         <c:if test="${nor[2] == 6}">
+                                                <p> <spring:message code="label.userSendReportApprove"/></p>
+                                           </c:if> 
+                                            <c:if test="${nor[2] == 7}">
+                                                <p> <spring:message code="label.userCreatePostApprove"/></p>
+                                           </c:if> 
+                                         <c:if test="${nor[2] == 8}">
+                                                <p> <spring:message code="label.userSendReportDenied"/></p>
+                                           </c:if> 
+                                        <c:if test="${nor[2] == 9}">
+                                                <p> <spring:message code="label.userSendReportApprove2"/></p>
+                                           </c:if>
+                                            <c:if test="${nor[2] == 10}">
+                                                <p> <spring:message code="label.userCreateCommentApprove"/></p>
+                                           </c:if>    
+                                            <c:if test="${nor[2] == 11}">
+                                                <p> <spring:message code="label.userSendReportDenied2"/></p>
+                                           </c:if> 
                                             </div>
                                           </div>  
                                     </div>
@@ -225,7 +263,7 @@
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter')
             .css({ opacity: 0 })
-            .text('7')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .text('')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
             .css({ top: '-10px' })
             .animate({ top: '-2px', opacity: 1 }, 500);
 
@@ -264,7 +302,7 @@
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter2')
             .css({ opacity: 0 })
-            .text('7')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .text('')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
             .css({ top: '-10px' })
             .animate({ top: '-2px', opacity: 1 }, 500);
 

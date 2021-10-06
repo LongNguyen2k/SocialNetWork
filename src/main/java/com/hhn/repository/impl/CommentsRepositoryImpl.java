@@ -64,7 +64,9 @@ public class CommentsRepositoryImpl implements CommentsRepository{
                           cRoot.get("comment").as(String.class) , 
                           uRoot.get("avatar").as(String.class) ,
                           cRoot.get("likes") , 
-                          cRoot.get("id"));
+                          cRoot.get("id")  , 
+                          uRoot.get("username").as(String.class) , 
+                          cRoot.get("checkReported").as(Boolean.class));
         Query q = session.createQuery(query);
         return q.getResultList();
     }
@@ -118,7 +120,7 @@ public class CommentsRepositoryImpl implements CommentsRepository{
     public Comments getCommentsById(String CommentId) {
         Session session = sessionFactory.getObject().getCurrentSession();
         int id = Integer.parseInt(CommentId);
-        return session.getReference(Comments.class, id);
+        return session.get(Comments.class,id);
     }
     
 }

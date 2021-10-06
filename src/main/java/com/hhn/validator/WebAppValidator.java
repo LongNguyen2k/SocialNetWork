@@ -19,13 +19,13 @@ import org.springframework.validation.Validator;
  */
 @Component
 public class WebAppValidator implements Validator{
-     @Autowired
+    @Autowired
     private javax.validation.Validator beanValidator;
     private Set<Validator> springValidator;
     
     @Override
     public boolean supports(Class<?> type) {
-        return User.class.isAssignableFrom(type);
+        return User.class.isAssignableFrom(type)|| ReportValidator.class.isAssignableFrom(type);
     }
     
 

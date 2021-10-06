@@ -42,6 +42,7 @@ public class CommentsServiceImpl implements CommentsService{
         comments.setComment(commentText);
         comments.setUser(user);
         comments.setPost(postUserLike);
+        comments.setCheckReported(false);
         Date date = new Date();
         comments.setPostAt(date);
         return this.commentsRepository.addComment(comments);
@@ -76,6 +77,11 @@ public class CommentsServiceImpl implements CommentsService{
        commentsUserLike.setLikes(currentCommentLikes);
        LikeComment likeComment = this.likeCommentRepository.checkLikeComment(userLikeComment, commentsUserLike).get(0);
        return this.commentsRepository.unLikeComment(commentsUserLike, likeComment);
+    }
+
+    @Override
+    public Comments getCommentsID(String commentID) {
+       return this.commentsRepository.getCommentsById(commentID);
     }
     
     

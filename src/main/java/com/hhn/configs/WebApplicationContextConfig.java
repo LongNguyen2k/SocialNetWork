@@ -5,7 +5,10 @@
  */
 package com.hhn.configs;
 import com.hhn.formatter.CategoryPostFormatter;
+import com.hhn.formatter.CommentFormatter;
+import com.hhn.formatter.PostFormatter;
 import com.hhn.formatter.UserFormatter;
+import com.hhn.validator.ReportValidator;
 import com.hhn.validator.UserValidator;
 import com.hhn.validator.WebAppValidator;
 import java.util.HashSet;
@@ -84,12 +87,24 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         return v;
         
     }
+    @Bean
+    public WebAppValidator reportValidator(){
+          Set<Validator> springValidators = new HashSet<>();
+        springValidators.add(new ReportValidator());
+        
+        WebAppValidator v = new WebAppValidator();
+        v.setSpringValidator(springValidators);
+        
+        return v;
+    }
    
     
     @Override
    public  void addFormatters(FormatterRegistry registry) {
        registry.addFormatter(new CategoryPostFormatter());
        registry.addFormatter(new UserFormatter());
+       registry.addFormatter(new PostFormatter());
+       registry.addFormatter(new CommentFormatter());
     }
    
    

@@ -9,6 +9,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\Notitificat
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\NotificationService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\ProfileController.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\Auctions.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\validator\ReportValidator.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\CategoryPostRepository.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\Notifications.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\AuctionServiceImpl.java
@@ -17,6 +18,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\UserRe
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\UserService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\DispatcherServletInitializer.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\SignInController.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\ReportServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\LikeComment.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\CategoryPostService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\formatter\CategoryPostFormatter.java
@@ -25,6 +27,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\CommentsS
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\HibernateConfig.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\Comments.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\LikePost.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\formatter\CommentFormatter.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\LikePostServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\validator\PostValidator.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\SecurityWebApplicationInitializer.java
@@ -33,6 +36,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\ReportCont
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\AdminController.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\LikeCommentService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\UserRepository.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\ReportPost.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\PostServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\LikePostService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\LikeCommentRepository.java
@@ -45,13 +49,18 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\LikeComme
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\UserServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\TilesConfig.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\LikeCommentRepositoryImpl.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\ReportComment.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\ReportRepository.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\ReportRepositoryImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\validator\WebAppValidator.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\AuctionRepositoryImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\CommentsRepositoryImpl.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\ReportService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\LikePostRepository.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\WebApplicationContextConfig.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\NotificationServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\CommentsRepository.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\formatter\PostFormatter.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\CategoryPost.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\validator\UserValidator.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\SpringSecurityConfig.java

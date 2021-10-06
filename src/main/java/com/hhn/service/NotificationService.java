@@ -6,6 +6,7 @@
 package com.hhn.service;
 
 import com.hhn.pojos.Notifications;
+import com.hhn.pojos.User;
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ import java.util.List;
 public interface NotificationService {
     List<Object[]> getNotificationFromUser(String UserName);
     boolean addNotifications(String userCurrentLoggedInName , String postIdHaveUser , Notifications notifications);
+    boolean addNotificationAdmin(User adminSendReport , User userReceiveReport , Notifications notifications);
 }

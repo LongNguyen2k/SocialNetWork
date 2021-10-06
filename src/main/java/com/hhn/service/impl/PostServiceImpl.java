@@ -72,6 +72,7 @@ public class PostServiceImpl implements PostService{
         Date date = new Date();
         post.setPostAt(date);
         post.setLikes(Post.likeCount);
+        post.setCheckReported(false);
         // kiểm tra Content xem có chứa 1 đoạn hashtag nào không 
         
         if(post.getFile().getSize() == 0 )

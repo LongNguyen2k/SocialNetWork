@@ -37,8 +37,11 @@ public class Comments implements Serializable{
     
     private int likes; 
     
+    @Column(name="check_reported")
+    private boolean checkReported;
+    
     @JoinColumn(name = "user_id" )
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     
     @JoinColumn(name = "post_id")
@@ -91,5 +94,13 @@ public class Comments implements Serializable{
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public boolean isCheckReported() {
+        return checkReported;
+    }
+
+    public void setCheckReported(boolean checkReported) {
+        this.checkReported = checkReported;
     }
 }

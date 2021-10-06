@@ -42,6 +42,7 @@
                 <h3>${countComment} <span><spring:message code="label.CMT" /></h3>
                 <!-- COMMENT 1 - START -->
                  <c:forEach items="${commentOfPost}" var="cmt">
+                <c:if test="${cmt[7] == false}">
                 <div class="media">
                     <a class="pull-left" href="#"><img class="media-object" src="<c:url value="${cmt[3]}" />" alt=""></a>
                     <div class="media-body">
@@ -52,10 +53,29 @@
                             <li><i class="fa fa-thumbs-up"></i>${cmt[4]}</li>
                         </ul>
                         <ul class="list-unstyled list-inline media-detail pull-right">
+                            <c:if test="${cmt[6] != pageContext.request.userPrincipal.name}">
+                             <li class=""><a href="<c:url value="/user/SendReportCommentPage/?commentID=${cmt[5]}&username=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.reportComment" /></a></li>
+                            </c:if>
                             <li class=""><a href="<c:url value="/user/likesComment?username=${pageContext.request.userPrincipal.name}&comment_id=${cmt[5]}&post_id=${post_id}"/> "><spring:message code="label.like" /></a></li>
                         </ul>
                     </div>
                 </div>
+                </c:if>
+                <c:if test="${cmt[7] == true}">
+                     <div class="media">
+                    <a class="pull-left" href="#"></a>
+                    <div class="media-body">
+                        <h4 class="media-heading"></h4>
+                        <p><spring:message code="label.commentBeingReport" /></p>
+                        <ul class="list-unstyled list-inline media-detail pull-left">
+                            <li><i class="fa fa-calendar"></i><spring:message code="label.timePost" /></li>
+                            <li><i class="fa fa-thumbs-up"></i></li>
+                        </ul>
+                       
+                    </div>
+                </div>
+                </c:if>
+                
                   </c:forEach>
                 <!-- COMMENT 1 - END -->
                 </c:forEach>              

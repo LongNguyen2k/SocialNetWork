@@ -21,15 +21,9 @@
     		
                 <form:form  action="${addNewPost}" method="post" modelAttribute="post" enctype="multipart/form-data" >  
                     
-                    <div class="form-group">
-                        <label for="cate"><spring:message code="label.userCreatePost" />  </label>
-                        <form:select id="user" path="user" class="form-control">
-                            <c:forEach items="${userIdLoggedIn}" var="u">
-                                <option value="${u.id}">${u.name}</option>
-                            </c:forEach>
-                        </form:select>
-                        
-                         <form:errors path="categoryPost" cssClass="text-danger" element="div" />
+                    <div class="form-group">  
+                        <form:input type="hidden" path="user" value="${userIdLoggedIn.id}"  />
+                         <form:errors path="user" cssClass="text-danger" element="div" />
     		    </div>
                     
                     
@@ -73,3 +67,6 @@
 		
 	</div>
 </div> 
+                
+                
+             
