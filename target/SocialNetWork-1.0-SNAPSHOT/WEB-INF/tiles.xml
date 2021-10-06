@@ -30,7 +30,7 @@
          <put-attribute name="title" value="Add New Post Page" />
         <put-attribute name="content" value="/WEB-INF/jsp/addPost.jsp"/>
     </definition>
-     <definition name="updatePostPage" extends="homePage">
+     <definition name="UpdatePostPage" extends="homePage">
          <put-attribute name="title" value="Update Current Post Page" />
         <put-attribute name="content" value="/WEB-INF/jsp/updatePost.jsp"/>
     </definition>
@@ -43,9 +43,17 @@
          <put-attribute name="title" value="Sign Up" />
         <put-attribute name="content" value="/WEB-INF/jsp/signup.jsp"/>
     </definition>
-      <definition name="adminPage" extends="homePage">
+    <definition name="adminPage" extends="homePage">
          <put-attribute name="title" value="Admin Thống Kê" />
         <put-attribute name="content" value="/WEB-INF/jsp/adminPageStatistical.jsp"/>
+    </definition>
+     <definition name="adminReportListPage" extends="homePage">
+         <put-attribute name="title" value="Báo cáo bài viết " />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminPageListReport.jsp"/>
+    </definition>
+     <definition name="adminReportListCommentPage" extends="homePage">
+         <put-attribute name="title" value="Báo cáo bình luận" />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminPageListReportComment.jsp"/>
     </definition>
     <definition name="notfications" extends="homePage">
         <put-attribute name="title" value="NotificationPage"  />
@@ -60,9 +68,17 @@
         <put-attribute name="title" value="Report Page"  />
         <put-attribute name="content" value="/WEB-INF/jsp/formReportPost.jsp" />
     </definition>
-    
-      <definition name="confirmReport" template="/WEB-INF/jsp/confirmReport.jsp">
-      
+     <definition name="sendReportPage" extends="homePage">
+        <put-attribute name="title" value="Report Page"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/formSendReport.jsp" />
     </definition>
-    
+     <definition name="sendReportCommentPage" extends="homePage">
+        <put-attribute name="title" value="Report Comment Page"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/formSendReportComment.jsp" />
+    </definition>
+      <definition name="confirmReport" template="/WEB-INF/jsp/confirmReport.jsp"></definition>
+       <definition name="directionalAdminPage" extends="homePage">
+        <put-attribute name="title" value="Directional Admin page"  />
+        <put-attribute name="content" value="/WEB-INF/jsp/directionalAdminPage.jsp" />
+       </definition>
 </tiles-definitions>

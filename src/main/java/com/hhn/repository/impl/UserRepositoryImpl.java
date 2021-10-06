@@ -121,6 +121,19 @@ public class UserRepositoryImpl implements UserRepository{
         int Userid = Integer.parseInt(id);
         return session.get(User.class,Userid);
     }
+
+    @Override
+    public List<User> getUserAdminRole() {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> uRoot = query.from(User.class);
+        Predicate p = builder.equal(uRoot.get("uRole").as(String.class),"ROLE_ADMIN");
+        query.where(p);
+        query.select(uRoot);
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
     
     
 

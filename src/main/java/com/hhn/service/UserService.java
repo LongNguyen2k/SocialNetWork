@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService{
     boolean checkUserName(String username);
     List<User> getUserIdLoggedIn(String UserId);
      User getUserID(String id);
+     List<User> getListAdminRole();
+    List<User> getCurrentLoggedInUser(String username);
 }

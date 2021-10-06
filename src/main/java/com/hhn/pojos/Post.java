@@ -51,6 +51,10 @@ public class Post implements Serializable{
     
     private int likes;
     private String image;
+    
+    @Column(name = "check_reported")
+    private boolean checkReported;
+    
     @NotNull(message = "{post.startprice.notNullMsg}")
     @Min(value = 1 , message = "{product.price.minMsg}")
     @Max(value = 1000000000 , message="{product.price.maxMsg}")
@@ -153,6 +157,14 @@ public class Post implements Serializable{
 
     public void setStartprice(BigDecimal startprice) {
         this.startprice = startprice;
+    }
+
+    public boolean isCheckReported() {
+        return checkReported;
+    }
+
+    public void setCheckReported(boolean checkReported) {
+        this.checkReported = checkReported;
     }
     
     

@@ -20,4 +20,5 @@ public interface UserRepository {
     List<User> getUserIdLoggedIn(String UserId);
     List<User> getCurrentLoggedInUser(String username);
     User getUserID(String id);
+    List<User> getUserAdminRole();
 }

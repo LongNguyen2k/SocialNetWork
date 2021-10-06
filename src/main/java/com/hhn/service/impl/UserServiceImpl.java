@@ -91,10 +91,22 @@ public class UserServiceImpl implements UserService{
     public List<User> getUserIdLoggedIn(String userId) {
        return this.userRepository.getUserIdLoggedIn(userId);
     }
+    
+    
 
     @Override
     public User getUserID(String id) {
         return this.userRepository.getUserID(id);
+    }
+
+    @Override
+    public List<User> getListAdminRole() {
+       return this.userRepository.getUserAdminRole();
+    }
+
+    @Override
+    public List<User> getCurrentLoggedInUser(String username) {
+        return this.userRepository.getCurrentLoggedInUser(username);
     }
     
     

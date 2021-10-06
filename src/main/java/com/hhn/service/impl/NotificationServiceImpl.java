@@ -92,9 +92,21 @@ public class NotificationServiceImpl  implements NotificationService{
                 break;
               }
               
+              
+              
         }     
        return this.notificationRepository.addNotifications(notifications);
     }
+
+    @Override
+    public boolean addNotificationAdmin(User adminSendReport , User userReceiveReport , Notifications notifications) {
+        notifications.setSenderUser(adminSendReport);
+        notifications.setReceiverUser(userReceiveReport);
+        return this.notificationRepository.addNotifications(notifications);
+    }
+    
+    
+   
     
 }
 

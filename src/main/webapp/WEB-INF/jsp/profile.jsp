@@ -68,6 +68,9 @@
         <div>
             <a href="<c:url value="/admin/statistical" />" class="btn btn-default buttonProfile"> <spring:message code="button.adminStaticstical" />  </a>
         </div>
+        <div>
+            <a href="<c:url value="/admin/directionalPage" />" class="btn btn-default buttonProfile"> <spring:message code="button.adminReportCommentAndPost" />  </a>
+        </div>
         </sec:authorize>
          </c:forEach>
     </div>
@@ -82,6 +85,7 @@
         <div class="post-component border border-primary">
         <c:forEach var="post" items="${postUserProfile}">
         <c:if test="${!postUserProfile.isEmpty()}">
+            <c:if test="${post[7] == false}">  
         <li class="list-group-item">
             <blockquote>    
                 <div class="row" style="margin-bottom: 5px;"> 
@@ -102,7 +106,7 @@
                             <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
                               <ul class="dropdown-menu">
-                                  <li><a href="<c:url value="/user/updatePost?postId=${post[6]}" />" style="color:lightblue;"><spring:message code="button.updatePost" /> </a></li>
+                                  <li><a href="<c:url value="/user/updatePostPage?postId=${post[6]}" />" style="color:lightblue;"><spring:message code="button.updatePost" /> </a></li>
                                   <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
                                   
                               </ul>
@@ -130,7 +134,53 @@
             </blockquote>
         </li>
              </c:if> 
+             </c:if>     
+             
+        <c:if test="${post[7] == true}">
+           <li class="list-group-item">
+            <blockquote>    
+                <div class="row" style="margin-bottom: 5px;"> 
+                    <div class="col-md-6">
+                    <div class="media">
+                        <div class="media-left">
+                            <img src="<c:url value="${post[0]}" />" alt="" width="50" class="img-circle" >
+                        </div>
+                        <div class="media-body">
+                            <span class="font-weight-bold">${post[1]}</span>                  
+                            <small class="text-primary">On ${post[4]}</small>  
+                         </div>
+                     
+                    </div>
+                    </div> 
+                    <div class="pull-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
+                              <ul class="dropdown-menu">
+                                  <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
+                              </ul>
+                            </li>
+                     </ul> 
+                   </div> 
+                    
+                </div>          
+                     <img src="<c:url value="https://res.cloudinary.com/decmhyieh/image/upload/v1633318525/lock_o0dctw.png" />" alt="" width="100%"  />    
+                <div class="row ">
+                    <br/>
+                        <p style="word-break: break-word;">
+                            <spring:message code="label.reportedPost" />
+                        </p>
+                  </div>
+                <footer>Posted by ${post[1]} 
+                </footer>
+            </blockquote>
+        </li>
+        </c:if>
+        
              </c:forEach>   
+        
+       
+        
         </div>
     </ul>
 </div>
@@ -139,7 +189,7 @@
     <!-- Adding New Post Section-->
     <c:forEach var="u" items="${userProfile}">
     <div class="col-md-3">
-        <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPost?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
+        <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPostPage?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
         </c:forEach>   
         
     </div>

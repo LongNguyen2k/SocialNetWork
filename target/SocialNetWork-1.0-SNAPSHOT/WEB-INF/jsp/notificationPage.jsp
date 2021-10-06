@@ -41,6 +41,24 @@
                                               <c:if test="${nor[2] == 5}">
                                                   <p> <spring:message code="label.winAuction"/>${nor[1]}<spring:message code="label.winAuction2" /></p>
                                                   </c:if> 
+                                             <c:if test="${nor[2] == 6}">
+                                                <p> <spring:message code="label.userSendReportApprove"/></p>
+                                           </c:if> 
+                                            <c:if test="${nor[2] == 7}">
+                                                <p> <spring:message code="label.userCreatePostApprove"/></p>
+                                           </c:if> 
+                                         <c:if test="${nor[2] == 8}">
+                                                <p> <spring:message code="label.userSendReportDenied"/></p>
+                                           </c:if> 
+                                        <c:if test="${nor[2] == 9}">
+                                                <p> <spring:message code="label.userSendReportApprove2"/></p>
+                                           </c:if>
+                                            <c:if test="${nor[2] == 10}">
+                                                <p> <spring:message code="label.userCreateCommentApprove"/></p>
+                                           </c:if>    
+                                            <c:if test="${nor[2] == 11}">
+                                                <p> <spring:message code="label.userSendReportDenied2"/></p>
+                                           </c:if> 
                                             </div>
                                 </div>  
                             </blockquote>

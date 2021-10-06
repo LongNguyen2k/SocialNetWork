@@ -4,6 +4,7 @@ com\hhn\pojos\User.class
 com\hhn\service\AuctionService.class
 com\hhn\service\impl\AuctionServiceImpl.class
 com\hhn\service\impl\CommentsServiceImpl.class
+com\hhn\pojos\ReportPost.class
 com\hhn\configs\SpringSecurityConfig.class
 com\hhn\pojos\Post.class
 com\hhn\validator\UserValidator.class
@@ -13,17 +14,22 @@ com\hhn\service\impl\PostServiceImpl.class
 com\hhn\repository\NotitificationRepository.class
 com\hhn\service\UserService.class
 com\hhn\configs\SecurityWebApplicationInitializer.class
+com\hhn\pojos\ReportComment.class
 com\hhn\repository\CategoryPostRepository.class
 com\hhn\repository\impl\AuctionRepositoryImpl.class
 com\hhn\repository\impl\CategoryPostRepositoryImpl.class
 com\hhn\pojos\Auctions.class
+com\hhn\formatter\PostFormatter.class
 com\hhn\repository\impl\NotificationRepositoryImpl.class
+com\hhn\service\ReportService.class
 com\hhn\validator\WebAppValidator.class
 com\hhn\configs\TilesConfig.class
+com\hhn\repository\ReportRepository.class
 com\hhn\service\PostService.class
 com\hhn\repository\LikeCommentRepository.class
 com\hhn\repository\impl\LikeCommentRepositoryImpl.class
 com\hhn\controllers\ReportController.class
+com\hhn\repository\impl\ReportRepositoryImpl.class
 com\hhn\pojos\Notifications.class
 com\hhn\repository\PostRepository.class
 com\hhn\controllers\HomeController.class
@@ -42,7 +48,9 @@ com\hhn\pojos\LikeComment.class
 com\hhn\service\NotificationService.class
 com\hhn\controllers\SignInController.class
 com\hhn\configs\DispatcherServletInitializer.class
+com\hhn\formatter\CommentFormatter.class
 com\hhn\service\LikeCommentService.class
+com\hhn\validator\ReportValidator.class
 com\hhn\configs\WebApplicationContextConfig.class
 com\hhn\repository\LikePostRepository.class
 com\hhn\configs\HibernateConfig.class
@@ -53,5 +61,6 @@ com\hhn\formatter\UserFormatter.class
 com\hhn\pojos\CategoryPost.class
 com\hhn\service\impl\LikePostServiceImpl.class
 com\hhn\pojos\LikePost.class
+com\hhn\service\impl\ReportServiceImpl.class
 com\hhn\repository\impl\PostRepositoryImpl.class
 com\hhn\service\impl\LikeCommentServiceImpl.class

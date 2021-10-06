@@ -59,7 +59,8 @@ public class PostRepositoryImpl implements  PostRepository{
                           pRoot.get("content").as(String.class) , 
                           pRoot.get("postAt").as(java.sql.Date.class) , 
                           pRoot.get("likes") ,
-                           pRoot.get("id") );
+                           pRoot.get("id") , 
+                           pRoot.get("checkReported").as(Boolean.class)) ;
         Query<Object[]> q = session.createQuery(query);
         return q.getResultList();
         
@@ -76,6 +77,7 @@ public class PostRepositoryImpl implements  PostRepository{
       
         Predicate p1 = builder.equal(pRoot.get("user"), uRoot.get("id"));  
         Predicate p2 =  builder.like( pRoot.get("content").as(String.class) ,"%%");
+        Predicate p3 = builder.equal(pRoot.get("checkReported").as(Boolean.class),false);
 //          Root<Comments> cRoot = query.from(Comments.class);
 //        Predicate p3 = builder.equal(pRoot.get("id"),cRoot.get("post"));
         if(!kw.isEmpty() && kw != null ){
@@ -83,15 +85,16 @@ public class PostRepositoryImpl implements  PostRepository{
         }
 //        cRoot.get("comment").as(String.class),
 //        cRoot.get("user").as(User.class)
-        query.where(builder.and(p1,p2));
+        query.where(builder.and(p1,p2,p3));
         query.multiselect(uRoot.get("avatar").as(String.class),
                           uRoot.get("name").as(String.class), 
                           pRoot.get("image").as(String.class),
                           pRoot.get("content").as(String.class) , 
                           pRoot.get("postAt").as(java.sql.Date.class) , 
                           pRoot.get("likes") ,
-                           pRoot.get("id") 
-//                          , pRoot.get("comments").as(Comments.class)
+                           pRoot.get("id") ,
+                           uRoot.get("username").as(String.class)
+                         
                           );
         query.orderBy(builder.desc(pRoot.get("id")));
         Query<Object[]> q = session.createQuery(query);
@@ -115,13 +118,14 @@ public class PostRepositoryImpl implements  PostRepository{
         Predicate p2 = builder.equal(pRoot.get("user"),uRoot.get("id"));
         Predicate p3 = builder.like(cRoot.get("id").as(String.class),"%%" );
         Predicate p4 = builder.like( pRoot.get("content").as(String.class) ,"%%");
+        Predicate p5 = builder.equal(pRoot.get("checkReported").as(Boolean.class),false);
         if(!id.isEmpty() && id != null ){
               p3 = builder.like( cRoot.get("id").as(String.class) , String.format("%%%s%%" ,id));
         }
         if(!kw.isEmpty() && kw != null ){
               p4 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,kw));
         }
-        query.where(builder.and(p1,p2,p3,p4));
+        query.where(builder.and(p1,p2,p3,p4,p5));
         query.multiselect(uRoot.get("avatar").as(String.class),
                           uRoot.get("name").as(String.class), 
                           pRoot.get("image").as(String.class),
