@@ -3,6 +3,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\HomeContro
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\AuctionRespository.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\CommentsService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\Post.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\StatsRepository.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\PostRepository.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\NotificationRepositoryImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\NotitificationRepository.java
@@ -37,6 +38,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\AdminContr
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\LikeCommentService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\UserRepository.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\ReportPost.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\StatsServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\PostServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\LikePostService.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\LikeCommentRepository.java
@@ -44,6 +46,7 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\Catego
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\controllers\SignUpController.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\LikePostRepositoryImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\CategoryPostServiceImpl.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\repository\impl\StatsRepositoryImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\User.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\LikeCommentServiceImpl.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\impl\UserServiceImpl.java
@@ -64,3 +67,4 @@ D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\formatter\PostFormatte
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\pojos\CategoryPost.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\validator\UserValidator.java
 D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\configs\SpringSecurityConfig.java
+D:\DoAnNganh\JavaDoAn\SocialNetWork\src\main\java\com\hhn\service\StatsService.java

@@ -43,10 +43,18 @@
          <put-attribute name="title" value="Sign Up" />
         <put-attribute name="content" value="/WEB-INF/jsp/signup.jsp"/>
     </definition>
-    <definition name="adminPage" extends="homePage">
-         <put-attribute name="title" value="Admin Thống Kê" />
-        <put-attribute name="content" value="/WEB-INF/jsp/adminPageStatistical.jsp"/>
+    
+    <definition name="adminPage" template="/WEB-INF/layout/base-admin.jsp">
+         <put-attribute name="title" value="Quản trị thống kê dữ liệu" />
+         <put-attribute name="left" value="/WEB-INF/jsp/admin-left.jsp" />
+        <put-attribute name="content" value="..."/>
+          <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />   
     </definition>
+    <definition name="categoryStats" extends="adminPage" >
+        <put-attribute name="title" value="Thống kê số lượng bài viết theo danh mục" />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminCateogryStats.jsp" />
+    </definition>
+    
      <definition name="adminReportListPage" extends="homePage">
          <put-attribute name="title" value="Báo cáo bài viết " />
         <put-attribute name="content" value="/WEB-INF/jsp/adminPageListReport.jsp"/>

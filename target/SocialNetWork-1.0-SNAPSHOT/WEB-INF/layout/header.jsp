@@ -13,7 +13,7 @@
     <c:url value="/user/" var="homePage" />
         <!--hidden-sm hidden-md hidden-lg -->
      <header class="hidden-sm hidden-md hidden-lg">
-         <div class="table-responsive">
+         <div class="">
         <div class="searchbox">
             <form>
                 <h1 class="text-left"><spring:message code="label.mainTitle" /></h1>
@@ -29,11 +29,11 @@
                         <li class="divider" role="presentation"></li>
                         <li role="presentation"><a href="${homePage}"><spring:message code="h1.timeline" /></a></li>
                         <li role="presentation"><a href="<c:url value="/user/notification/" />"><spring:message code="label.notifications" /></a></li> 
-                       <sec:authorize access="hasRole('ROLE_ADMIN')">
+                      
                             <c:forEach var="cat" items="${categories}">
-                                <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                <li  role="presentation"><a  href="<c:url value="/user/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
                             </c:forEach>
-                       </sec:authorize>  
+                     
                                 <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                         </c:if>
                         <c:if test="${pageContext.request.userPrincipal.name == null }">
@@ -127,15 +127,15 @@
                             </li>
 <!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
                             <!-- Notification -->
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                      
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <c:forEach var="cat" items="${categories}">
-                                        <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                        <li  role="presentation"><a  href="<c:url value="/user/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
-                       </sec:authorize>
+                   
                         <c:if test="${pageContext.request.userPrincipal.name == null }">
                         <li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">User <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -221,15 +221,15 @@
                             </li>
 <!--                            <li  role="presentation" ><a href="#">Notifications</a></li>-->
                             <!-- Notification -->
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                           
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <c:forEach var="cat" items="${categories}">
-                                        <li  role="presentation"><a  href="<c:url value="/admin/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                        <li  role="presentation"><a  href="<c:url value="/user/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
-                            </sec:authorize>
+                          
                             <c:if test="${pageContext.request.userPrincipal.name == null }">
                                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">User <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
