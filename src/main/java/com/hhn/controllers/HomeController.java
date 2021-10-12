@@ -93,7 +93,7 @@ public class HomeController {
         model.addAttribute("notifications", new Notifications());
         return "homePage";
     }
-    @RequestMapping(value ="/admin/postByCategoryPost")
+    @RequestMapping(value ="/user/postByCategoryPost")
     public String getPostByCateId(Model model ,@RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ,
             @RequestParam(value="catPostId", required = false , defaultValue = "") String id){
         model.addAttribute("listPostFromCategory" , this.postService.getPostFromCategoryPost(kw,id));

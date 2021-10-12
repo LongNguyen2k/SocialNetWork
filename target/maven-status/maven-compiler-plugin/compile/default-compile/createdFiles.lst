@@ -37,9 +37,11 @@ com\hhn\repository\AuctionRespository.class
 com\hhn\service\CategoryPostService.class
 com\hhn\validator\PostValidator.class
 com\hhn\repository\impl\CommentsRepositoryImpl.class
+com\hhn\service\StatsService.class
 com\hhn\repository\impl\LikePostRepositoryImpl.class
 com\hhn\service\impl\UserServiceImpl.class
 com\hhn\controllers\SignUpController.class
+com\hhn\repository\impl\StatsRepositoryImpl.class
 com\hhn\service\impl\CategoryPostServiceImpl.class
 com\hhn\pojos\Comments.class
 com\hhn\service\CommentsService.class
@@ -60,7 +62,9 @@ com\hhn\formatter\CategoryPostFormatter.class
 com\hhn\formatter\UserFormatter.class
 com\hhn\pojos\CategoryPost.class
 com\hhn\service\impl\LikePostServiceImpl.class
+com\hhn\service\impl\StatsServiceImpl.class
 com\hhn\pojos\LikePost.class
+com\hhn\repository\StatsRepository.class
 com\hhn\service\impl\ReportServiceImpl.class
 com\hhn\repository\impl\PostRepositoryImpl.class
 com\hhn\service\impl\LikeCommentServiceImpl.class

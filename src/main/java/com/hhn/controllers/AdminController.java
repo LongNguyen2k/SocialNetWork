@@ -15,6 +15,7 @@ import com.hhn.service.CommentsService;
 import com.hhn.service.NotificationService;
 import com.hhn.service.PostService;
 import com.hhn.service.ReportService;
+import com.hhn.service.StatsService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,18 @@ public class AdminController {
     private PostService postService;
     @Autowired
     private CommentsService commentService;
+    @Autowired
+    private  StatsService statsService;
     @GetMapping("/admin/statistical")
     public String adminPage(Model model){
         return "adminPage";
+    }
+    
+    @RequestMapping("/admin/admincategorystats")
+    public String adminCategoyStats(Model model)
+    {
+        model.addAttribute("categoryPostStats", this.statsService.categoryPostStats());
+        return "categoryStats";
     }
     @GetMapping("/admin/directionalPage")
     public String directionalAdminPage(Model model)
