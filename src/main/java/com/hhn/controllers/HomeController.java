@@ -63,7 +63,8 @@ public class HomeController {
     private NotificationService notificationService;
     @Autowired
     private AuctionService auctionService;
-
+    private int counterMaxPage = 30;
+    private int counterCategoryPage = 10;
     @ModelAttribute
     public void commonAttribute(Model model){
     model.addAttribute("categories" , this.CategoryPostService.getCategories());
@@ -86,19 +87,16 @@ public class HomeController {
     public String index(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ,
             @RequestParam(required=false,defaultValue = "")Map<String,String> params , HttpServletRequest request ){
         int page = Integer.parseInt(params.getOrDefault("page","1"));
-        model.addAttribute("postNewFeed" , this.postService.getPostNewFeed(kw,page));
+        String catPostID = params.get("catPostId");
+        model.addAttribute("postNewFeed" , this.postService.getPostNewFeed(kw,page,catPostID));
         model.addAttribute("counter" , this.postService.countPost());
+        model.addAttribute("counterMaxPage",counterMaxPage);
         model.addAttribute("likePost", new LikePost());
         model.addAttribute("likeComment", new LikeComment());
         model.addAttribute("notifications", new Notifications());
         return "homePage";
     }
-    @RequestMapping(value ="/user/postByCategoryPost")
-    public String getPostByCateId(Model model ,@RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ,
-            @RequestParam(value="catPostId", required = false , defaultValue = "") String id){
-        model.addAttribute("listPostFromCategory" , this.postService.getPostFromCategoryPost(kw,id));
-        return"postByCategoryPost";
-    }
+   
     @GetMapping("/user/likesPost")
     public String addLikesOrUnLike(Model model  ,@ModelAttribute(value="likePost")LikePost likePost ,
             @ModelAttribute(value="notifications")Notifications notifications , 

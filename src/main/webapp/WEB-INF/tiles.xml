@@ -55,6 +55,27 @@
         <put-attribute name="content" value="/WEB-INF/jsp/adminCateogryStats.jsp" />
     </definition>
     
+     <definition name="postStats" extends="adminPage" >
+        <put-attribute name="title" value="Thống kê số lượng bài viết danh mục theo thời gian" />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminPostStats.jsp" />
+    </definition>
+    <definition name="likeStats" extends="adminPage" >
+        <put-attribute name="title" value="Thống kê số lượng like theo danh mục " />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminLikeStats.jsp" />
+    </definition>
+     <definition name="commentStats" extends="adminPage" >
+        <put-attribute name="title" value="Thống kê số lượng bình luận theo danh mục " />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminCommentStats.jsp" />
+    </definition>
+     <definition name="commentDayMonthStats" extends="adminPage" >
+        <put-attribute name="title" value="Thống kê số lượng bình luận theo từ khóa theo thời gian " />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminCommentDayMonthStats.jsp" />
+    </definition>
+     <definition name="reportStats" extends="adminPage" >
+        <put-attribute name="title" value="Thống kê số lượng report bài viết, bình luận theo danh mục " />
+        <put-attribute name="content" value="/WEB-INF/jsp/adminReportStats.jsp" />
+    </definition>
+    
      <definition name="adminReportListPage" extends="homePage">
          <put-attribute name="title" value="Báo cáo bài viết " />
         <put-attribute name="content" value="/WEB-INF/jsp/adminPageListReport.jsp"/>

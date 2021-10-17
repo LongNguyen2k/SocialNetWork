@@ -16,6 +16,9 @@ import com.hhn.service.NotificationService;
 import com.hhn.service.PostService;
 import com.hhn.service.ReportService;
 import com.hhn.service.StatsService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +55,75 @@ public class AdminController {
         model.addAttribute("categoryPostStats", this.statsService.categoryPostStats());
         return "categoryStats";
     }
+    @RequestMapping("/admin/adminpoststats")
+    public String adminPostStats(Model model , @RequestParam(required=false)Map<String,String> params)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String kw = params.getOrDefault("kw",null);
+        
+        Date fromDate = null, toDate = null;
+        try{
+            String fromDateS = params.getOrDefault("fromDate",null);
+           if(fromDateS != null )
+               fromDate = format.parse(fromDateS);
+
+           String toDateS = params.getOrDefault("toDate",null);
+           if(toDateS != null )
+               toDate = format.parse(toDateS);
+        
+        }catch(ParseException ex)
+        {
+            ex.printStackTrace();
+        }
+       
+        
+        model.addAttribute("postStats" , this.statsService.postStats(kw,fromDate,toDate));
+        return "postStats";
+    }
+    @RequestMapping("/admin/adminreportstats")
+    public String adminReportRadarChart(Model model)
+    {
+        model.addAttribute("reportPostChart", this.statsService.reportPostStats());
+        model.addAttribute("reportCommentChart", this.statsService.reportCommentStats());
+        return "reportStats";
+    }
+    
+    @RequestMapping("/admin/adminlikestats")
+    public String likeStats(Model model)
+    {
+        model.addAttribute("likeStats" , this.statsService.likeStats());
+        return "likeStats";
+    }
+    @RequestMapping("/admin/admincommentstats")
+    public String commentStats(Model model)
+    {
+        model.addAttribute("commentStats" , this.statsService.commentsStats());
+        return "commentStats";
+    }
+    @RequestMapping("/admin/admincommentdaymonthstats")
+    public String commentDayMonthStats(Model model, @RequestParam(required=false)Map<String,String> params)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String kw = params.getOrDefault("kw",null);
+        
+        Date fromDate = null, toDate = null;
+        try{
+            String fromDateS = params.getOrDefault("fromDate",null);
+           if(fromDateS != null )
+               fromDate = format.parse(fromDateS);
+
+           String toDateS = params.getOrDefault("toDate",null);
+           if(toDateS != null )
+               toDate = format.parse(toDateS);
+        
+        }catch(ParseException ex)
+        {
+            ex.printStackTrace();
+        }
+        model.addAttribute("commentDayMonthStats", this.statsService.commentDayMonthStat(kw,fromDate,toDate));
+        return"commentDayMonthStats";
+    }
+    
     @GetMapping("/admin/directionalPage")
     public String directionalAdminPage(Model model)
     {

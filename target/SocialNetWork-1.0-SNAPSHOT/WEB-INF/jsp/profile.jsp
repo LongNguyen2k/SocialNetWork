@@ -190,6 +190,7 @@
     <c:forEach var="u" items="${userProfile}">
     <div class="col-md-3">
         <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPostPage?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
+         <a class="btn btn-default buttonProfile" href="#" type="button">BàiViếtChiếnThắngĐấuGiá</a>
         </c:forEach>   
         
     </div>

@@ -53,7 +53,7 @@
                                     ${post[3]}
                                 </p>
                           </div>
-                                    <footer><spring:message code="footer.label" /> ${post[1]} 
+                                    <footer class="text-primary"><spring:message code="footer.label" /> ${post[1]}  #${post[8].name}
                             <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} <spring:message code="span.like" /></span></a>
                             <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> <spring:message code="label.auction" /></span></a>                            
                         </footer>
@@ -74,7 +74,7 @@
                 
              <div>
                  <ul class="pagination"> 
-                    <c:forEach begin="1" end="${Math.ceil(counter/3)}" var="i">
+                    <c:forEach begin="1" end="${Math.ceil(counter/counterMaxPage)}" var="i">
                     <li class="page-item"><a class="page-link" href="<c:url value="/user/" />?page=${i}">${i}</a></li>
                     </c:forEach>   
                   </ul>

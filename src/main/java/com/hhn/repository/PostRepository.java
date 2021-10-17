@@ -17,9 +17,9 @@ import java.util.List;
 public interface PostRepository {
 
     List<Object[]> getPostFromUser(String kw, String username);
-    List<Object[]> getNewFeedPost(String kw, int page);
+    List<Object[]> getNewFeedPost(String kw, int page, String cateID);
     long countPost();
-    List<Object[]> getPostFromCategoryPost(String kw, String id);
+    long countPostByCategory(int id);
     boolean addNewPost(Post post);
     boolean updatePost(Post post);
     boolean deletePost(Post post);

@@ -42,7 +42,7 @@ public class Post implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Size(min = 10 , max =500 , message = "{post.content.errorMsg}")
+    @Size(min = 10 , max =5000 , message = "{post.content.errorMsg}")
     private String content;
     
     @Column(name = "posted_at")
@@ -69,6 +69,9 @@ public class Post implements Serializable{
     @JoinColumn(name = "category_id")
     @NotNull(message = "{post.categoryPost.Error}")
     private CategoryPost categoryPost;
+    
+    @OneToMany(mappedBy =  "post")
+    private List<LikePost> likePosts;
     
      @Transient
     private MultipartFile file;
