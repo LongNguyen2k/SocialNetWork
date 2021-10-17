@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : header
     Created on : Aug 10, 2021, 3:24:53 PM
     Author     : Windows 10
@@ -31,7 +31,7 @@
                         <li role="presentation"><a href="<c:url value="/user/notification/" />"><spring:message code="label.notifications" /></a></li> 
                       
                             <c:forEach var="cat" items="${categories}">
-                                <li  role="presentation"><a  href="<c:url value="/user/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                <li  role="presentation"><a  href="<c:url value="/user/?catPostId=${cat.id}" />">${cat.name}</a></li>
                             </c:forEach>
                      
                                 <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
@@ -131,7 +131,7 @@
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <c:forEach var="cat" items="${categories}">
-                                        <li  role="presentation"><a  href="<c:url value="/user/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                        <li  role="presentation"><a  href="<c:url value="/user/?catPostId=${cat.id}" />">${cat.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
@@ -148,8 +148,9 @@
                         </li>
                         </c:if>
                          <c:if test="${pageContext.request.userPrincipal.name != null }">
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">USER<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                     <li  role="presentation"><a href="#">${pageContext.request.userPrincipal.name}</a></li>
                                     <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
                                     <li  role="presentation"><a  href = "<c:url  value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile"  /></a></li>
                                     <li class="divider" role="presentation"></li>
@@ -225,7 +226,7 @@
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <c:forEach var="cat" items="${categories}">
-                                        <li  role="presentation"><a  href="<c:url value="/user/postByCategoryPost/?catPostId=${cat.id}" />">${cat.name}</a></li>
+                                        <li  role="presentation"><a  href="<c:url value="/user/?catPostId=${cat.id}" />">${cat.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
@@ -240,8 +241,9 @@
                             </li>
                             </c:if>
                             <c:if test="${pageContext.request.userPrincipal.name != null }">
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">USER<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li role="presentation"><a href = "#" />${pageContext.request.userPrincipal.name}</a></li>
                                     <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
                                     <li class="divider" role="presentation"></li>
                                     <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>

@@ -32,6 +32,19 @@
 
                         </div>
                     </div> 
+                <c:if test="${post[7] != pageContext.request.userPrincipal.name}">
+                    <div class="pull-right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
+                              <ul class="dropdown-menu">
+                                  <li><a href="<c:url value="/user/SendReportPage/?postID=${post[6]}&username=${pageContext.request.userPrincipal.name}" />"style="color:red;"><spring:message code="button.ReportPost" /> </a></li>
+                              </ul>
+                            </li>
+                     </ul> 
+                   </div> 
+                    </c:if>        
+                             
                 </div>      
                         <img src="<c:url value="${post[2]}" />" alt="" width="100%"  />     
                         <div class="row ">
@@ -57,6 +70,10 @@
                     </div>
              
                 </ul>
+                
+                <div>
+               
+             </div>
             </div>
             </c:if>
               

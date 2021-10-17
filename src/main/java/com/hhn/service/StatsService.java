@@ -5,6 +5,7 @@
  */
 package com.hhn.service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,4 +14,10 @@ import java.util.List;
  */
 public interface StatsService {
     List<Object[]> categoryPostStats();
+    List<Object[]> postStats(String kw,Date fromDate, Date toDate);
+    List<Object[]> likeStats();
+    List<Object[]> commentsStats();
+    List<Object[]> commentDayMonthStat(String kw, Date fromDate, Date toDate);
+    List<Object[]> reportPostStats();
+    List<Object[]> reportCommentStats();
 }

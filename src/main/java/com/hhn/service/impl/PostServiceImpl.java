@@ -47,18 +47,20 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Object[]> getPostNewFeed(String kw , int page) {
-        return this.postRepository.getNewFeedPost(kw,page);
+    public List<Object[]> getPostNewFeed(String kw , int page,String cateID) {
+        return this.postRepository.getNewFeedPost(kw,page,cateID);
     }
 
-    @Override
-    public List<Object[]> getPostFromCategoryPost(String kw,String id) {
-        return this.postRepository.getPostFromCategoryPost(kw,id);
-    }
+    
 
     @Override
     public long countPost() {
        return this.postRepository.countPost();
+    }
+    
+    @Override
+    public long countPostByCategory(int id) {
+       return this.postRepository.countPostByCategory(id);
     }
     
     
@@ -145,6 +147,8 @@ public class PostServiceImpl implements PostService{
         LikePost likePost = this.likePostRepository.checklikePost(userLikePost, postUserLike).get(0);
         return this.postRepository.unLikePost(postUserLike,likePost);
     }
+
+    
     
     
     

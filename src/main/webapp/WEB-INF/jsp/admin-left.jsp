@@ -13,17 +13,27 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admincategorystats" />"> <spring:message code="label.navbarItem1" /></a>
+        <a class="nav-link text-danger" href="<c:url value="/admin/admincategorystats" />"> <spring:message code="label.navbarItem1" /></a>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link text-danger" href="<c:url value="/admin/adminpoststats" />"><spring:message code="label.navbarItem2" /></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Link 2</a>
+        <a class="nav-link text-danger" href="<c:url value="/admin/adminlikestats" />"><spring:message code="label.navbarItem3" /></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Link 3</a>
+        <a class="nav-link text-danger" href="<c:url value="/admin/admincommentstats" />"><spring:message code="label.navbarItem4" /></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/user/" />"><spring:message code="label.adminMainPage" /></a>
+        <a class="nav-link text-danger" href="<c:url value="/admin/admincommentdaymonthstats" />"><spring:message code="label.navbarItem5" /></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link text-danger" href="<c:url value="/admin/adminreportstats" />"><spring:message code="label.navbarItem6" /></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-danger" href="<c:url value="/user/" />"><spring:message code="label.adminMainPage" /></a>
+    </li>
+    
   </ul>
 
 </nav>

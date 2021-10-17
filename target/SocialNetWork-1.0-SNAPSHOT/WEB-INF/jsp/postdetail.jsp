@@ -38,9 +38,9 @@
                         <li class="list-group-item"> <span class="badge"> ${biddingInfo[10]} likes</span><spring:message code="auction.rating" /></li>
                         <li class="list-group-item"> <span class="badge">${biddingInfo[1]}</span><spring:message code="auction.publish" /></li>
                         <li class="list-group-item"> <span class="badge">${biddingInfo[5]}</span><spring:message code="auction.email" /></li>
-                        <li class="list-group-item"> <span class="badge">${biddingInfo[9]}</span> <spring:message code="auction.startPrice" /> </li>
+                        <li class="list-group-item"> <span class="badge">$${biddingInfo[9]}</span> <spring:message code="auction.startPrice" /> </li>
                                 <c:if test="${currentMaxBiddPrice != null }">
-                                <li class="list-group-item"> <span class="badge">${currentMaxBiddPrice}</span><spring:message code="auction.currentWin" /></li>
+                                <li class="list-group-item"> <span class="badge">$${currentMaxBiddPrice}</span><spring:message code="auction.currentWin" /></li>
                                </c:if>
                                 <c:if test="${currentMaxBiddPrice == null }">
                                 <li class="list-group-item"> <span class="badge">${currentMaxBiddPrice}</span><spring:message code="auction.noOneOffer"/></li>
@@ -128,7 +128,7 @@
       <tr>
         <td>${bidding.biddingAt}</td>
         <td>${bidding.biddingUser.name}</td>
-        <td>${bidding.biddingPrice}</td>
+        <td>${bidding.biddingPrice}$</td>
         
         <td>
             <c:if test="${bidding.biddingStatus == false}">

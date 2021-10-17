@@ -37,6 +37,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostRepositoryImpl implements  PostRepository{
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    private int counterMaxPage = 30;
+   
     @Override
     public List<Object[]> getPostFromUser(String kw , String username) {
         Session session =  sessionFactory.getObject().getCurrentSession();
@@ -61,70 +63,43 @@ public class PostRepositoryImpl implements  PostRepository{
                           pRoot.get("likes") ,
                            pRoot.get("id") , 
                            pRoot.get("checkReported").as(Boolean.class)) ;
+        query.orderBy(builder.desc(pRoot.get("id")));
         Query<Object[]> q = session.createQuery(query);
         return q.getResultList();
         
     }
 
     @Override
-    public List<Object[]> getNewFeedPost(String kw , int page ) {
+    public List<Object[]> getNewFeedPost(String kw , int page , String cateID ) {
         Session session = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+      
         // display the post 
         Root<Post> pRoot = query.from(Post.class);
         Root<User> uRoot = query.from(User.class);  
-      
+        Root<CategoryPost> cRoot = query.from(CategoryPost.class);
         Predicate p1 = builder.equal(pRoot.get("user"), uRoot.get("id"));  
         Predicate p2 =  builder.like( pRoot.get("content").as(String.class) ,"%%");
         Predicate p3 = builder.equal(pRoot.get("checkReported").as(Boolean.class),false);
+        Predicate p4 = builder.like(cRoot.get("id").as(String.class),"%%" );
+        Predicate p5 =  builder.equal(pRoot.get("categoryPost"), cRoot.get("id"));
 //          Root<Comments> cRoot = query.from(Comments.class);
 //        Predicate p3 = builder.equal(pRoot.get("id"),cRoot.get("post"));
         if(!kw.isEmpty() && kw != null ){
               p2 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,kw));
         }
+        if(cateID != null)
+        {
+            if(!cateID.isEmpty()  ){
+                  int cID = Integer.parseInt(cateID);
+                  p3 = builder.equal( cRoot.get("id") ,cID);
+            }
+        }
+        
+        
 //        cRoot.get("comment").as(String.class),
 //        cRoot.get("user").as(User.class)
-        query.where(builder.and(p1,p2,p3));
-        query.multiselect(uRoot.get("avatar").as(String.class),
-                          uRoot.get("name").as(String.class), 
-                          pRoot.get("image").as(String.class),
-                          pRoot.get("content").as(String.class) , 
-                          pRoot.get("postAt").as(java.sql.Date.class) , 
-                          pRoot.get("likes") ,
-                           pRoot.get("id") ,
-                           uRoot.get("username").as(String.class)
-                         
-                          );
-        query.orderBy(builder.desc(pRoot.get("id")));
-        Query<Object[]> q = session.createQuery(query);
-        int max = 3;
-        q.setMaxResults(max);
-        q.setFirstResult((page - 1) * max );
-
-        return q.getResultList();
-    }
-
-    @Override
-    public List<Object[]> getPostFromCategoryPost(String kw,String id) {
-        Session session = sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        
-        Root<Post> pRoot = query.from(Post.class);
-        Root<CategoryPost> cRoot = query.from(CategoryPost.class);
-        Root<User> uRoot = query.from(User.class);
-        Predicate p1 = builder.equal(pRoot.get("categoryPost"), cRoot.get("id"));
-        Predicate p2 = builder.equal(pRoot.get("user"),uRoot.get("id"));
-        Predicate p3 = builder.like(cRoot.get("id").as(String.class),"%%" );
-        Predicate p4 = builder.like( pRoot.get("content").as(String.class) ,"%%");
-        Predicate p5 = builder.equal(pRoot.get("checkReported").as(Boolean.class),false);
-        if(!id.isEmpty() && id != null ){
-              p3 = builder.like( cRoot.get("id").as(String.class) , String.format("%%%s%%" ,id));
-        }
-        if(!kw.isEmpty() && kw != null ){
-              p4 = builder.like( pRoot.get("content").as(String.class) , String.format("%%%s%%" ,kw));
-        }
         query.where(builder.and(p1,p2,p3,p4,p5));
         query.multiselect(uRoot.get("avatar").as(String.class),
                           uRoot.get("name").as(String.class), 
@@ -132,21 +107,44 @@ public class PostRepositoryImpl implements  PostRepository{
                           pRoot.get("content").as(String.class) , 
                           pRoot.get("postAt").as(java.sql.Date.class) , 
                           pRoot.get("likes") ,
-                           pRoot.get("id")  );
+                           pRoot.get("id") ,
+                           uRoot.get("username").as(String.class) , 
+                           pRoot.get("categoryPost").as(CategoryPost.class)
                          
-        Query q = session.createQuery(query);
+                          );
+        query.orderBy(builder.desc(pRoot.get("id")));
+        Query<Object[]> q = session.createQuery(query);
+        int max = counterMaxPage;
+        q.setMaxResults(max);
+        q.setFirstResult((page - 1) * max );
+
         return q.getResultList();
     }
 
     
- 
-
     @Override
     public long countPost() {
         Session session = sessionFactory.getObject().getCurrentSession();
         Query q = session.createQuery("SELECT Count(*) FROM Post");
         return Long.parseLong(q.getSingleResult().toString());
     }
+    
+      @Override
+    public long countPostByCategory(int id) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root<Post> pRoot = query.from(Post.class);
+        Root<CategoryPost> cRoot = query.from(CategoryPost.class);
+       
+        Predicate p1 = builder.equal(cRoot.get("id"),pRoot.get("categoryPost"));
+        Predicate p2 = builder.equal(cRoot.get("id"),id);
+        query.where(builder.and(p1,p2));
+        query.multiselect(builder.count(pRoot.get("id")));
+        Query q = session.createQuery(query);
+        return Long.parseLong(q.getSingleResult().toString());
+    }
+
 
     @Override
     public boolean addNewPost(Post post) {
@@ -229,16 +227,7 @@ public class PostRepositoryImpl implements  PostRepository{
         return false;
     }
 
-   
-    
-    
-
-   
-
-   
-    
-    
-   
   
+
     
 }
