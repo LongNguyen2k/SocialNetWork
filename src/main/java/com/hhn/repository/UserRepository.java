@@ -21,4 +21,6 @@ public interface UserRepository {
     List<User> getCurrentLoggedInUser(String username);
     User getUserID(String id);
     List<User> getUserAdminRole();
+    List<Object[]> getUserLikeMost(String username);
+    List<Object[]> getUserCommentMost(String username);
 }

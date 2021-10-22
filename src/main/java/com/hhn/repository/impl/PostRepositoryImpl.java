@@ -5,12 +5,14 @@
  */
 package com.hhn.repository.impl;
 
+import com.hhn.pojos.Auctions;
 import com.hhn.pojos.CategoryPost;
 import com.hhn.pojos.Comments;
 import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
 import com.hhn.pojos.User;
 import com.hhn.repository.PostRepository;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,10 +61,11 @@ public class PostRepositoryImpl implements  PostRepository{
                           uRoot.get("name").as(String.class), 
                           pRoot.get("image").as(String.class),
                           pRoot.get("content").as(String.class) , 
-                          pRoot.get("postAt").as(java.sql.Date.class) , 
+                          pRoot.get("postAt") , 
                           pRoot.get("likes") ,
                            pRoot.get("id") , 
-                           pRoot.get("checkReported").as(Boolean.class)) ;
+                           pRoot.get("checkReported").as(Boolean.class) , 
+                          uRoot.get("username").as(String.class) ) ;
         query.orderBy(builder.desc(pRoot.get("id")));
         Query<Object[]> q = session.createQuery(query);
         return q.getResultList();
@@ -105,7 +108,7 @@ public class PostRepositoryImpl implements  PostRepository{
                           uRoot.get("name").as(String.class), 
                           pRoot.get("image").as(String.class),
                           pRoot.get("content").as(String.class) , 
-                          pRoot.get("postAt").as(java.sql.Date.class) , 
+                          pRoot.get("postAt") , 
                           pRoot.get("likes") ,
                            pRoot.get("id") ,
                            uRoot.get("username").as(String.class) , 
@@ -182,6 +185,12 @@ public class PostRepositoryImpl implements  PostRepository{
         return session.get(Post.class,id);
        
     }
+     @Override
+    public Post getPostID2(int postId) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        return session.get(Post.class,postId);
+    }
+
 
     @Override
     public boolean deletePost(Post post) {
@@ -227,7 +236,81 @@ public class PostRepositoryImpl implements  PostRepository{
         return false;
     }
 
-  
+    @Override
+    public Object[] getPostDetail(int id) {
+         Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root<Post> pRoot = query.from(Post.class);
+        Predicate p = builder.equal(pRoot.get("id"),id);
+        query.where(p);
+        query.multiselect(pRoot.get("user").as(User.class) ,  
+                          pRoot.get("image").as(String.class),
+                          pRoot.get("content").as(String.class) , 
+                          pRoot.get("postAt"), 
+                          pRoot.get("likes") ,
+                           pRoot.get("id") , 
+                           pRoot.get("categoryPost").as(CategoryPost.class) 
+                           
+                );
+        
+        Query<Object[]> q = session.createQuery(query);
+        return q.getSingleResult();
+    }
 
-    
+    @Override
+    public List<Object[]> getPostInteractMost() {
+          Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root<Post> pRoot = query.from(Post.class);
+        Root<Comments> cRoot = query.from(Comments.class);
+        Root<User> uRoot = query.from(User.class);
+        Predicate p1 = builder.equal(pRoot.get("id"),cRoot.get("post"));
+        Predicate p2 = builder.equal(pRoot.get("checkReported").as(Boolean.class),false);
+         Predicate p3 = builder.equal(pRoot.get("user"),uRoot.get("id"));
+        query.where(builder.and(p1,p2,p3));
+        query.multiselect(builder.count(cRoot.get("id")) , 
+                       pRoot.get("id") ,
+                       pRoot.get("content") , 
+                       uRoot.get("name") , 
+                       pRoot.get("image") , 
+                       pRoot.get("likes") 
+                       );
+        query.groupBy(pRoot.get("id"));
+        query.orderBy(builder.desc(builder.count(cRoot.get("id"))));
+        Query q = session.createQuery(query);
+        q.setMaxResults(6);
+        return q.getResultList();
+        
+    }
+
+    @Override
+    public List<Object[]> getPostMostAuctionsRate() {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root<Post> pRoot = query.from(Post.class);
+        Root<Auctions> aRoot = query.from(Auctions.class);
+        Root<User> uRoot = query.from(User.class);
+        Predicate p1 = builder.equal(pRoot.get("id"),aRoot.get("biddingPost"));
+        Predicate p2 = builder.equal(pRoot.get("checkReported").as(Boolean.class),false);
+         Predicate p3 = builder.equal(pRoot.get("user"),uRoot.get("id"));
+        query.where(builder.and(p1,p2,p3));
+        query.multiselect(builder.count(aRoot.get("id")) , 
+                       pRoot.get("id") ,
+                       pRoot.get("content") , 
+                       uRoot.get("name") , 
+                       pRoot.get("image") , 
+                       pRoot.get("startprice") , 
+                       builder.max(aRoot.get("biddingPrice").as(BigDecimal.class))
+                       );
+        query.groupBy(pRoot.get("id"));
+        query.orderBy(builder.desc(builder.count(aRoot.get("id"))));
+        Query q = session.createQuery(query);
+        q.setMaxResults(6);
+        return q.getResultList();
+    }
+
+   
 }

@@ -26,4 +26,5 @@ public interface ReportService {
     boolean removeComment(ReportComment reportCommentObj , Comments commentSelected);
     boolean deniedRemovePost(ReportPost reportPostObj);
     boolean deniedRemoveComment(ReportComment reportCommentObj);
+    
 }

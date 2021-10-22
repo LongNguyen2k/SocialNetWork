@@ -25,10 +25,10 @@
                     
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <c:if test="${pageContext.request.userPrincipal.name != null }">
-                            <li role="presentation"><a href="<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
+                            <li role="presentation"><a href="<c:url value="/user/profile/${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
                         <li class="divider" role="presentation"></li>
                         <li role="presentation"><a href="${homePage}"><spring:message code="h1.timeline" /></a></li>
-                        <li role="presentation"><a href="<c:url value="/user/notification/" />"><spring:message code="label.notifications" /></a></li> 
+                        <li role="presentation"><a href="<c:url value="/user/notification" />"><spring:message code="label.notifications" /></a></li> 
                       
                             <c:forEach var="cat" items="${categories}">
                                 <li  role="presentation"><a  href="<c:url value="/user/?catPostId=${cat.id}" />">${cat.name}</a></li>
@@ -76,7 +76,7 @@
                                     <h3  class="notifcationH3"><spring:message code="label.notifications" /></h3>
                                     <c:forEach items="${notificationList}" var="nor">
                                     <div  style="width: 100%">
-                                        <div class="media">
+                                        <div class="media"style="border-bottom: 1px solid black">
                                             <div class="media-left">
                                                 <img src="<c:url value="${nor[0]}" />" class="media-object" style="width:60px"/>
                                             </div>
@@ -118,6 +118,7 @@
                                             <c:if test="${nor[2] == 11}">
                                                 <p> <spring:message code="label.userSendReportDenied2"/></p>
                                            </c:if>   
+                                                 <div class="my-dateNotify"><i>${nor[3]}</i></div>
                                             </div>
                                           </div>  
                                     </div>
@@ -152,7 +153,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                      <li  role="presentation"><a href="#">${pageContext.request.userPrincipal.name}</a></li>
                                     <li  role="presentation"><a href="${homePage}">My Timeline</a></li>
-                                    <li  role="presentation"><a  href = "<c:url  value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile"  /></a></li>
+                                    <li  role="presentation"><a  href = "<c:url  value="/user/profile/${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile"  /></a></li>
                                     <li class="divider" role="presentation"></li>
                                     <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                                 </ul>
@@ -172,9 +173,9 @@
                                     <h3  class="notifcationH3"><spring:message code="label.notifications" /></h3>
                                     <c:forEach items="${notificationList}" var="nor">
                                     <div  style="width: 100%">
-                                        <div class="media">
+                                        <div class="media" style="border-bottom: 1px solid black">
                                             <div class="media-left">
-                                                <img src="<c:url value="${nor[0]}" />" class="media-object" style="width:60px"/>
+                                                <img src="<c:url value="${nor[0]}" />" class="media-object" style="height:100%; width: 60px"/>
                                             </div>
                                             <div class="media-body">
                                               <h4 class="media-heading">${nor[1]}</h4>
@@ -213,6 +214,7 @@
                                             <c:if test="${nor[2] == 11}">
                                                 <p> <spring:message code="label.userSendReportDenied2"/></p>
                                            </c:if> 
+                                                <div class="my-dateNotify"><i>${nor[3]}</i></div>
                                             </div>
                                           </div>  
                                     </div>
@@ -244,7 +246,7 @@
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">USER<span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                     <li role="presentation"><a href = "#" />${pageContext.request.userPrincipal.name}</a></li>
-                                    <li role="presentation"><a href = "<c:url value="/user/profile/?userName=${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
+                                    <li role="presentation"><a href = "<c:url value="/user/profile/${pageContext.request.userPrincipal.name}" />"><spring:message code="label.myProfile" /></a></li>
                                     <li class="divider" role="presentation"></li>
                                     <li role="presentation"><a href="<c:url value="/logout" />"><spring:message code="lable.logout" /> </a></li>
                                 </ul>
@@ -341,6 +343,7 @@
         
 
     });
+  
 </script>                           
               
 

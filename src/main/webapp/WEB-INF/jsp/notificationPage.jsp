@@ -17,11 +17,11 @@
                         <li class="list-group-item">
                         <c:forEach items="${notificationList}" var="nor">
                             <blockquote>
-                                 <div class="media">
+                                 <div class="media" style="border-bottom: 1px solid black">
                                             <div class="media-left">
                                                 <img src="<c:url value="${nor[0]}" />" class="media-object" style="width:60px"/>
                                             </div>
-                                            <div class="media-body">
+                                            <div class="media-body" >
                                               <h4 class="media-heading" style="color: black;">${nor[1]}</h4>
                                               <p style="color: #669999;">
                                                   
@@ -59,6 +59,7 @@
                                             <c:if test="${nor[2] == 11}">
                                                 <p> <spring:message code="label.userSendReportDenied2"/></p>
                                            </c:if> 
+                                                 <div class="my-dateNotify"><i>${nor[3]}</i></div>
                                             </div>
                                 </div>  
                             </blockquote>
@@ -69,3 +70,9 @@
               
             </div>
 </div>
+<script>
+  window.onload = function(){
+      
+    calculateFunctionNotify()
+  }
+</script> 

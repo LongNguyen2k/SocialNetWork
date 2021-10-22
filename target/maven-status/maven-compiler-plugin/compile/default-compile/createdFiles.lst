@@ -10,6 +10,7 @@ com\hhn\pojos\Post.class
 com\hhn\validator\UserValidator.class
 com\hhn\repository\impl\UserRepositoryImpl.class
 com\hhn\service\impl\NotificationServiceImpl.class
+com\hhn\controllers\APICommentController.class
 com\hhn\service\impl\PostServiceImpl.class
 com\hhn\repository\NotitificationRepository.class
 com\hhn\service\UserService.class
@@ -18,6 +19,7 @@ com\hhn\pojos\ReportComment.class
 com\hhn\repository\CategoryPostRepository.class
 com\hhn\repository\impl\AuctionRepositoryImpl.class
 com\hhn\repository\impl\CategoryPostRepositoryImpl.class
+com\hhn\controllers\APILikeController.class
 com\hhn\pojos\Auctions.class
 com\hhn\formatter\PostFormatter.class
 com\hhn\repository\impl\NotificationRepositoryImpl.class

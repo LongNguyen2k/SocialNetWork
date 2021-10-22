@@ -15,7 +15,9 @@ import com.hhn.repository.PostRepository;
 import com.hhn.repository.UserRepository;
 import com.hhn.service.PostService;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -71,8 +73,8 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public boolean addNewPost(Post post ) {
-        Date date = new Date();
-        post.setPostAt(date);
+        Calendar cal = Calendar.getInstance();
+        post.setPostAt(new Timestamp(cal.getTimeInMillis()));
         post.setLikes(Post.likeCount);
         post.setCheckReported(false);
         // kiểm tra Content xem có chứa 1 đoạn hashtag nào không 
@@ -100,8 +102,8 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public boolean updatePost(Post post) {
-       Date date = new Date();
-        post.setPostAt(date);
+       Calendar cal = Calendar.getInstance();
+        post.setPostAt(new Timestamp(cal.getTimeInMillis()));
         if(post.getFile().getSize() == 0   )
         {   
             return this.postRepository.updatePost(post);
@@ -147,6 +149,23 @@ public class PostServiceImpl implements PostService{
         LikePost likePost = this.likePostRepository.checklikePost(userLikePost, postUserLike).get(0);
         return this.postRepository.unLikePost(postUserLike,likePost);
     }
+
+    @Override
+    public Object[] getPostDetail(int id) {
+        return this.postRepository.getPostDetail(id);
+    }
+
+    @Override
+    public List<Object[]> getPostInteractMost() {
+       return this.postRepository.getPostInteractMost();
+    }
+
+    @Override
+    public List<Object[]> getPostMostAuctionsRate() {
+       return this.postRepository.getPostMostAuctionsRate();
+    }
+
+  
 
     
     

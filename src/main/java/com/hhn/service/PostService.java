@@ -25,4 +25,7 @@ public interface PostService {
     Post getPostId(String id);
     boolean likePost(String username , String postId ,LikePost likePost);
     boolean unLikePost(String username,String postId);
+    Object[] getPostDetail(int id);
+    public List<Object[]> getPostInteractMost();
+    public  List<Object[]> getPostMostAuctionsRate();
 }

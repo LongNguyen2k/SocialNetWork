@@ -5,6 +5,7 @@
  */
 package com.hhn.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +28,11 @@ public class LikePost implements Serializable{
     private int id ;
     @ManyToOne()
     @JoinColumn(name ="user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne()
     @JoinColumn(name ="post_id")
+    @JsonIgnore
     private Post post;
     
      public int getId() {

@@ -22,4 +22,7 @@ public interface UserService extends UserDetailsService{
      User getUserID(String id);
      List<User> getListAdminRole();
     List<User> getCurrentLoggedInUser(String username);
+     List<Object[]> getUserLikeMost(String username);
+     List<Object[]> getUserCommentMost(String username);
+    
 }

@@ -20,4 +20,5 @@ public interface CommentsService {
     boolean likeComment(String username , String commentId ,LikeComment likeComment );
     boolean unLikeComment(String username , String CommentId);
     Comments getCommentsID(String ID);
+    Comments apiAddComments(String contentComment , String Username , int PostID);
 }

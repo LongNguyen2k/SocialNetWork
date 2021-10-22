@@ -83,7 +83,7 @@ public class HomeController {
     }
     
 
-    @RequestMapping("/user/")
+    @RequestMapping("/user")
     public String index(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ,
             @RequestParam(required=false,defaultValue = "")Map<String,String> params , HttpServletRequest request ){
         int page = Integer.parseInt(params.getOrDefault("page","1"));
@@ -94,6 +94,11 @@ public class HomeController {
         model.addAttribute("likePost", new LikePost());
         model.addAttribute("likeComment", new LikeComment());
         model.addAttribute("notifications", new Notifications());
+        model.addAttribute("userInfo", this.UserService.getUserProfile(request.getUserPrincipal().getName()));
+        model.addAttribute("userLikeMost", this.UserService.getUserLikeMost(request.getUserPrincipal().getName()));
+        model.addAttribute("userCommentMost", this.UserService.getUserCommentMost(request.getUserPrincipal().getName()));
+        model.addAttribute("listPostMostInteract", this.postService.getPostInteractMost());
+        model.addAttribute("postHaveHotAuctions", this.postService.getPostMostAuctionsRate());
         return "homePage";
     }
    
@@ -131,10 +136,11 @@ public class HomeController {
         String  userLoggedInName = params.get("username");
         String likeCommentId = params.get("comment_id");
         String likedPostId = params.get("post_id");
+        
         // tồn tại user đã like comment 
          if( likeCommentService.checkCommentUserLike(userLoggedInName, likeCommentId) == true  ){
              if(this.commentsService.unLikeComment(userLoggedInName,likeCommentId) == true)
-                    return String.format("redirect:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,likedPostId));
+                    return String.format("redirect:/user/comment/%s",likedPostId);
         }
         else{
             // user chưa like comment 
@@ -142,22 +148,21 @@ public class HomeController {
                 {
                     notifications.setType(notficationType);
                     this.notificationService.addNotifications(userLoggedInName, likeCommentId, notifications);
-                    return String.format("redirect:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,likedPostId));
+                    return String.format("redirect:/user/comment/%s",likedPostId);
                 }
         }
         return String.format("forward:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,likedPostId));
     }
     
-    @RequestMapping(value = "/user/comment")
-    public String commentPage(Model model , @RequestParam(required = false)Map<String,String> params )
+    @RequestMapping(value = "/user/comment/{postID}")
+    public String commentPage(Model model ,@PathVariable(value = "postID")int postID ,  HttpServletRequest request)
     {
-        model.addAttribute("comments", new Comments());
-        String  userLoggedInName = params.get("username");
-        int postCurrentSelectedComment = Integer.parseInt(params.get("post_id"));
-        model.addAttribute("userCurrentComment", this.UserService.getUsers(userLoggedInName));
-        model.addAttribute("post_id", postCurrentSelectedComment);
-        model.addAttribute("commentOfPost", this.commentsService.getCommentFromPost(postCurrentSelectedComment));
-        model.addAttribute("countComment", this.commentsService.countCommentList(postCurrentSelectedComment));
+        String userCurrentLogged =  request.getUserPrincipal().getName();
+        model.addAttribute("postDetail", this.postService.getPostDetail(postID));
+        model.addAttribute("userCurrentComment", this.UserService.getUsers(userCurrentLogged));
+        model.addAttribute("commentOfPost", this.commentsService.getCommentFromPost(postID));
+        model.addAttribute("countComment", this.commentsService.countCommentList(postID));
+         model.addAttribute("post_id", postID);
         return "commentPage";
     }
     
@@ -186,7 +191,7 @@ public class HomeController {
          return String.format("forward:/user/comment/%s",String.format("?username=%s&post_id=%s",userLoggedInName,commentPostId));
     }
     
-    @RequestMapping(value = "/user/notification/")
+    @RequestMapping(value = "/user/notification")
     public String NotificationPage(Model model)
     {
         return "notfications";

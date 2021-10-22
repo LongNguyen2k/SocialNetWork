@@ -62,8 +62,9 @@
             </li>
            
         </ul>
+    <c:if test="${u.username == pageContext.request.userPrincipal.name}">                  
                         <a href="<c:url value="/user/editProfilePage?userID=${u.id}" />" class="btn btn-default buttonProfile " type="button"><spring:message code="button.UpdateProfile" /></a>
-        
+    
          <sec:authorize access="hasRole('ROLE_ADMIN')">
         <div>
             <a href="<c:url value="/admin/statistical" />" class="btn btn-default buttonProfile"> <spring:message code="button.adminStaticstical" />  </a>
@@ -72,6 +73,7 @@
             <a href="<c:url value="/admin/directionalPage" />" class="btn btn-default buttonProfile"> <spring:message code="button.adminReportCommentAndPost" />  </a>
         </div>
         </sec:authorize>
+    </c:if>
          </c:forEach>
     </div>
 
@@ -92,28 +94,31 @@
                     <div class="col-md-6">
                     <div class="media">
                         <div class="media-left">
+                             <a href="<c:url value="/user/profile/${post[8]}" />">
                             <img src="<c:url value="${post[0]}" />" alt="" width="50" class="img-circle" >
+                             </a>
                         </div>
                         <div class="media-body">
                             <span class="font-weight-bold">${post[1]}</span>                  
-                            <small class="text-primary">On ${post[4]}</small>  
+                            <div class="my-datePost"><i class="text-primary">${post[4]}</i></div>
                          </div>
                      
                     </div>
                     </div> 
+            <c:if test="${post[8] == pageContext.request.userPrincipal.name}">
                     <div class="pull-right">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
                               <ul class="dropdown-menu">
                                   <li><a href="<c:url value="/user/updatePostPage?postId=${post[6]}" />" style="color:lightblue;"><spring:message code="button.updatePost" /> </a></li>
-                                  <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
+                                  <li><a href="<c:url value="/user/delete/${post[6]}/${pageContext.request.userPrincipal.name}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
                                   
                               </ul>
                             </li>
                      </ul> 
                    </div> 
-                    
+            </c:if>       
                 </div>          
                      <img src="<c:url value="${post[2]}" />" alt="" width="100%"  />    
                 <div class="row ">
@@ -123,14 +128,15 @@
                         </p>
                   </div>
                 <footer>Posted by ${post[1]} 
-                   <a href="<c:url value="/user/likesPost?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} Likes</span></a>  
+                  <button type="submit" onclick="addLikeOrUnLike('${post[6]}','${pageContext.request.userPrincipal.name}')"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} <spring:message code="span.like" /></span></button>
                    <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> <spring:message code="button.auctionInfo"/> </span></a> 
                 </footer>
                  <div class="comments">
-                    <a  class="btn btn-default comment" href="<c:url value="/user/comment?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}"/>">
-                            <i class="glyphicon glyphicon-flash"></i><span>Comments</span>
-                        </a>
-                </div>
+                            <a  class="btn btn-default comment" href="<c:url value="/user/comment/${post[6]}"/>">
+                                <i class="glyphicon glyphicon-flash"></i><span><spring:message code="label.comment" /></span>
+                                </a>
+                           
+             </div>
             </blockquote>
         </li>
              </c:if> 
@@ -188,19 +194,26 @@
 
     <!-- Adding New Post Section-->
     <c:forEach var="u" items="${userProfile}">
-    <div class="col-md-3">
-        <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPostPage?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
-         <a class="btn btn-default buttonProfile" href="#" type="button">BàiViếtChiếnThắngĐấuGiá</a>
-        </c:forEach>   
-        
-    </div>
+       <c:if test="${u.username == pageContext.request.userPrincipal.name}">       
+            <div class="col-md-3">
+                <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPostPage?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
+                 <a class="btn btn-default buttonProfile" href="#" type="button">BàiViếtChiếnThắngĐấuGiá</a>
+            </div>
+       </c:if>
+        </c:forEach> 
      <c:if test="${errMsG != null }">
         <div class="alert alert-danger">${errMsG}</div>
     </c:if>  
     
 </div>
 </div> 
- 
+ <script>
+  window.onload = function(){
+      
+     calculateFunctionForPost()
+     calculateFunctionNotify()
+  }
+</script> 
  
  
  

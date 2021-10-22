@@ -108,6 +108,18 @@ public class UserServiceImpl implements UserService{
     public List<User> getCurrentLoggedInUser(String username) {
         return this.userRepository.getCurrentLoggedInUser(username);
     }
+
+    @Override
+    public List<Object[]> getUserLikeMost(String username) {
+        return this.userRepository.getUserLikeMost(username);
+    }
+
+    @Override
+    public List<Object[]> getUserCommentMost(String username) {
+        return this.userRepository.getUserCommentMost(username);
+    }
+
+  
     
     
   

@@ -60,13 +60,14 @@ public class CommentsRepositoryImpl implements CommentsRepository{
         Predicate p3 = builder.equal(pRoot.get("id"),cRoot.get("post"));
         query.where(builder.and(p1,p2,p3));
         query.multiselect(uRoot.get("name").as(String.class) ,
-                          cRoot.get("postAt").as(java.sql.Date.class),
+                          cRoot.get("postAt"),
                           cRoot.get("comment").as(String.class) , 
                           uRoot.get("avatar").as(String.class) ,
                           cRoot.get("likes") , 
                           cRoot.get("id")  , 
                           uRoot.get("username").as(String.class) , 
-                          cRoot.get("checkReported").as(Boolean.class));
+                          cRoot.get("checkReported").as(Boolean.class) , 
+                          pRoot.get("id"));
         Query q = session.createQuery(query);
         return q.getResultList();
     }
@@ -121,6 +122,19 @@ public class CommentsRepositoryImpl implements CommentsRepository{
         Session session = sessionFactory.getObject().getCurrentSession();
         int id = Integer.parseInt(CommentId);
         return session.get(Comments.class,id);
+    }
+
+    @Override
+    public Comments apiAddComments(Comments cmnts) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+         try{
+        session.save(cmnts);
+        return cmnts;
+        }catch(HibernateException ex){
+            System.err.println("== Add Comments To Post Have Error " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
     }
     
 }

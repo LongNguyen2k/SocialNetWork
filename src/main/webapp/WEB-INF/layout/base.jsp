@@ -30,8 +30,9 @@
         <script src="<c:url value="/js/bs-animation.js" />"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-       
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="<c:url value="/js/timeCalculate.js" />"></script>
+        <script src="<c:url value="/js/functionAPI.js" />"></script>
     </head>
     <body>
        
@@ -43,4 +44,13 @@
         <tiles:insertAttribute name="footer" />
         
     </body>
+     <script>
+  window.onload = function(){
+      
+     calculateFunctionForPost()
+     calculateFunctionNotify()
+      calculateFunction()
+  }
+</script> 
+ 
 </html>

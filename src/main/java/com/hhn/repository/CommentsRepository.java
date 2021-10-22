@@ -20,4 +20,5 @@ public interface CommentsRepository {
     Comments getCommentsById(String CommentId);
      boolean likeComment(Comments commentsLike , LikeComment likeComment);
      boolean unLikeComment(Comments commentsLike , LikeComment likeComment);
+     Comments apiAddComments(Comments c);
 }

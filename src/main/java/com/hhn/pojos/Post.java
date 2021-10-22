@@ -7,6 +7,7 @@ package com.hhn.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -47,7 +48,7 @@ public class Post implements Serializable{
     
     @Column(name = "posted_at")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date postAt;
+    private Timestamp postAt;
     
     private int likes;
     private String image;
@@ -128,13 +129,7 @@ public class Post implements Serializable{
         this.categoryPost = categoryPost;
     }
 
-    public Date getPostAt() {
-        return postAt;
-    }
-
-    public void setPostAt(Date postAt) {
-        this.postAt = postAt;
-    }
+ 
 
     public MultipartFile getFile() {
         return file;
@@ -168,6 +163,14 @@ public class Post implements Serializable{
 
     public void setCheckReported(boolean checkReported) {
         this.checkReported = checkReported;
+    }
+
+    public Timestamp getPostAt() {
+        return postAt;
+    }
+
+    public void setPostAt(Timestamp postAt) {
+        this.postAt = postAt;
     }
     
     
