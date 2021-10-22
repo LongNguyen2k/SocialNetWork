@@ -47,9 +47,9 @@ public class ProfileController{
     @Autowired
     private NotificationService notificationService;
     
-    @RequestMapping(value = "/user/profile")
+    @RequestMapping(value = "/user/profile/{username}")
     public String profilePage(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw , 
-            @RequestParam(value="userName" , required = false , defaultValue = "") String userName , HttpServletRequest request){
+           @PathVariable(value = "username")String userName , HttpServletRequest request){
         model.addAttribute("userProfile", this.userService.getUserProfile(userName));
         model.addAttribute("postUserProfile" , this.postService.getPostsUserProfile(kw , userName ));
         model.addAttribute("likePost", new LikePost());
@@ -74,7 +74,7 @@ public class ProfileController{
          if(!result.hasErrors())
          {
              model.addAttribute("errMsG" , "Da Co Loi Xay Ra !");
-             return "redirect:/user/";
+             return String.format("redirect:/user/profile/%s",username);
          }
          else
             return "editProfilePage";
@@ -108,7 +108,7 @@ public class ProfileController{
         model.addAttribute("postUpdate" , this.postService.getPostId(postId)  );
         return "UpdatePostPage";
     }
-    @PostMapping("/user/updatePost")
+    @PostMapping(value ="/user/updatePost/")
     public String updatePost(Model model , @ModelAttribute(value = "postUpdate")@Valid Post post  ,BindingResult result)
     {  
        
@@ -122,12 +122,12 @@ public class ProfileController{
         return "UpdatePostPage";
     }
     
-    @RequestMapping("/user/delete/{postId}")
-    public String deletePost(Model model , @PathVariable("postId") String postId)
+    @RequestMapping("/user/delete/{postId}/{username}")
+    public String deletePost(Model model , @PathVariable("postId") String postId, @PathVariable(value = "username")String userName)
     {
        Post currentSelectedPost = this.postService.getPostId(postId);
        if(this.postService.deletePost(currentSelectedPost) == true)
-           return "redirect:/user/";
+           return String.format("redirect:/user/profile/%s",userName);
        else
            model.addAttribute("errMsG", "Da Co Loi Xay Ra");
        return "redirect:/user/"; 

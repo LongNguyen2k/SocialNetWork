@@ -5,7 +5,9 @@
  */
 package com.hhn.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 
 /**
@@ -30,10 +33,12 @@ public class Comments implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
+    
     private String comment;
     
     @Column(name = "posted_at")
-    private Date postAt;
+    private Timestamp postAt;
+    
     
     private int likes; 
     
@@ -46,6 +51,7 @@ public class Comments implements Serializable{
     
     @JoinColumn(name = "post_id")
     @ManyToOne()
+    @JsonIgnore
     private Post post;
     
      public int getId() {
@@ -64,13 +70,7 @@ public class Comments implements Serializable{
         this.comment = comment;
     }
 
-    public Date getPostAt() {
-        return postAt;
-    }
-
-    public void setPostAt(Date postAt) {
-        this.postAt = postAt;
-    }
+  
 
     public User getUser() {
         return user;
@@ -102,5 +102,13 @@ public class Comments implements Serializable{
 
     public void setCheckReported(boolean checkReported) {
         this.checkReported = checkReported;
+    }
+
+    public Timestamp getPostAt() {
+        return postAt;
+    }
+
+    public void setPostAt(Timestamp postAt) {
+        this.postAt = postAt;
     }
 }

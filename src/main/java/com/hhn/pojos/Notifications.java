@@ -6,6 +6,7 @@
 package com.hhn.pojos;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,6 +40,8 @@ public class Notifications implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_user")
     private User senderUser;
+    @Column(name="SendAt")
+    private Timestamp sendAt;
     
     public int getId() {
         return id;
@@ -70,6 +73,14 @@ public class Notifications implements Serializable{
 
     public void setSenderUser(User senderUser) {
         this.senderUser = senderUser;
+    }
+
+    public Timestamp getSendAt() {
+        return sendAt;
+    }
+
+    public void setSendAt(Timestamp sendAt) {
+        this.sendAt = sendAt;
     }
    
 }

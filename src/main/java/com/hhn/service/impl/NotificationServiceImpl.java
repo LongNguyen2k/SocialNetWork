@@ -18,6 +18,8 @@ import com.hhn.pojos.User;
 import com.hhn.repository.CommentsRepository;
 import com.hhn.repository.PostRepository;
 import com.hhn.repository.UserRepository;
+import java.sql.Timestamp;
+import java.util.Calendar;
 /**
  *
  * @author Windows 10
@@ -45,7 +47,8 @@ public class NotificationServiceImpl  implements NotificationService{
         int notificationsType = notifications.getType();
         Post postUser;
         Comments commentUser;
-        
+        Calendar cal =Calendar.getInstance();
+        notifications.setSendAt(new Timestamp(cal.getTimeInMillis()));
         switch (notificationsType)
         {
          case 1:
@@ -102,6 +105,8 @@ public class NotificationServiceImpl  implements NotificationService{
     public boolean addNotificationAdmin(User adminSendReport , User userReceiveReport , Notifications notifications) {
         notifications.setSenderUser(adminSendReport);
         notifications.setReceiverUser(userReceiveReport);
+        Calendar cal =Calendar.getInstance();
+        notifications.setSendAt(new Timestamp(cal.getTimeInMillis()));
         return this.notificationRepository.addNotifications(notifications);
     }
     

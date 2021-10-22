@@ -24,6 +24,10 @@ public interface PostRepository {
     boolean updatePost(Post post);
     boolean deletePost(Post post);
     Post getPostId(String id);
+    Post getPostID2(int id);
     boolean likePost(Post postLike, LikePost likePost);
     boolean unLikePost(Post postLike ,LikePost likePost);
+    Object[] getPostDetail(int id);
+    List<Object[]> getPostInteractMost();
+    List<Object[]> getPostMostAuctionsRate();
 }

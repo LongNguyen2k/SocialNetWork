@@ -16,6 +16,11 @@ import org.springframework.stereotype.Service;
 import com.hhn.pojos.Post;
 import com.hhn.pojos.User;
 import com.hhn.repository.LikeCommentRepository;
+import freemarker.core.Comment;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +48,8 @@ public class CommentsServiceImpl implements CommentsService{
         comments.setUser(user);
         comments.setPost(postUserLike);
         comments.setCheckReported(false);
-        Date date = new Date();
-        comments.setPostAt(date);
+       Calendar cal = Calendar.getInstance();
+        comments.setPostAt(new Timestamp(cal.getTimeInMillis()));
         return this.commentsRepository.addComment(comments);
     }
 
@@ -82,6 +87,20 @@ public class CommentsServiceImpl implements CommentsService{
     @Override
     public Comments getCommentsID(String commentID) {
        return this.commentsRepository.getCommentsById(commentID);
+    }
+
+    @Override
+    public Comments apiAddComments(String contentComment , String Username , int PostID) {
+        User user = this.userRepository.getCurrentLoggedInUser(Username).get(0);
+        Post postUserLike = this.postRepository.getPostID2(PostID);
+        Calendar cal = Calendar.getInstance();
+        Comments c = new Comments();
+        c.setComment(contentComment);
+        c.setUser(user);
+        c.setPost(postUserLike);
+        c.setCheckReported(false);
+        c.setPostAt(new Timestamp(cal.getTimeInMillis()));
+        return this.commentsRepository.apiAddComments(c);
     }
     
     

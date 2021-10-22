@@ -8,6 +8,10 @@ package com.hhn.repository.impl;
 import com.hhn.pojos.Notifications;
 import com.hhn.pojos.User;
 import com.hhn.repository.NotitificationRepository;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -42,7 +46,8 @@ public class NotificationRepositoryImpl  implements NotitificationRepository{
         query.where(builder.and(p1,p2));
         query.multiselect(uRoot.get("avatar").as(String.class) , 
                           uRoot.get("name").as(String.class) , 
-                          nRoot.get("type"));
+                          nRoot.get("type") , 
+                          nRoot.get("sendAt"));
         query.orderBy(builder.desc((nRoot.get("id"))));
         Query q = session.createQuery(query);
         return q.getResultList();

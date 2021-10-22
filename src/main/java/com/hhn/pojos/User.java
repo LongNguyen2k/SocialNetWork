@@ -5,6 +5,7 @@
  */
 package com.hhn.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -68,9 +69,11 @@ public class User implements Serializable{
     private String uRole;
     
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Post> posts;
     
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comments> comments;
     
     @Transient

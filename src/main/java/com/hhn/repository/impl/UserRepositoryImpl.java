@@ -5,6 +5,8 @@
  */
 package com.hhn.repository.impl;
 
+import com.hhn.pojos.Comments;
+import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
 import com.hhn.pojos.User;
 import com.hhn.repository.UserRepository;
@@ -132,6 +134,50 @@ public class UserRepositoryImpl implements UserRepository{
         query.where(p);
         query.select(uRoot);
         Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getUserLikeMost(String username) {
+       Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root<User> uRoot = query.from(User.class);
+        Root<LikePost> lRoot = query.from(LikePost.class);
+        Predicate p1 = builder.equal(uRoot.get("id"), lRoot.get("user"));
+        Predicate p2 = builder.notEqual(uRoot.get("username"),username);
+        query.where(builder.and(p1,p2));
+        query.multiselect(builder.count(lRoot.get("id")),
+                uRoot.get("id"), 
+                uRoot.get("username"), 
+                uRoot.get("name") ,
+                uRoot.get("avatar"));
+        query.groupBy(uRoot.get("id")); 
+        query.orderBy(builder.desc(builder.count(lRoot.get("id"))));
+        Query q = session.createQuery(query);
+        q.setMaxResults(6);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getUserCommentMost(String username) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        Root<User> uRoot = query.from(User.class);
+        Root<Comments> cRoot = query.from(Comments.class);
+        Predicate p1 = builder.equal(uRoot.get("id"), cRoot.get("user"));
+        Predicate p2 = builder.notEqual(uRoot.get("username"),username);
+        query.where(builder.and(p1,p2));
+        query.multiselect(builder.count(cRoot.get("id")),
+                uRoot.get("id"), 
+                uRoot.get("username"), 
+                uRoot.get("name") ,
+                uRoot.get("avatar"));
+        query.groupBy(uRoot.get("id")); 
+        query.orderBy(builder.desc(builder.count(cRoot.get("id"))));
+        Query q = session.createQuery(query);
+        q.setMaxResults(6);
         return q.getResultList();
     }
     
