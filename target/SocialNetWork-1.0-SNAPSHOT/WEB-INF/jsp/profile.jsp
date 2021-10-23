@@ -153,7 +153,7 @@
                         </div>
                         <div class="media-body">
                             <span class="font-weight-bold">${post[1]}</span>                  
-                            <small class="text-primary">On ${post[4]}</small>  
+                             <div class="my-datePost"><i class="text-primary">${post[4]}</i></div>
                          </div>
                      
                     </div>

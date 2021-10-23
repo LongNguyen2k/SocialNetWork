@@ -32,7 +32,7 @@
        <script src="<c:url value="/js/stats.js" />" ></script>
     </head>
     <body>
-        <h1 class="text-center text-info"> <spring:message code="label.mainLabel" /></h1>
+        <h1 class="text-center text-dark"> <spring:message code="label.mainLabel" /></h1>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-12 bg-light">
