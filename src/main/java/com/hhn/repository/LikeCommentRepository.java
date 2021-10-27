@@ -7,6 +7,7 @@ package com.hhn.repository;
 
 import com.hhn.pojos.Comments;
 import com.hhn.pojos.LikeComment;
+import com.hhn.pojos.Post;
 import com.hhn.pojos.User;
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
  */
 public interface LikeCommentRepository {
     List<LikeComment> checkLikeComment(User userCurrentLoggedIn ,Comments commentLike);
+    List<LikeComment> getLikeCommentsFromComment(Comments comment);
+    boolean deleteListLikeCommentInComment(List<LikeComment> listLikeComments);
 }

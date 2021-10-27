@@ -24,4 +24,5 @@ public interface AuctionService {
     BigDecimal getMaxBiddingPrice(String postID);
     boolean chooseWinner(String username , String postID , BigDecimal biddingPrice, Timestamp biddingAt);
     boolean findWinner(String postID);
+    boolean checkHaveAuction(Post postHaveCurrentAuction);
 }

@@ -26,4 +26,7 @@ public interface ReportRepository {
     boolean removeComment(ReportComment repotedComment , Comments commentSelected);
     boolean deniedRemovePost(ReportPost reportedPost);
     boolean deniedRemoveComment(ReportComment reportedComment);
+    List<ReportPost> getListReportPostFromPost(Post post);
+    List<ReportComment> getListReportCommentFromComment(Comments comment);
+    boolean deleteListOfReportComment(List<ReportComment> reportComments);
 }

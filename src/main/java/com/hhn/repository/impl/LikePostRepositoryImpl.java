@@ -44,6 +44,19 @@ public class LikePostRepositoryImpl implements LikePostRepository{
         return q.getResultList();
     }
 
+    @Override
+    public List<LikePost> getLikePostsFromPost(Post post) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<LikePost> query = builder.createQuery(LikePost.class);
+        Root<LikePost> root = query.from(LikePost.class);
+        Predicate p = builder.equal(root.get("post").as(Post.class),post);
+        query.where(p);
+        query.select(root);
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
 
     
 }

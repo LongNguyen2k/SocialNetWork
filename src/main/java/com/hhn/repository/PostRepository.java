@@ -5,8 +5,12 @@
  */
 package com.hhn.repository;
 
+import com.hhn.pojos.Comments;
+import com.hhn.pojos.LikeComment;
 import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
+import com.hhn.pojos.ReportComment;
+import com.hhn.pojos.ReportPost;
 import com.hhn.pojos.User;
 import java.util.List;
 
@@ -30,4 +34,6 @@ public interface PostRepository {
     Object[] getPostDetail(int id);
     List<Object[]> getPostInteractMost();
     List<Object[]> getPostMostAuctionsRate();
+    boolean deleteCpRelatedToPost( List<LikePost> likePosts, 
+            List<Comments> commentses,  List<ReportPost> reportPosts );
 }

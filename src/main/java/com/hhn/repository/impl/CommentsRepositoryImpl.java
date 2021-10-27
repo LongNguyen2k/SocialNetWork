@@ -136,5 +136,18 @@ public class CommentsRepositoryImpl implements CommentsRepository{
         }
         return null;
     }
+
+    @Override
+    public List<Comments> getListCommentsFromPost(Post post) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Comments> query = builder.createQuery(Comments.class);
+        Root<Comments> root = query.from(Comments.class);
+        Predicate p = builder.equal(root.get("post").as(Post.class),post);
+        query.where(p);
+        query.select(root);
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
     
 }

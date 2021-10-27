@@ -28,4 +28,5 @@ public interface PostService {
     Object[] getPostDetail(int id);
     public List<Object[]> getPostInteractMost();
     public  List<Object[]> getPostMostAuctionsRate();
+    boolean deleteCpRelatedToPost(Post post);
 }

@@ -9,7 +9,9 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<c:if test="${haveCurrentAuction != null}">
+    <div class="alert alert-danger">${haveCurrentAuction}</div>
+</c:if>
 <div class="container">
      <c:forEach var="u" items="${userProfile}">
          <h1> <spring:message code="user.profile" /> ${u.name}
@@ -163,7 +165,7 @@
                             <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-ellipsis-h"></i>
                               <ul class="dropdown-menu">
-                                  <li><a href="<c:url value="/user/delete/${post[6]}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
+                                  <li><a href="<c:url value="/user/delete/${post[6]}/${pageContext.request.userPrincipal.name}" />"style="color:red;"><spring:message code="button.deletePost" /> </a></li>
                               </ul>
                             </li>
                      </ul> 

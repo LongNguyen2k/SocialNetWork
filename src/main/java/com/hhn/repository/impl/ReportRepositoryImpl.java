@@ -13,6 +13,7 @@ import com.hhn.repository.ReportRepository;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -152,6 +153,48 @@ public class ReportRepositoryImpl implements ReportRepository{
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<ReportPost> getListReportPostFromPost(Post post) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ReportPost> query = builder.createQuery(ReportPost.class);
+        Root<ReportPost> root = query.from(ReportPost.class);
+        Predicate p = builder.equal(root.get("postReport").as(Post.class),post);
+        query.where(p);
+        query.select(root);
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<ReportComment> getListReportCommentFromComment(Comments cmnts) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ReportComment> query = builder.createQuery(ReportComment.class);
+        Root<ReportComment> root = query.from(ReportComment.class);
+        Predicate p = builder.equal(root.get("commentsReport"),cmnts);
+        query.where(p);
+        query.select(root);
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    public boolean  deleteListOfReportComment(List<ReportComment> reportComments) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+            try{
+                
+             for(ReportComment item: reportComments)
+                session.delete(item);
+          
+            return true;
+            }catch(HibernateException ex){
+                System.err.println("== Delete ReportComments having  Error " + ex.getMessage());
+                ex.printStackTrace();
+            }
+            return false;
     }
 
   

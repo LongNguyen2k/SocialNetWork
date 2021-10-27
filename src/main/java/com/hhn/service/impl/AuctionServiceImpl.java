@@ -121,6 +121,15 @@ public class AuctionServiceImpl implements AuctionService{
         else  // nếu như đã có rồi thì ko được phép đấu giá cũng như không được phép chọn người chiến thắng 
             return true;
     }
+
+    @Override
+    public boolean checkHaveAuction(Post postHaveCurrentAuction) {
+       List<Auctions> auctionChecked = this.auctionRepository.checkHaveAuction(postHaveCurrentAuction);
+       if(auctionChecked.isEmpty()) // chưa có ai tham gia đấu giá thì trả ra false
+           return false;
+       else
+           return true;
+    }
     
     
 }
