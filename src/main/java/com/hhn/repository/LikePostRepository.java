@@ -16,4 +16,5 @@ import java.util.List;
  */
 public interface LikePostRepository {
     List<LikePost> checklikePost(User userCurrentLoggedIn , Post postLike);
+    List<LikePost> getLikePostsFromPost(Post post);
 }

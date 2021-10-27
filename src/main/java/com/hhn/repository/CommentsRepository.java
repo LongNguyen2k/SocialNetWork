@@ -7,6 +7,7 @@ package com.hhn.repository;
 
 import com.hhn.pojos.Comments;
 import com.hhn.pojos.LikeComment;
+import com.hhn.pojos.Post;
 import java.util.List;
 
 /**
@@ -21,4 +22,5 @@ public interface CommentsRepository {
      boolean likeComment(Comments commentsLike , LikeComment likeComment);
      boolean unLikeComment(Comments commentsLike , LikeComment likeComment);
      Comments apiAddComments(Comments c);
+     List<Comments> getListCommentsFromPost(Post post);
 }

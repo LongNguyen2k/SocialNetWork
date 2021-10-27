@@ -10,6 +10,7 @@ import com.hhn.pojos.LikeComment;
 import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
 import com.hhn.pojos.User;
+import com.hhn.service.AuctionService;
 import com.hhn.service.NotificationService;
 import com.hhn.service.PostService;
 import com.hhn.service.UserService;
@@ -46,6 +47,8 @@ public class ProfileController{
     private PostService postService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private AuctionService auctionService;
     
     @RequestMapping(value = "/user/profile/{username}")
     public String profilePage(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw , 
@@ -125,12 +128,40 @@ public class ProfileController{
     @RequestMapping("/user/delete/{postId}/{username}")
     public String deletePost(Model model , @PathVariable("postId") String postId, @PathVariable(value = "username")String userName)
     {
+        // xóa 1 bài viết thì phải xóa hết toàn bộ những phần tử liên quan trong bảng trước khi xóa 
+        // nếu bài viết đang có đấu giá thì ko thể xóa được và xuất thông báo lỗi 
+        // nếu như bài viết không có đấu giá thì mới bắt đầu việc xóa
+        // xóa likepost và like comment của bài viết đó  
+        // xóa reportpost và reportcomment 
+        // xóa comment
+        // xóa post
+   
        Post currentSelectedPost = this.postService.getPostId(postId);
-       if(this.postService.deletePost(currentSelectedPost) == true)
-           return String.format("redirect:/user/profile/%s",userName);
+       
+       if(this.auctionService.checkHaveAuction(currentSelectedPost) == false)
+       {
+           
+            if(this.postService.deleteCpRelatedToPost(currentSelectedPost) == true)
+            {
+                if(this.postService.deletePost(currentSelectedPost))
+                    return String.format("redirect:/user/profile/%s",userName);
+                else
+                {
+                    model.addAttribute("errMsG", "Da Co Loi Xay Ra");
+                    return "redirect:/user/"; 
+                }
+            }
+            else
+            {
+                 model.addAttribute("errMsG", "Da Co Loi Xay Ra");
+                 return "redirect:/user/"; 
+            }
+       }
        else
-           model.addAttribute("errMsG", "Da Co Loi Xay Ra");
-       return "redirect:/user/"; 
+       {
+           model.addAttribute("haveCurrentAuction", "Bài viết này đang được tổ chức đấu giá. Bạn không thể xóa nó lúc này !");
+           return String.format("forward:/user/profile/%s",userName);
+       }
     }
     
     

@@ -24,4 +24,5 @@ public interface AuctionRespository {
     boolean chooseWiner(Auctions auctions);
     Auctions findAuctionMethod(User user , Post post , BigDecimal priceBidding , Timestamp timestamp);
    List<Auctions> findAuctionAlreadyWinner(Post post);
+   List<Auctions> checkHaveAuction(Post postHaveCurrentAuction);
 }

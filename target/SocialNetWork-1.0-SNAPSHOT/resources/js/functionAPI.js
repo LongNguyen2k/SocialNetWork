@@ -16,7 +16,6 @@ function addComment(post_id,username) {
         }
     }).then(function(res) {
         console.info(res)
-        
         return res.json();
     }).then(function(data){
         console.info(data);

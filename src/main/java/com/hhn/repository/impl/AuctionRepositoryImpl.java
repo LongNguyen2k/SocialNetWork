@@ -148,6 +148,20 @@ public class AuctionRepositoryImpl implements AuctionRespository{
         Query<Auctions> q = session.createQuery(query);
         return q.getResultList();
     }
+
+    @Override
+    public List<Auctions> checkHaveAuction(Post postHaveCurrentAuction) {
+         Session session =  sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Auctions> query = builder.createQuery(Auctions.class);
+        Root<Auctions> aRoot = query.from(Auctions.class);
+        Predicate p = builder.equal(aRoot.get("biddingPost"), postHaveCurrentAuction);
+        query.where(p);
+        query.select(aRoot);
+        Query<Auctions> q = session.createQuery(query);
+        return q.getResultList();
+        
+    }
     
     
     

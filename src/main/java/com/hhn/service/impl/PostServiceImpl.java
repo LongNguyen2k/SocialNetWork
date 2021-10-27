@@ -7,11 +7,18 @@ package com.hhn.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.hhn.pojos.Comments;
+import com.hhn.pojos.LikeComment;
 import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
+import com.hhn.pojos.ReportComment;
+import com.hhn.pojos.ReportPost;
 import com.hhn.pojos.User;
+import com.hhn.repository.CommentsRepository;
+import com.hhn.repository.LikeCommentRepository;
 import com.hhn.repository.LikePostRepository;
 import com.hhn.repository.PostRepository;
+import com.hhn.repository.ReportRepository;
 import com.hhn.repository.UserRepository;
 import com.hhn.service.PostService;
 import java.io.IOException;
@@ -43,6 +50,13 @@ public class PostServiceImpl implements PostService{
     private UserRepository userRepository;
     @Autowired
     private LikePostRepository likePostRepository;
+    @Autowired
+    private CommentsRepository commentsRepository;
+    @Autowired
+    private LikeCommentRepository likeCommnentRepository;
+    @Autowired
+    private ReportRepository reportRepository;
+    
     @Override
     public List<Object[]> getPostsUserProfile(String kw , String username) {
        return this.postRepository.getPostFromUser(kw,username);
@@ -163,6 +177,45 @@ public class PostServiceImpl implements PostService{
     @Override
     public List<Object[]> getPostMostAuctionsRate() {
        return this.postRepository.getPostMostAuctionsRate();
+    }
+
+    @Override
+    public boolean deleteCpRelatedToPost(Post post) {
+        List<LikePost> likePosts = this.likePostRepository.getLikePostsFromPost(post);
+        List<Comments> comments = this.commentsRepository.getListCommentsFromPost(post);
+         List<ReportPost> reportPosts = this.reportRepository.getListReportPostFromPost(post);
+        // xóa danh sách like bình luận của mỗi bình luận trong bài viết đó trước đã
+       for(Comments comment: comments)
+       {
+           List<LikeComment> likeComments = this.likeCommnentRepository.getLikeCommentsFromComment(comment);
+           // viết phương thức xóa các like comment của bình luận đó
+           if(!likeComments.isEmpty())
+           {
+                if(this.likeCommnentRepository.deleteListLikeCommentInComment(likeComments) == true)
+                {
+
+                }
+                else
+                    return false;
+            }
+          
+       }
+       // xóa danh sách các report bình luận của mỗi bình luận xong mới tiến hành xóa bình luận đó
+        for(Comments comment: comments)
+        {
+            List<ReportComment> reportComments = this.reportRepository.getListReportCommentFromComment(comment);
+            if(!reportComments.isEmpty())
+            {
+                if(this.reportRepository.deleteListOfReportComment(reportComments) == true)
+                {
+
+                }
+                else
+                    return false;
+            }
+        }
+        return this.postRepository.deleteCpRelatedToPost(likePosts, comments, reportPosts);
+        
     }
 
   

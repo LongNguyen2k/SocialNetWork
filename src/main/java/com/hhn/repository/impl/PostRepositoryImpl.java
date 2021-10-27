@@ -8,8 +8,11 @@ package com.hhn.repository.impl;
 import com.hhn.pojos.Auctions;
 import com.hhn.pojos.CategoryPost;
 import com.hhn.pojos.Comments;
+import com.hhn.pojos.LikeComment;
 import com.hhn.pojos.LikePost;
 import com.hhn.pojos.Post;
+import com.hhn.pojos.ReportComment;
+import com.hhn.pojos.ReportPost;
 import com.hhn.pojos.User;
 import com.hhn.repository.PostRepository;
 import java.math.BigDecimal;
@@ -311,6 +314,48 @@ public class PostRepositoryImpl implements  PostRepository{
         q.setMaxResults(6);
         return q.getResultList();
     }
+
+    @Override
+    public  boolean deleteCpRelatedToPost( List<LikePost> likePosts, 
+            List<Comments> commentses,  List<ReportPost> reportPosts )
+    {    
+          Session session = sessionFactory.getObject().getCurrentSession();
+        
+         try{
+      
+             if(!likePosts.isEmpty())
+                 for(LikePost item: likePosts)
+                     session.delete(item);
+             
+             
+             if(!reportPosts.isEmpty())
+                 for(ReportPost item: reportPosts)
+                     session.delete(item);
+             
+             if(!commentses.isEmpty())
+                 for(Comments item: commentses)
+                     session.delete(item);
+
+//             if(!likePosts.isEmpty())
+//                 session.delete(likePosts);
+//           
+//             if(!reportPosts.isEmpty())
+//                 session.delete(reportPosts);
+//             
+//             
+//             if(!commentses.isEmpty())
+//                 session.delete(commentses);
+
+            return true;
+            
+        }catch(HibernateException ex){
+            System.err.println("== Delete Componenet of Post having  Error " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+  
 
    
 }

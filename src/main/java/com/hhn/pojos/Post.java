@@ -71,9 +71,9 @@ public class Post implements Serializable{
     @NotNull(message = "{post.categoryPost.Error}")
     private CategoryPost categoryPost;
     
-    @OneToMany(mappedBy =  "post")
-    private List<LikePost> likePosts;
-    
+//    @OneToMany(mappedBy =  "post")
+//    private List<LikePost> likePosts;
+//    
      @Transient
     private MultipartFile file;
      
