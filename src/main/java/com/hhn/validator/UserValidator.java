@@ -9,6 +9,7 @@ import com.hhn.pojos.User;
 import com.hhn.repository.UserRepository;
 import com.hhn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -21,6 +22,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  */
 @Component
 public class UserValidator implements Validator{
+    
+   
+    
      @Override
     public boolean supports(Class<?> clazz) {
        return User.class.isAssignableFrom(clazz);
@@ -31,11 +35,13 @@ public class UserValidator implements Validator{
         User u = (User) target;
       if (!u.getPassword().trim().equals(u.getConFirmPassWord().trim()))
             errors.rejectValue("password","user.password.error.notMatchMsg");
-      
-       if(u.getFile().getSize() == 0 )
+      if(u.getAvatar() == null)
+      {
+       if(u.getFile().getSize() == 0)
        {
            errors.rejectValue("file", "user.file.error.noFileChoose");
        }
+      }
        if(u.getUsername().contains(" "))
        {
            errors.rejectValue("username", "user.username.spaceError");

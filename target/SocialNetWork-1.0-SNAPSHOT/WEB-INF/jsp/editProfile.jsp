@@ -11,7 +11,8 @@
 
 
 <!-- About Me Section -->
-<c:url value="/user/editProfiles" var="editProfile" /> 
+<c:url value="/user/editProfilePost" var="editProfile" /> 
+ <form:errors path="*" cssClass="alert alert-danger" element="div" />
 <div class="container">
 <div class="row gutters">
 
@@ -21,14 +22,17 @@
 		<div class="account-settings">
 			<div class="user-profileEditProfile">
 				<div class="user-avatar">
-                                    <img src="<c:url value="${userProfile.avatar}" />" alt="Maxwell Admin">
+                                    <img src="<c:url value="${user.avatar}" />" alt="Maxwell Admin">
 				</div>
-				<h5 class="user-name">${userProfile.name}</h5>
-				<h6 class="user-email">${userProfile.email}</h6>
+				<h5 class="user-name">${user.name}</h5>
+				<h6 class="user-email">${user.email}</h6>
 			</div>
 			<div class="about">
 				<h5>About</h5>
-				<p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                <c:if test="${user.aboutMe != null}">
+                                    <p>${user.aboutMe}</p>
+                                </c:if>
+				
 			</div>
 		</div>
 	</div>
@@ -38,7 +42,8 @@
 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 <div class="card h-100">
 	<div class="card-body">
-            <form:form  method="post" action="${editProfile}" modelAttribute="userProfile" enctype="multipart/form-data"> 
+            <form:form  method="post" action="${editProfile}" modelAttribute="user" enctype="multipart/form-data"> 
+                 
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <h6 class="mb-2 text-primary"><spring:message code="label.personalDetail"/></h6>
@@ -67,6 +72,12 @@
                                         </form:select>
 				</div>
 			</div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="phone"><spring:message code="label.phone"/></label>
+                            <form:input type="text" id="phoneNumber" path="phoneNumber" cssClass="form-control" placeholder="Nhập Số Điện Thoại"   />
+                            <form:errors path="phoneNumber" cssClass="text-danger" element="div" />
+                            <br/>
+                        </div>  
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
 					<label for="website"><spring:message code="label.avatar"/></label>
@@ -84,11 +95,17 @@
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
                                     <label for="Street"><spring:message code="label.about" /> </label>
-					<input type="name" class="form-control" id="Street" placeholder="Enter Street">
+                                        <form:input type="text" path="aboutMe" cssClass="form-control" placeholder="Enter your personal Joy" />
 				</div>
 			</div>
 			
 		</div>
+               
+                    <form:input type="hidden" path="username"   /> 
+                    <form:input type="hidden" path="password" />
+                    
+             
+                                
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				  <div class="form-group">
@@ -99,6 +116,9 @@
                                 </div>
 			</div>
 		</div>
+                                    
+               
+                                    
                 </form:form>                         
 	</div>
 </div>

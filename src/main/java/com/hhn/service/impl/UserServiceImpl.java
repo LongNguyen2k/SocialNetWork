@@ -61,6 +61,33 @@ public class UserServiceImpl implements UserService{
            }
         return false;
     }
+    
+     @Override
+    public boolean updateUser(User user) {
+        
+        
+        if(user.getFile().getSize() == 0 )
+        {
+             return this.userRepository.updateProfile(user);
+        }
+        else
+        {
+        
+        
+       try {
+            // lưu file trên cloud và link ảnh trong db
+               Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                       ObjectUtils.asMap("resource_type","auto"));
+               
+               user.setAvatar((String) r.get("secure_url"));
+               
+                return this.userRepository.updateProfile(user);
+           } catch (IOException ex) {
+               System.out.println("Update User" + ex.getMessage());
+           }
+        }
+        return false;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -118,6 +145,8 @@ public class UserServiceImpl implements UserService{
     public List<Object[]> getUserCommentMost(String username) {
         return this.userRepository.getUserCommentMost(username);
     }
+
+   
 
   
     

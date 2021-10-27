@@ -60,6 +60,9 @@ public class User implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     
+    @Column(name = "aboutme")
+    private String aboutMe;
+    
     @Column(name = "phonenumber")
     @Size(min = 9 , max = 11 , message = "{user.phonenumber.lenError}")
     @NotEmpty(message = "{user.phonenumber.notEmpty}")
@@ -198,5 +201,13 @@ public class User implements Serializable{
 
     public void setComments(List<Comments> comments) {
         this.comments = comments;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 }

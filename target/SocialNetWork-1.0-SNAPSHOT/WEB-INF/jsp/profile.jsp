@@ -62,10 +62,11 @@
                     </div>
                 </div>
             </li>
+            
            
         </ul>
     <c:if test="${u.username == pageContext.request.userPrincipal.name}">                  
-                        <a href="<c:url value="/user/editProfilePage?userID=${u.id}" />" class="btn btn-default buttonProfile " type="button"><spring:message code="button.UpdateProfile" /></a>
+                        <a href="<c:url value="/user/editProfileUser" />" class="btn btn-default buttonProfile " type="button"><spring:message code="button.UpdateProfile" /></a>
     
          <sec:authorize access="hasRole('ROLE_ADMIN')">
         <div>
@@ -195,9 +196,17 @@
       
 
     <!-- Adding New Post Section-->
+    
+     
+    
     <c:forEach var="u" items="${userProfile}">
        <c:if test="${u.username == pageContext.request.userPrincipal.name}">       
             <div class="col-md-3">
+        <li class="list-group-item"><span><strong>About Me</strong></span>
+                    <p>welcome to the Social Network Charity</p>
+                   
+        </li>
+         <br/>
                 <a class="btn btn-default buttonProfile" href="<c:url value="/user/addPostPage?userId=${u.id}" />" type="button"><spring:message code="button.createPost" /> </a>
                  <a class="btn btn-default buttonProfile" href="#" type="button">BàiViếtChiếnThắngĐấuGiá</a>
             </div>

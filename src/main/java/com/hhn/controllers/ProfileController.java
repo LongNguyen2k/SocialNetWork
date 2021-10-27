@@ -47,9 +47,11 @@ public class ProfileController{
     private PostService postService;
     @Autowired
     private NotificationService notificationService;
+
+     
     @Autowired
     private AuctionService auctionService;
-    
+   
     @RequestMapping(value = "/user/profile/{username}")
     public String profilePage(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw , 
            @PathVariable(value = "username")String userName , HttpServletRequest request){
@@ -59,29 +61,7 @@ public class ProfileController{
         model.addAttribute("likeComment", new LikeComment());
         return "profilePage";
     }
-    @GetMapping("/user/editProfilePage")
-    public String editProfilePage(Model model ,@RequestParam(required = false)Map<String,String> params)
-    {
-        String userID = params.get("userID");
-         model.addAttribute("userProfile", this.userService.getUserID(userID));
-         
-        return "editProfilePage";
-    }
-      @PostMapping("/user/editProfiles")
-    public String editProfilePage(Model model ,@ModelAttribute(value = "userProfile")@Valid User user ,
-            BindingResult result, @RequestParam(required = false)Map<String,String> params)
-    {
-         
-        String username = params.get("username");
-       
-         if(!result.hasErrors())
-         {
-             model.addAttribute("errMsG" , "Da Co Loi Xay Ra !");
-             return String.format("redirect:/user/profile/%s",username);
-         }
-         else
-            return "editProfilePage";
-    }
+  
 
     @RequestMapping(value="/user/addPostPage")
     public String getUserIdPost(Model model  ,  @RequestParam(required = false)Map<String,String> params )
@@ -90,6 +70,29 @@ public class ProfileController{
         model.addAttribute("post", new Post());    
         model.addAttribute("userIdLoggedIn" , this.userService.getUserIdLoggedIn(userID).get(0));
         return "addPostPage";
+    }
+    
+      @RequestMapping("/user/editProfileUser")
+    public String editProfilePage(Model model, HttpServletRequest request)
+    {
+       
+         model.addAttribute("user", this.userService.getUserID(request.getUserPrincipal().getName()));
+         
+        return "editProfilePage";
+    }
+    @PostMapping("/user/editProfilePost")
+    public String editProfilePost(Model model ,@ModelAttribute(value = "user")User user ,
+           HttpServletRequest request)
+    {
+          model.addAttribute("user", this.userService.getUserID(request.getUserPrincipal().getName()));
+       
+       
+            if(this.userService.updateUser(user))
+               return String.format("redirect:/user/profile/%s",request.getUserPrincipal().getName());
+            else
+               model.addAttribute("errMsG" , "Da Co Loi Xay Ra !");
+            return "editProfilePage";
+            
     }
     
     
