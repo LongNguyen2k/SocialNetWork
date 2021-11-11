@@ -15,11 +15,12 @@ import java.util.List;
 public interface UserRepository {
     List<User> getUserProfile(String userName);
     boolean addUser(User user);
+    boolean updateProfile(User user);
     List<User> getUsers(String username);
     List<User> checkUserName(String username);
     List<User> getUserIdLoggedIn(String UserId);
     List<User> getCurrentLoggedInUser(String username);
-    User getUserID(String id);
+    User getUserID(String username);
     List<User> getUserAdminRole();
     List<Object[]> getUserLikeMost(String username);
     List<Object[]> getUserCommentMost(String username);

@@ -118,10 +118,18 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User getUserID(String id) {
+    public User getUserID(String username) {
         Session session = sessionFactory.getObject().getCurrentSession();
-        int Userid = Integer.parseInt(id);
-        return session.get(User.class,Userid);
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> uRoot = query.from(User.class);
+        if(!username.isEmpty()){
+            Predicate p = builder.equal(uRoot.get("username").as(String.class),username.trim());
+            query.where(p);
+        }
+        query.select(uRoot);
+        Query q = session.createQuery(query);
+        return (User) q.getSingleResult();
     }
 
     @Override
@@ -179,6 +187,20 @@ public class UserRepositoryImpl implements UserRepository{
         Query q = session.createQuery(query);
         q.setMaxResults(6);
         return q.getResultList();
+    }
+
+    @Override
+    public boolean updateProfile(User user) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+         try{
+       
+        session.update(user);
+        return true;
+        }catch(HibernateException ex){
+            System.err.println("== Update User Error " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
     }
     
     

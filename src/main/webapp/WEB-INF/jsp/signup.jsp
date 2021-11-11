@@ -39,8 +39,7 @@
                 <br/>
             </div>
   
-             <div clas="form-group">
-                  
+             <div clas="form-group"> 
                  <form:select id="gender" path="gender" cssClass="form-control">
                      <option value="male"  ><spring:message code="label.male" /></option>
                      <option value="female"><spring:message code="label.female" /></option>
