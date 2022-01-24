@@ -202,7 +202,7 @@
     <c:forEach var="u" items="${userProfile}">
        <c:if test="${u.username == pageContext.request.userPrincipal.name}">       
             <div class="col-md-3">
-        <li class="list-group-item"><span><strong>About Me</strong></span>
+        <li class="list-group-item"><span><strong>About Me Hi</strong></span>
                     <p>welcome to the Social Network Charity</p>
                    
         </li>

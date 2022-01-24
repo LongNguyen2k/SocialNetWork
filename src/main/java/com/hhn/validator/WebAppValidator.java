@@ -18,27 +18,30 @@ import org.springframework.validation.Validator;
  * @author Windows 10
  */
 @Component
-public class WebAppValidator implements Validator{
+public class WebAppValidator implements Validator {
+
     @Autowired
     private javax.validation.Validator beanValidator;
     private Set<Validator> springValidator;
-    
+
     @Override
     public boolean supports(Class<?> type) {
-        return User.class.isAssignableFrom(type)|| ReportValidator.class.isAssignableFrom(type);
+        return User.class.isAssignableFrom(type) || ReportValidator.class.isAssignableFrom(type);
     }
-    
 
     @Override
     public void validate(Object target, Errors errors) {
-       Set<ConstraintViolation<Object>> beans =  this.beanValidator.validate(target);
-       
-       for(ConstraintViolation<Object> obj:beans )
-           errors.rejectValue(obj.getPropertyPath().toString(), 
-                   obj.getMessageTemplate(), obj.getMessage());
-       
-       for(Validator v : this.springValidator)
-           v.validate(target, errors);
+        Set<ConstraintViolation<Object>> beans = this.beanValidator.validate(target);
+
+        // duyệt qua tập hợp set gồm tất cả các bean validator để kiểm tra đối tượng truyền vào để validate bean
+        for (ConstraintViolation<Object> obj : beans) {
+            errors.rejectValue(obj.getPropertyPath().toString(),
+                    obj.getMessageTemplate(), obj.getMessage());
+        }
+        // duyệt qua các phần tử spring validatre để validate đối tượng target
+        for (Validator v : this.springValidator) {
+            v.validate(target, errors);
+        }
     }
 
     public void setSpringValidator(Set<Validator> springValidator) {

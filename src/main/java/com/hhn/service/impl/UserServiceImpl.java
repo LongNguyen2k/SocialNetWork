@@ -29,75 +29,72 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Windows 10
  */
 @Service("userDetailsService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
     @Autowired
     private Cloudinary cloudinary;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
-   
+
     @Override
     public List<User> getUserProfile(String userName) {
-       return this.userRepository.getUserProfile(userName);
+        return this.userRepository.getUserProfile(userName);
     }
 
     @Override
     @Transactional
     public boolean addUser(User user) {
-        
-         user.setPassword(passwordEncoder.encode(user.getPassword()));  
-         user.setuRole(User.USER);
-         try {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setuRole(User.USER);
+        try {
             // lưu file trên cloud và link ảnh trong db
-               Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
-                       ObjectUtils.asMap("resource_type","auto"));
-               
-               user.setAvatar((String) r.get("secure_url"));
-               
-                return this.userRepository.addUser(user);
-           } catch (IOException ex) {
-               System.out.println("Add User" + ex.getMessage());
-           }
+            Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+
+            user.setAvatar((String) r.get("secure_url"));
+
+            return this.userRepository.addUser(user);
+        } catch (IOException ex) {
+            System.out.println("Add User" + ex.getMessage());
+        }
         return false;
     }
-    
-     @Override
+
+    @Override
     public boolean updateUser(User user) {
-        
-        
-        if(user.getFile().getSize() == 0 )
-        {
-             return this.userRepository.updateProfile(user);
-        }
-        else
-        {
-        
-        
-       try {
-            // lưu file trên cloud và link ảnh trong db
-               Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
-                       ObjectUtils.asMap("resource_type","auto"));
-               
-               user.setAvatar((String) r.get("secure_url"));
-               
+
+        if (user.getFile().getSize() == 0) {
+            return this.userRepository.updateProfile(user);
+        } else {
+
+            try {
+                // lưu file trên cloud và link ảnh trong db
+                Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                        ObjectUtils.asMap("resource_type", "auto"));
+
+                user.setAvatar((String) r.get("secure_url"));
+
                 return this.userRepository.updateProfile(user);
-           } catch (IOException ex) {
-               System.out.println("Update User" + ex.getMessage());
-           }
+            } catch (IOException ex) {
+                System.out.println("Update User" + ex.getMessage());
+            }
         }
         return false;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       List<User> users = this.getUsers(username);
-       if(users.isEmpty())
-           throw new UsernameNotFoundException("USER does not exists"); 
-       User user = users.get(0);
+        List<User> users = this.getUsers(username);
+        if (users.isEmpty()) {
+            throw new UsernameNotFoundException("USER does not exists");
+        }
+        User user = users.get(0);
         Set<GrantedAuthority> auth = new HashSet<>();
-       auth.add(new SimpleGrantedAuthority(user.getuRole()));
-       return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), auth);
+        auth.add(new SimpleGrantedAuthority(user.getuRole()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), auth);
     }
 
     @Override
@@ -108,18 +105,17 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean checkUserName(String username) {
-       List<User> users = userRepository.checkUserName(username);
-       if(!users.isEmpty())
-           return true;
-       return false;
+        List<User> users = userRepository.checkUserName(username);
+        if (!users.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public List<User> getUserIdLoggedIn(String userId) {
-       return this.userRepository.getUserIdLoggedIn(userId);
+        return this.userRepository.getUserIdLoggedIn(userId);
     }
-    
-    
 
     @Override
     public User getUserID(String id) {
@@ -128,7 +124,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getListAdminRole() {
-       return this.userRepository.getUserAdminRole();
+        return this.userRepository.getUserAdminRole();
     }
 
     @Override
@@ -146,11 +142,4 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.getUserCommentMost(username);
     }
 
-   
-
-  
-    
-    
-  
-    
 }

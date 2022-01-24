@@ -4,6 +4,7 @@ com\hhn\pojos\User.class
 com\hhn\service\AuctionService.class
 com\hhn\service\impl\AuctionServiceImpl.class
 com\hhn\service\impl\CommentsServiceImpl.class
+com\hhn\configs\handlers\LoginSucessfulHandler.class
 com\hhn\pojos\ReportPost.class
 com\hhn\configs\SpringSecurityConfig.class
 com\hhn\pojos\Post.class
@@ -15,6 +16,7 @@ com\hhn\service\impl\PostServiceImpl.class
 com\hhn\repository\NotitificationRepository.class
 com\hhn\service\UserService.class
 com\hhn\configs\SecurityWebApplicationInitializer.class
+com\hhn\configs\handlers\LogOutSuccessfulHandler.class
 com\hhn\pojos\ReportComment.class
 com\hhn\repository\CategoryPostRepository.class
 com\hhn\repository\impl\AuctionRepositoryImpl.class

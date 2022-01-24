@@ -41,7 +41,7 @@ public class APILikeController {
         String  userLoggedInName = params.get("username");
         String likedPostId = params.get("post_id");
         LikePost likePost = new LikePost();
-         Notifications n = new Notifications();
+        Notifications n = new Notifications();
          if( likePostService.checkPostUserLike(userLoggedInName, likedPostId) == true )
          {
              if(this.postService.unLikePost(userLoggedInName,likedPostId) == true)

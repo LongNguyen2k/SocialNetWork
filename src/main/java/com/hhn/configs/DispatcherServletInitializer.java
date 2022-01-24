@@ -11,16 +11,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  *
  * @author Windows 10
  */
-public class DispatcherServletInitializer  extends AbstractAnnotationConfigDispatcherServletInitializer{
-
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{
-             TilesConfig.class ,
-            HibernateConfig.class , 
-            SpringSecurityConfig.class
-        };
-    }
+public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+    // khởi động dispatcher servlet 
+    // kế thừa lớp trừu tượng dùng để chỉ dinh dispatcher servlet của spring mvc được cấu hình bằng annotation
+    // tập tin khởi chạy đầu tiên của ứng dụng 
+    // sẽ tiến hành quét ServletConfigClass để lấy các bean trong nó để chạy project 
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
@@ -30,8 +25,17 @@ public class DispatcherServletInitializer  extends AbstractAnnotationConfigDispa
     }
 
     @Override
-    protected String[] getServletMappings() {
-        return new String[]{"/"}; 
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{
+            TilesConfig.class,
+            HibernateConfig.class,
+            SpringSecurityConfig.class
+        };
     }
-    
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
+
 }

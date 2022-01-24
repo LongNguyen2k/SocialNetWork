@@ -44,7 +44,7 @@ function addComment(post_id,username) {
     })
 }
 
-function addLikeOrUnLike(post_id,username)
+function addLikeOrUnLike(post_id,username, countLike)
 {
     fetch("/SocialNetWork/user/api/addLikeOrUnLike",{
         method: 'post',
@@ -56,10 +56,24 @@ function addLikeOrUnLike(post_id,username)
             "Content-Type":"application/json"
         }
     }).then(function(res){
-        return res.json()
+        return res.json();
     }).then(function(data) {
         console.info(data);
         location.reload()
+//        let currentCounterLike = document.getElementsByClassName("likeCount");
+////        currentCounterLike.innerText = countLike;
+//        if(data.code == 200 )
+//        {
+//            countLike-1;
+//            currentCounterLike.innerText = countLike;
+//        }
+//        else
+//            if (data.code == 201)
+//                {
+//                    countLike+1;
+//                    currentCounterLike.innerText = countLike;
+//                }
+           
     })
 }
 

@@ -13,17 +13,29 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  *
  * @author Windows 10
  */
-public interface UserService extends UserDetailsService{
+public interface UserService extends UserDetailsService {
+
     List<User> getUserProfile(String userName);
+
     boolean addUser(User user);
+
     boolean updateUser(User user);
+
     List<User> getUsers(String username);
+
     boolean checkUserName(String username);
+
     List<User> getUserIdLoggedIn(String UserId);
-     User getUserID(String id);
-     List<User> getListAdminRole();
+
+    User getUserID(String id);
+
+    List<User> getListAdminRole();
+
     List<User> getCurrentLoggedInUser(String username);
-     List<Object[]> getUserLikeMost(String username);
-     List<Object[]> getUserCommentMost(String username);
+
+    List<Object[]> getUserLikeMost(String username);
+
+    List<Object[]> getUserCommentMost(String username);
+    
     
 }

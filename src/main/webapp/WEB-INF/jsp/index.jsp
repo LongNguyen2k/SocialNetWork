@@ -58,7 +58,7 @@
                                     </p>
                               </div>
                                         <footer class="text-primary"><spring:message code="footer.label" /> ${post[1]}  #${post[8].name}
-                                            <button type="submit" onclick="addLikeOrUnLike('${post[6]}','${pageContext.request.userPrincipal.name}')"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span> ${post[5]} <spring:message code="span.like" /></span></button>
+                                            <button type="submit" onclick="addLikeOrUnLike('${post[6]}','${pageContext.request.userPrincipal.name}', ${post[5]})"  class="btn btn-default like"  > <i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span class="likeCount"> ${post[5]}</span><spring:message code="span.like" /></button>
                                 <a href="<c:url value="/user/auctionpage/?username=${pageContext.request.userPrincipal.name}&post_id=${post[6]}" />"  class="btn btn-default like"  > <i class="glyphicon glyphicon-usd" data-aos="flip-right"></i><span> <spring:message code="label.auction" /></span></a>                            
                             </footer>
                             <div class="comments">
@@ -88,6 +88,9 @@
                  <div class="col-md-4 col-xs-12" style="">
                      <section class="mt-3">
                          <div class="row" style="margin-top: 20px;margin-bottom: 20px">
+                             <c:if test="${currentLoginUser != null}">
+                                 ${currentLoginUser.email} ${currentLoginUser.name}
+                             </c:if>
                              <c:forEach items="${userInfo}" var="u">
                              <div class="col-md-3">
                                   <a href="<c:url value="/user/profile/${u.username}" />">

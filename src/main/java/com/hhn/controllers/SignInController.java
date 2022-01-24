@@ -28,6 +28,7 @@ public class SignInController {
     @RequestMapping("/signin")
     public String signInPage(Model model , HttpServletRequest request){
         HttpSession session = request.getSession();
+        
         return "signInPage";
     }
 

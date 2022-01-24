@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.hhn.configs;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.hhn.formatter.CategoryPostFormatter;
 import com.hhn.formatter.CommentFormatter;
 import com.hhn.formatter.PostFormatter;
@@ -45,6 +47,11 @@ import org.springframework.web.servlet.view.JstlView;
    
 })
 public class WebApplicationContextConfig implements WebMvcConfigurer {
+    
+    // Chứa các tập tin bean theo cơ chế hiện thực IOC 
+    // tất cả các thành phần cấu hình được sử dụng trong ứng dụng đều được tạo như các bean ở đây 
+    // các thành phần controller, service, repo khi sử dụng các thành phần này đều có @autowire 
+    // để được WebApplicationContext tiêm các giá trị vào đê sử dụng 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -97,6 +104,8 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         
         return v;
     }
+    
+    
    
     
     @Override

@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.Map;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.validation.Valid;
 import org.hibernate.Session;
@@ -66,10 +67,9 @@ public class HomeController {
     private int counterMaxPage = 30;
     private int counterCategoryPage = 10;
     @ModelAttribute
-    public void commonAttribute(Model model){
+    public void commonAttribute(Model model, HttpSession session ){
     model.addAttribute("categories" , this.CategoryPostService.getCategories());
-    
-//    ,@PathVariable("categoryId")int CategoryId
+    model.addAttribute("currentLoginUser", session.getAttribute("currentLoginUser"));
     }
     
     @ModelAttribute
@@ -85,7 +85,7 @@ public class HomeController {
 
     @RequestMapping("/user")
     public String index(Model model , @RequestParam(value ="kw" , required = false , defaultValue = "") String kw  ,
-            @RequestParam(required=false,defaultValue = "")Map<String,String> params , HttpServletRequest request ){
+            @RequestParam(required=false,defaultValue = "")Map<String,String> params , HttpServletRequest request){
         int page = Integer.parseInt(params.getOrDefault("page","1"));
         String catPostID = params.get("catPostId");
         model.addAttribute("postNewFeed" , this.postService.getPostNewFeed(kw,page,catPostID));
@@ -99,6 +99,7 @@ public class HomeController {
         model.addAttribute("userCommentMost", this.UserService.getUserCommentMost(request.getUserPrincipal().getName()));
         model.addAttribute("listPostMostInteract", this.postService.getPostInteractMost());
         model.addAttribute("postHaveHotAuctions", this.postService.getPostMostAuctionsRate());
+        
         return "homePage";
     }
    
@@ -244,7 +245,7 @@ public class HomeController {
             }
             else 
             {
-
+                        
                  model.addAttribute("errorBiddingPrice", "Giá quá nhỏ so với giá khởi đầu của món hàng !");
             }
         }
